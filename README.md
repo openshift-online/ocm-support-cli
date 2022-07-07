@@ -30,7 +30,7 @@ You can use the following command to confirm that the tool was installed correct
 
 ## Usage
 
-To see all available commands, run `ocm support version -h`.
+To see all available commands, run `ocm support -h`.
 
 ### Accounts
 
