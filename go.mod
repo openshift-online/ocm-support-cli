@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/nwidger/jsoncolor v0.3.1
 	github.com/openshift-online/ocm-cli v0.1.62
-	github.com/openshift-online/ocm-sdk-go v0.1.265
+	github.com/openshift-online/ocm-sdk-go v0.1.276
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cobra v1.4.0
 )
@@ -43,5 +43,5 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
-	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

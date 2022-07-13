@@ -26,6 +26,7 @@ import (
 
 	"ocm-support-cli/cmd/ocm-support/accounts"
 	"ocm-support-cli/cmd/ocm-support/organizations"
+	registrycredentials "ocm-support-cli/cmd/ocm-support/registryCredentials"
 	"ocm-support-cli/cmd/ocm-support/version"
 )
 
@@ -82,6 +83,7 @@ func init() {
 	rootCmd.AddCommand(version.Cmd)
 	rootCmd.AddCommand(accounts.Cmd)
 	rootCmd.AddCommand(organizations.Cmd)
+	rootCmd.AddCommand(registrycredentials.Cmd)
 
 	// Set the log level before each command runs.
 	cobra.OnInitialize(initLogLevel)
