@@ -62,8 +62,8 @@ func run(cmd *cobra.Command, argv []string) error {
 
 	if args.all {
 		totalRegistryCredentials := len(credentials)
-		for _, a := range credentials {
-			err = registry_credential.DeleteRegistryCredential(a.ID(), connection)
+		for _, credential := range credentials {
+			err = registry_credential.DeleteRegistryCredential(credential.ID(), connection)
 			if err != nil {
 				return fmt.Errorf("failed to delete registry credentials: %v", err)
 			}

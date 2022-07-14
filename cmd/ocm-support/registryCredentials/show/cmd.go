@@ -46,6 +46,11 @@ func run(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to fetch registry credentials")
 	}
+
+	if len(credentials) == 0 {
+		return fmt.Errorf("no registry credentials found")
+	}
+
 	utils.PrettyPrint(registry_credential.PresentRegistryCredentials(credentials))
 	return nil
 }

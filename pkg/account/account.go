@@ -40,14 +40,14 @@ func GetAccounts(key string, limit int, conn *sdk.Connection) ([]*v1.Account, er
 }
 
 func GetAccount(accountID string, conn *sdk.Connection) (*v1.Account, error) {
-	search := fmt.Sprintf("id = '%s'", accountID)
-
-	accounts, err := conn.AccountsMgmt().V1().Accounts().List().Search(search).Send()
+	accountResponse, err := conn.AccountsMgmt().V1().Accounts().Account(accountID).Get().Send()
 	if err != nil {
 		return nil, fmt.Errorf("can't retrieve accounts: %w", err)
 	}
 
-	return accounts.Items().Get(0), nil
+	account, _ := accountResponse.GetBody()
+
+	return account, nil
 }
 
 func PresentAccount(account *v1.Account, roles []*v1.RoleBinding, registryCredentials []*v1.RegistryCredential) Account {

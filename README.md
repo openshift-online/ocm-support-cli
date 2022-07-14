@@ -99,19 +99,11 @@ Use the `create` subcommand to create registry credentials for current account.
 
 The following flags are available for `registryCredentials create`:
 
-```
--h, --help                   help for find
-```
-
 #### Displaying registry credentials
 
 Use the `show` subcommand to to see registry credentials, passing accountID.
 
 The following flags are available for `registryCredentials show`:
-
-```
--h, --help                   help for find
-```
 
 #### Deleting registry credentials
 
@@ -121,7 +113,7 @@ The following flags are available for `registryCredentials delete`:
 
 ```
 --all                        If true, deletes all registry credentials for the given account ID.
--h, --help                   help for find
+-h, --help                   help for delete
 ```
 
 #### Examples
