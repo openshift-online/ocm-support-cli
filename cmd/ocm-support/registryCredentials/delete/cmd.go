@@ -40,42 +40,46 @@ func run(cmd *cobra.Command, argv []string) error {
 	}
 
 	accountID := argv[0]
-	size := 1
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
 
-	accounts, err := account.GetAccounts(accountID, size, connection)
+	account, err := account.GetAccount(accountID, connection)
 	if err != nil {
-		_ = fmt.Errorf("failed to get accounts: %v", err)
+		return fmt.Errorf("failed to get account: %v", err)
 	}
 
-	if len(accounts) == 0 {
+	if account == nil {
 		return fmt.Errorf("no account found")
 	}
 
 	var credentials []*v1.RegistryCredential
-	credentials, err = registry_credential.GetAccountRegistryCredentials(accounts[0].ID(), connection)
+	credentials, err = registry_credential.GetAccountRegistryCredentials(account.ID(), connection)
 	if err != nil {
 		return fmt.Errorf("failed to fetch registry credentials")
 	}
 
 	if args.all {
+		totalRegistryCredentials := len(credentials)
 		for _, a := range credentials {
 			err = registry_credential.DeleteRegistryCredential(a.ID(), connection)
 			if err != nil {
 				return fmt.Errorf("failed to delete registry credentials: %v", err)
 			}
 		}
-		fmt.Println("All registry credentials deleted")
+		fmt.Println(totalRegistryCredentials, "registry credentials deleted")
 		return nil
+	}
+
+	if len(argv) != 2 {
+		return fmt.Errorf("expected exactly two arguments")
 	}
 
 	registryCredentialID := argv[1]
 	registryCredentialExists := false
-	for _, a := range credentials {
-		if a.ID() == registryCredentialID {
+	for _, credential := range credentials {
+		if credential.ID() == registryCredentialID {
 			registryCredentialExists = true
 			break
 		}
