@@ -97,13 +97,9 @@ The `registryCredentials` command gets information about or execute actions on r
 
 Use the `create` subcommand to create registry credentials for current account. 
 
-The following flags are available for `registryCredentials create`:
-
 #### Displaying registry credentials
 
 Use the `show` subcommand to to see registry credentials, passing accountID.
-
-The following flags are available for `registryCredentials show`:
 
 #### Deleting registry credentials
 
