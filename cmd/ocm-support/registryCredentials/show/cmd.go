@@ -32,17 +32,13 @@ func run(cmd *cobra.Command, argv []string) error {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
 
-	account, err := account.GetAccount(key, connection)
+	requestedAccount, err := account.GetAccount(key, connection)
 	if err != nil {
 		return fmt.Errorf("failed to get account: %v", err)
 	}
 
-	if account == nil {
-		return fmt.Errorf("no account found")
-	}
-
 	var credentials []*v1.RegistryCredential
-	credentials, err = registry_credential.GetAccountRegistryCredentials(account.ID(), connection)
+	credentials, err = registry_credential.GetAccountRegistryCredentials(requestedAccount.ID(), connection)
 	if err != nil {
 		return fmt.Errorf("failed to fetch registry credentials")
 	}
