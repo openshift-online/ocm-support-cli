@@ -88,3 +88,33 @@ The following flags are available for `organizations find`:
 * Find an organization by its externalID: `ocm support organizations find [organizationExternalID]`
 * Find an organization and include its subscriptions: `ocm support organizations find [organizationID] --fetchSubscriptions`
 * Find an organization and include its quota: `ocm support organizations find [organizationID] --fetchQuota`
+
+### RegistryCredentials
+
+The `registryCredentials` command gets information about or execute actions on registry credentials.
+
+#### Creating registry credentials
+
+Use the `create` subcommand to create registry credentials for current account. 
+
+#### Displaying registry credentials
+
+Use the `show` subcommand to to see registry credentials, passing accountID.
+
+#### Deleting registry credentials
+
+Use the `delete` subcommand to to delete a specific registry credential, or all registry credentials, for the passed accountID.
+
+The following flags are available for `registryCredentials delete`:
+
+```
+--all                        If true, deletes all registry credentials for the given account ID.
+-h, --help                   help for delete
+```
+
+#### Examples
+
+* Create registry credentials `ocm support registryCredentials create`
+* Show registry credentials for a specific account `ocm support registryCredentials show [accountID]`
+* Delete a specific registry credential for a specific account `ocm support registryCredentials delete [accountID] [registryCredentialID]`
+* Delete all registry credentials for a specific account `ocm support registryCredentials delete [accountID] --all`

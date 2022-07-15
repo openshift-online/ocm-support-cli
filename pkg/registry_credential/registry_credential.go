@@ -1,6 +1,7 @@
 package registry_credential
 
 import (
+	"context"
 	"fmt"
 
 	sdk "github.com/openshift-online/ocm-sdk-go"
@@ -39,4 +40,16 @@ func PresentRegistryCredentials(registryCredentials []*v1.RegistryCredential) Re
 		rcs = append(rcs, rc)
 	}
 	return rcs
+}
+
+func DeleteRegistryCredential(registryCredentialId string, conn *sdk.Connection) error {
+	ctx := context.Background()
+	collection := conn.AccountsMgmt().V1().RegistryCredentials()
+
+	resource := collection.RegistryCredential(registryCredentialId)
+	_, err := resource.Delete().SendContext(ctx)
+	if err != nil {
+		return fmt.Errorf("Can't delete registry credential: %v", err)
+	}
+	return nil
 }
