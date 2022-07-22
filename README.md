@@ -53,6 +53,8 @@ The following flags are available for `accounts find`:
 --all                        If true, returns all accounts that matched the search instead of the first one only (default behaviour).
 --fetchRegistryCredentials   If true, includes the account registry credentials.
 --fetchRoles                 If true, includes the account roles.
+--fetchLabels                If true, includes the account labels.
+--fetchCapabilities          If true, includes the account capabilities.
 -h, --help                   help for find
 ```
 
@@ -60,6 +62,7 @@ The following flags are available for `accounts find`:
 
 * Find an account by email `ocm support accounts find user@redhat.com`
 * Find an account and include its roles in the results `ocm support accounts find [accountID] --fetchRoles`
+* Find an account and include its labels and capabilities in the results `ocm support accounts find [accountID] --fetchLabels --fetchCapabilities`
 * Find all accounts from an organization `ocm support accounts find [organizationID] --all`
 
 ### Organizations
@@ -80,6 +83,8 @@ The following flags are available for `organizations find`:
 --all                  If true, returns all organizations that matched the search instead of the first one only (default behaviour).
 --fetchQuota           If true, includes the organization quota.
 --fetchSubscriptions   If true, includes the organization subscriptions.
+--fetchLabels          If true, includes the organization labels.
+--fetchCapabilities    If true, includes the organization capabilities.
 -h, --help             help for find
 ```
 
@@ -87,6 +92,7 @@ The following flags are available for `organizations find`:
 
 * Find an organization by its externalID: `ocm support organizations find [organizationExternalID]`
 * Find an organization and include its subscriptions: `ocm support organizations find [organizationID] --fetchSubscriptions`
+* Find an organization and include its labels and capabilities `ocm support organizations find [organizationID] --fetchLabels --fetchCapabilities`
 * Find an organization and include its quota: `ocm support organizations find [organizationID] --fetchQuota`
 
 ### RegistryCredentials
