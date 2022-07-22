@@ -20,9 +20,9 @@ type Label struct {
 
 type LabelsList []Label
 
-func PresentLabels(labelResponses []*v1.Label) LabelsList {
+func PresentLabels(labels []*v1.Label) LabelsList {
 	var labelsList []Label
-	for _, labelResponse := range labelResponses {
+	for _, labelResponse := range labels {
 		lbl := Label{
 			ID:        labelResponse.ID(),
 			CreatedAt: labelResponse.CreatedAt(),

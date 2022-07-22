@@ -12,9 +12,9 @@ type Capability struct {
 
 type CapabilityList []Capability
 
-func PresentCapabilities(capabilityResponses []*v1.Capability) CapabilityList {
+func PresentCapabilities(capabilities []*v1.Capability) CapabilityList {
 	var capabilitiesList []Capability
-	for _, capabilityResponse := range capabilityResponses {
+	for _, capabilityResponse := range capabilities {
 		cap := Capability{
 			Name:      capabilityResponse.Name(),
 			Value:     capabilityResponse.Value(),

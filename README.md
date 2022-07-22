@@ -62,7 +62,8 @@ The following flags are available for `accounts find`:
 
 * Find an account by email `ocm support accounts find user@redhat.com`
 * Find an account and include its roles in the results `ocm support accounts find [accountID] --fetchRoles`
-* Find an account and include its labels and capabilities in the results `ocm support accounts find [accountID] --fetchLabels --fetchCapabilities`
+* Find an account and include its labels in the results `ocm support accounts find [accountID] --fetchLabels`
+* Find an account and include its capabilities in the results `ocm support accounts find [accountID] --fetchCapabilities`
 * Find all accounts from an organization `ocm support accounts find [organizationID] --all`
 
 ### Organizations
@@ -92,7 +93,8 @@ The following flags are available for `organizations find`:
 
 * Find an organization by its externalID: `ocm support organizations find [organizationExternalID]`
 * Find an organization and include its subscriptions: `ocm support organizations find [organizationID] --fetchSubscriptions`
-* Find an organization and include its labels and capabilities `ocm support organizations find [organizationID] --fetchLabels --fetchCapabilities`
+* Find an organization and include its labels `ocm support organizations find [organizationID] --fetchLabels --fetchCapabilities`
+* Find an organization and include its capabilities `ocm support organizations find [organizationID] --fetchCapabilities`
 * Find an organization and include its quota: `ocm support organizations find [organizationID] --fetchQuota`
 
 ### RegistryCredentials
