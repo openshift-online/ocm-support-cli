@@ -14,11 +14,11 @@ type CapabilityList []Capability
 
 func PresentCapabilities(capabilities []*v1.Capability) CapabilityList {
 	var capabilitiesList []Capability
-	for _, capabilityResponse := range capabilities {
+	for _, capability := range capabilities {
 		cap := Capability{
-			Name:      capabilityResponse.Name(),
-			Value:     capabilityResponse.Value(),
-			Inherited: capabilityResponse.Inherited(),
+			Name:      capability.Name(),
+			Value:     capability.Value(),
+			Inherited: capability.Inherited(),
 		}
 		capabilitiesList = append(capabilitiesList, cap)
 	}

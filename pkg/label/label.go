@@ -22,15 +22,15 @@ type LabelsList []Label
 
 func PresentLabels(labels []*v1.Label) LabelsList {
 	var labelsList []Label
-	for _, labelResponse := range labels {
+	for _, label := range labels {
 		lbl := Label{
-			ID:        labelResponse.ID(),
-			CreatedAt: labelResponse.CreatedAt(),
-			Key:       labelResponse.Key(),
-			UpdatedAt: labelResponse.UpdatedAt(),
-			Value:     labelResponse.Value(),
-			Internal:  labelResponse.Internal(),
-			HREF:      labelResponse.HREF(),
+			ID:        label.ID(),
+			CreatedAt: label.CreatedAt(),
+			Key:       label.Key(),
+			UpdatedAt: label.UpdatedAt(),
+			Value:     label.Value(),
+			Internal:  label.Internal(),
+			HREF:      label.HREF(),
 		}
 		labelsList = append(labelsList, lbl)
 	}
