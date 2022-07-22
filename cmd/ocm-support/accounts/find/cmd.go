@@ -17,6 +17,8 @@ var args struct {
 	all                      bool
 	fetchRoles               bool
 	fetchRegistryCredentials bool
+	fetchLabels              bool
+	fetchCapabilities        bool
 }
 
 // Cmd represents the account find command
@@ -48,6 +50,18 @@ func init() {
 		false,
 		"If true, includes the account registry credentials.",
 	)
+	flags.BoolVar(
+		&args.fetchLabels,
+		"fetchLabels",
+		false,
+		"If true, returns all the labels for the account.",
+	)
+	flags.BoolVar(
+		&args.fetchCapabilities,
+		"fetchCapabilities",
+		false,
+		"If true, returns all the capabilities for the account.",
+	)
 }
 
 func run(cmd *cobra.Command, argv []string) error {
@@ -69,7 +83,7 @@ func run(cmd *cobra.Command, argv []string) error {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
 
-	accounts, err := account.GetAccounts(key, size, connection)
+	accounts, err := account.GetAccounts(key, size, args.fetchLabels, args.fetchCapabilities, connection)
 	if err != nil {
 		_ = fmt.Errorf("failed to get accounts: %v", err)
 	}

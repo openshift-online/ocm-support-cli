@@ -6,6 +6,8 @@ import (
 	sdk "github.com/openshift-online/ocm-sdk-go"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 
+	"ocm-support-cli/pkg/capability"
+	"ocm-support-cli/pkg/label"
 	"ocm-support-cli/pkg/organization"
 	"ocm-support-cli/pkg/registry_credential"
 	"ocm-support-cli/pkg/role"
@@ -21,9 +23,11 @@ type Account struct {
 	Organization        organization.Organization
 	Roles               []string                                   `json:",omitempty"`
 	RegistryCredentials registry_credential.RegistryCredentialList `json:",omitempty"`
+	Labels              label.LabelsList                           `json:",omitempty"`
+	Capabilities        capability.CapabilityList                  `json:",omitempty"`
 }
 
-func GetAccounts(key string, limit int, conn *sdk.Connection) ([]*v1.Account, error) {
+func GetAccounts(key string, limit int, fetchLabels bool, fetchCapabilities bool, conn *sdk.Connection) ([]*v1.Account, error) {
 	search := fmt.Sprintf("id = '%s'", key)
 	search += fmt.Sprintf("or username = '%s'", key)
 	search += fmt.Sprintf("or email = '%s'", key)
@@ -31,7 +35,7 @@ func GetAccounts(key string, limit int, conn *sdk.Connection) ([]*v1.Account, er
 	search += fmt.Sprintf("or organization.external_id = '%s'", key)
 	search += fmt.Sprintf("or organization.ebs_account_id = '%s'", key)
 
-	accounts, err := conn.AccountsMgmt().V1().Accounts().List().Size(limit).Search(search).Send()
+	accounts, err := conn.AccountsMgmt().V1().Accounts().List().Parameter("fetchLabels", fetchLabels).Parameter("fetchCapabilities", fetchCapabilities).Size(limit).Search(search).Send()
 	if err != nil {
 		return []*v1.Account{}, fmt.Errorf("can't retrieve accounts: %w", err)
 	}
@@ -63,5 +67,7 @@ func PresentAccount(account *v1.Account, roles []*v1.RoleBinding, registryCreden
 		Organization:        organization.PresentOrganization(account.Organization(), []*v1.Subscription{}, []*v1.QuotaCost{}),
 		Roles:               role.PresentRoles(roles),
 		RegistryCredentials: registry_credential.PresentRegistryCredentials(registryCredentials),
+		Labels:              label.PresentLabels(account.Labels()),
+		Capabilities:        capability.PresentCapabilities(account.Capabilities()),
 	}
 }

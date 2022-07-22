@@ -17,6 +17,8 @@ var args struct {
 	all                bool
 	fetchSubscriptions bool
 	fetchQuota         bool
+	fetchLabels        bool
+	fetchCapabilities  bool
 }
 
 // Cmd represents the organization find command
@@ -48,6 +50,18 @@ func init() {
 		false,
 		"If true, includes the organization quota.",
 	)
+	flags.BoolVar(
+		&args.fetchLabels,
+		"fetchLabels",
+		false,
+		"If true, returns all the labels for the organization.",
+	)
+	flags.BoolVar(
+		&args.fetchCapabilities,
+		"fetchCapabilities",
+		false,
+		"If true, returns all the capabilities for the organization.",
+	)
 }
 
 func run(cmd *cobra.Command, argv []string) error {
@@ -69,7 +83,7 @@ func run(cmd *cobra.Command, argv []string) error {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
 
-	organizations, err := organization.GetOrganizations(key, size, connection)
+	organizations, err := organization.GetOrganizations(key, size, args.fetchLabels, args.fetchCapabilities, connection)
 	if err != nil {
 		_ = fmt.Errorf("failed to get organizations: %v", err)
 	}
