@@ -133,7 +133,7 @@ The `create` command creates the given resource with provided key and value.
 
 Available values for creating resources are `accountLabel|organizationsLabel|subscriptionLabel`
 
-The following flags are available for `registryCredentials delete`:
+The following flags are available for `create`:
 
 ```
 --external                   If true, sets the internal flag for labels as false.
