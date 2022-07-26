@@ -35,6 +35,27 @@ func GetOrganizations(key string, limit int, fetchLabels bool, fetchCapabilities
 	return organizations.Items().Slice(), nil
 }
 
+func GetOrganization(orgID string, conn *sdk.Connection) (*v1.Organization, error) {
+	orgResponse, err := conn.AccountsMgmt().V1().Organizations().Organization(orgID).Get().Send()
+	if err != nil {
+		return nil, fmt.Errorf("can't retrieve organization: %w", err)
+	}
+
+	return orgResponse.Body(), nil
+}
+
+func AddLabel(orgID string, key string, value string, isInternal bool, conn *sdk.Connection) (*v1.Label, error) {
+	lbl, err := v1.NewLabel().Key(key).Value(value).Internal(isInternal).Build()
+	if err != nil {
+		return nil, fmt.Errorf("can't create new label: %w", err)
+	}
+	lblResponse, err := conn.AccountsMgmt().V1().Organizations().Organization(orgID).Labels().Add().Body(lbl).Send()
+	if err != nil {
+		return nil, fmt.Errorf("can't add new label: %w", err)
+	}
+	return lblResponse.Body(), err
+}
+
 func PresentOrganization(organization *v1.Organization, subscriptions []*v1.Subscription, quotaCostList []*v1.QuotaCost) Organization {
 	return Organization{
 		Meta:          types.Meta{ID: organization.ID(), HREF: organization.HREF()},

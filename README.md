@@ -126,3 +126,22 @@ The following flags are available for `registryCredentials delete`:
 * Show registry credentials for a specific account `ocm support registryCredentials show [accountID]`
 * Delete a specific registry credential for a specific account `ocm support registryCredentials delete [accountID] [registryCredentialID]`
 * Delete all registry credentials for a specific account `ocm support registryCredentials delete [accountID] --all`
+
+### Create
+
+The `create` command creates the given resource with provided key and value.
+
+Available values for creating resources are `accountLabel|organizationsLabel|subscriptionLabel`
+
+The following flags are available for `registryCredentials delete`:
+
+```
+--external                   If true, sets the internal flag for labels as false.
+-h, --help                   help for create
+```
+
+#### Examples
+
+* Add label to an account `ocm support create accountLabel [accountID] [key] [value]`
+* Add label to an organization `ocm support create organizationLabel [accountID] [key] [value]`
+* Add label to a subscription with internal flag as false `ocm support create subscriptionLabel [accountID] [key] [value] --external`

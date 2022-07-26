@@ -31,6 +31,27 @@ func GetSubscriptionsByOrg(organizationId string, conn *sdk.Connection) ([]*v1.S
 	return response.Items().Slice(), nil
 }
 
+func GetSubscription(subscriptionID string, conn *sdk.Connection) (*v1.Subscription, error) {
+	response, err := conn.AccountsMgmt().V1().Subscriptions().Subscription(subscriptionID).Get().Send()
+	if err != nil {
+		return nil, fmt.Errorf("can't retrieve subscription: %w", err)
+	}
+
+	return response.Body(), nil
+}
+
+func AddLabel(subscriptionID string, key string, value string, isInternal bool, conn *sdk.Connection) (*v1.Label, error) {
+	lbl, err := v1.NewLabel().Key(key).Value(value).Internal(isInternal).Build()
+	if err != nil {
+		return nil, fmt.Errorf("can't create new label: %w", err)
+	}
+	lblResponse, err := conn.AccountsMgmt().V1().Subscriptions().Subscription(subscriptionID).Labels().Add().Body(lbl).Send()
+	if err != nil {
+		return nil, fmt.Errorf("can't add new label: %w", err)
+	}
+	return lblResponse.Body(), err
+}
+
 func PresentSubscriptions(subscriptions []*v1.Subscription) []Subscription {
 	var subs []Subscription
 	for _, sub := range subscriptions {
