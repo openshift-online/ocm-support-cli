@@ -91,7 +91,7 @@ func PresentCapabilities(capabilities []*v1.Capability) CapabilityList {
 	return capabilitiesList
 }
 
-func GetAvailableCapabilityValue(capability string, resourceType string) (string, error) {
+func GetAvailableCapability(capability string, resourceType string) (string, error) {
 	val, ok := availableCapabilities[capability]
 	if !ok {
 		return "", fmt.Errorf("capability not found")

@@ -148,11 +148,11 @@ func AddCapabilityToAccount(accountID string, key string, connection *sdk.Connec
 	if err != nil {
 		return nil, fmt.Errorf("failed to get account: %v", err)
 	}
-	capabilityValue, err := capability.GetAvailableCapabilityValue(key, "account")
+	capabilityKey, err := capability.GetAvailableCapability(key, "account")
 	if err != nil {
 		return nil, fmt.Errorf("failed to get capability: %v", err)
 	}
-	createdCapability, err := account.AddLabel(accountID, key, capabilityValue, true, connection)
+	createdCapability, err := account.AddLabel(accountID, capabilityKey, "true", true, connection)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create capability: %v", err)
 	}
@@ -164,11 +164,11 @@ func AddCapabilityToOrganization(accountID string, key string, connection *sdk.C
 	if err != nil {
 		return nil, fmt.Errorf("failed to get organization: %v", err)
 	}
-	capabilityValue, err := capability.GetAvailableCapabilityValue(key, "organization")
+	capabilityKey, err := capability.GetAvailableCapability(key, "organization")
 	if err != nil {
 		return nil, fmt.Errorf("failed to get capability: %v", err)
 	}
-	createdCapability, err := organization.AddLabel(accountID, key, capabilityValue, true, connection)
+	createdCapability, err := organization.AddLabel(accountID, capabilityKey, "true", true, connection)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create capability: %v", err)
 	}
@@ -180,11 +180,11 @@ func AddCapabilityToSubscription(accountID string, key string, connection *sdk.C
 	if err != nil {
 		return nil, fmt.Errorf("failed to get subscription: %v", err)
 	}
-	capabilityValue, err := capability.GetAvailableCapabilityValue(key, "cluster")
+	capabilityKey, err := capability.GetAvailableCapability(key, "cluster")
 	if err != nil {
 		return nil, fmt.Errorf("failed to get capability: %v", err)
 	}
-	createdCapability, err := subscription.AddLabel(accountID, key, capabilityValue, true, connection)
+	createdCapability, err := subscription.AddLabel(accountID, capabilityKey, "true", true, connection)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create capability: %v", err)
 	}

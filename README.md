@@ -131,7 +131,9 @@ The following flags are available for `registryCredentials delete`:
 
 The `create` command creates the given resource with provided key and value.
 
-Available values for creating resources are `accountLabel|organizationsLabel|subscriptionLabel`
+Available values for creating resources are `accountLabel|organizationLabel|subscriptionLabel|accountCapability|organizationCapability|subscriptionCapability`
+
+Pass key and value for creating a label, and pass a valid key for creating a capability
 
 The following flags are available for `create`:
 
@@ -143,5 +145,8 @@ The following flags are available for `create`:
 #### Examples
 
 * Add label to an account `ocm support create accountLabel [accountID] [key] [value]`
-* Add label to an organization `ocm support create organizationLabel [accountID] [key] [value]`
-* Add label to a subscription with internal flag as false `ocm support create subscriptionLabel [accountID] [key] [value] --external`
+* Add label to an organization `ocm support create organizationLabel [orgID] [key] [value]`
+* Add label to a subscription with internal flag as false `ocm support create subscriptionLabel [subscriptionID] [key] [value] --external`
+* Add capability to an account `ocm support create accountCapability [accountID] [capabilityKey]`
+* Add capability to an organization `ocm support create organizationCapability [orgID] [capabilityKey]`
+* Add capability to a subscription `ocm support create subscriptionCapability [subscriptionID] [capabilityKey]`
