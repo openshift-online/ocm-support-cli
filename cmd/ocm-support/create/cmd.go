@@ -12,6 +12,7 @@ import (
 	sdk "github.com/openshift-online/ocm-sdk-go"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 	"github.com/spf13/cobra"
+	"k8s.io/utils/strings/slices"
 )
 
 var args struct {
@@ -61,6 +62,9 @@ func ManageOperations(action string, id string, key string, value string, extern
 		return nil, fmt.Errorf("failed to create OCM connection: %v", err)
 	}
 	var createdLabel *v1.Label
+	if !slices.Contains(vailidResources, action) {
+		return nil, fmt.Errorf("invalid resource. Valid resources are: %v", vailidResources)
+	}
 	switch action {
 	case "accountLabel":
 		_, err = account.GetAccount(id, connection)
