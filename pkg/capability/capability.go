@@ -15,9 +15,6 @@ type Capability struct {
 
 type CapabilityList []Capability
 
-// A list of known capabilities and notes on enabling them can be found on
-// https://docs.google.com/spreadsheets/d/1XMFkbG9DeXoBSOn5HPbzk-l2T_OjQdLjz452a6vaYCE
-
 // Capabilities must contain 3 sections, separated by "."
 // capability.{type}.{name}
 const CapabilityAggressiveClusterSetup = "capability.account.aggressive_cluster_cleanup"
@@ -45,37 +42,34 @@ const CapabilityOrganizationFipsCluster = "capability.organization.fips_cluster"
 const CapabilityOrganizationOvnCluster = "capability.organization.ovn_cluster"
 const CapabilityOrganizationHyperShift = "capability.organization.hypershift"
 const CapabilityBypassMaxExpiration = "capability.organization.bypass_max_expiration"
-
-// This "use_rosa_paid_ami" capability will only be used short-term and will eventually be removed
-// See https://issues.redhat.com/browse/SDB-1698
 const CapabilityUseRosaPaidAMI = "capability.account.use_rosa_paid_ami"
 
 var availableCapabilities map[string]string = map[string]string{
-	"CapabilityAggressiveClusterSetup":             CapabilityAggressiveClusterSetup,
-	"CapabilityCreateMoaClusters":                  CapabilityCreateMoaClusters,
-	"CapabilityManageClusterAdmin":                 CapabilityManageClusterAdmin,
-	"CapabilityOrganizationRegistrationsPerHour":   CapabilityOrganizationRegistrationsPerHour,
-	"CapabilityOrganizationPinClusterToShard":      CapabilityOrganizationPinClusterToShard,
-	"CapabilityHibernateCluster":                   CapabilityHibernateCluster,
-	"CapabilitySubscribedOcp":                      CapabilitySubscribedOcp,
-	"CapabilitySubscribedOcpMarketplace":           CapabilitySubscribedOcpMarketplace,
-	"CapabilitySubscribedOsdMarketplace":           CapabilitySubscribedOsdMarketplace,
-	"CapabilityEnableTermsEnforcement":             CapabilityEnableTermsEnforcement,
-	"CapabilityBareMetalInstallerAdmin":            CapabilityBareMetalInstallerAdmin,
-	"CapabilityReleaseOcpClusters":                 CapabilityReleaseOcpClusters,
-	"CapabilityAutoscaleClustersDeprecated":        CapabilityAutoscaleClustersDeprecated,
-	"CapabilityAutoscaleClusters":                  CapabilityAutoscaleClusters,
-	"CapabilityOrganizationInstallConfigOverride":  CapabilityOrganizationInstallConfigOverride,
-	"CapabilityOrganizationInstallConfigDefault":   CapabilityOrganizationInstallConfigDefault,
-	"CapabilityOrganizationOverrideOsdTrialLength": CapabilityOrganizationOverrideOsdTrialLength,
-	"CapabilityOrganizationCreateClusterProxy":     CapabilityOrganizationCreateClusterProxy,
-	"CapabilityAllowGCPNonCCSPrivateClusters":      CapabilityAllowGCPNonCCSPrivateClusters,
-	"CapabilityAddOnVersionSelect":                 CapabilityAddOnVersionSelect,
-	"CapabilityOrganizationFipsCluster":            CapabilityOrganizationFipsCluster,
-	"CapabilityOrganizationOvnCluster":             CapabilityOrganizationOvnCluster,
-	"CapabilityOrganizationHyperShift":             CapabilityOrganizationHyperShift,
-	"CapabilityBypassMaxExpiration":                CapabilityBypassMaxExpiration,
-	"CapabilityUseRosaPaidAMI":                     CapabilityUseRosaPaidAMI,
+	"AggressiveClusterSetup":             CapabilityAggressiveClusterSetup,
+	"CreateMoaClusters":                  CapabilityCreateMoaClusters,
+	"ManageClusterAdmin":                 CapabilityManageClusterAdmin,
+	"OrganizationRegistrationsPerHour":   CapabilityOrganizationRegistrationsPerHour,
+	"OrganizationPinClusterToShard":      CapabilityOrganizationPinClusterToShard,
+	"HibernateCluster":                   CapabilityHibernateCluster,
+	"SubscribedOcp":                      CapabilitySubscribedOcp,
+	"SubscribedOcpMarketplace":           CapabilitySubscribedOcpMarketplace,
+	"SubscribedOsdMarketplace":           CapabilitySubscribedOsdMarketplace,
+	"EnableTermsEnforcement":             CapabilityEnableTermsEnforcement,
+	"BareMetalInstallerAdmin":            CapabilityBareMetalInstallerAdmin,
+	"ReleaseOcpClusters":                 CapabilityReleaseOcpClusters,
+	"AutoscaleClustersDeprecated":        CapabilityAutoscaleClustersDeprecated,
+	"AutoscaleClusters":                  CapabilityAutoscaleClusters,
+	"OrganizationInstallConfigOverride":  CapabilityOrganizationInstallConfigOverride,
+	"OrganizationInstallConfigDefault":   CapabilityOrganizationInstallConfigDefault,
+	"OrganizationOverrideOsdTrialLength": CapabilityOrganizationOverrideOsdTrialLength,
+	"OrganizationCreateClusterProxy":     CapabilityOrganizationCreateClusterProxy,
+	"AllowGCPNonCCSPrivateClusters":      CapabilityAllowGCPNonCCSPrivateClusters,
+	"AddOnVersionSelect":                 CapabilityAddOnVersionSelect,
+	"OrganizationFipsCluster":            CapabilityOrganizationFipsCluster,
+	"OrganizationOvnCluster":             CapabilityOrganizationOvnCluster,
+	"OrganizationHyperShift":             CapabilityOrganizationHyperShift,
+	"BypassMaxExpiration":                CapabilityBypassMaxExpiration,
+	"UseRosaPaidAMI":                     CapabilityUseRosaPaidAMI,
 }
 
 func PresentCapabilities(capabilities []*v1.Capability) CapabilityList {
@@ -94,7 +88,7 @@ func PresentCapabilities(capabilities []*v1.Capability) CapabilityList {
 func GetAvailableCapability(capability string, resourceType string) (string, error) {
 	val, ok := availableCapabilities[capability]
 	if !ok {
-		return "", fmt.Errorf("capability not found")
+		return "", fmt.Errorf("capability not found. Please refer to https://docs.google.com/spreadsheets/d/1XMFkbG9DeXoBSOn5HPbzk-l2T_OjQdLjz452a6vaYCE/edit#gid=0 to check for available capabilities.")
 	}
 	if strings.Split(val, ".")[1] != resourceType {
 		return "", fmt.Errorf("capability not available for given resource type")

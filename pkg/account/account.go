@@ -55,9 +55,10 @@ func GetAccount(accountID string, conn *sdk.Connection) (*v1.Account, error) {
 }
 
 func AddLabel(accountID string, key string, value string, isInternal bool, conn *sdk.Connection) (*v1.Label, error) {
-	lbl, err := v1.NewLabel().Key(key).Value(value).Internal(isInternal).Build()
-	if err != nil {
-		return nil, fmt.Errorf("can't create new label: %w", err)
+	var lbl *v1.Label
+	var err error
+	if lbl, err = label.CreateLabel(key, value, isInternal); err != nil {
+		return nil, fmt.Errorf("%v", err)
 	}
 	lblResponse, err := conn.AccountsMgmt().V1().Accounts().Account(accountID).Labels().Add().Body(lbl).Send()
 	if err != nil {
@@ -82,4 +83,12 @@ func PresentAccount(account *v1.Account, roles []*v1.RoleBinding, registryCreden
 		Labels:              label.PresentLabels(account.Labels()),
 		Capabilities:        capability.PresentCapabilities(account.Capabilities()),
 	}
+}
+
+func ValidateAccount(accountID string, conn *sdk.Connection) error {
+	_, err := GetAccount(accountID, conn)
+	if err != nil {
+		return fmt.Errorf("failed to get account: %v", err)
+	}
+	return nil
 }

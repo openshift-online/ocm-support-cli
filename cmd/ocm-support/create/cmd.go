@@ -65,23 +65,20 @@ func ManageOperations(argv []string, external bool) (*v1.Label, error) {
 	}
 	id := argv[1]
 	key := argv[2]
-	var value string
+	value := argv[3]
 	var createdLabel *v1.Label
 	switch action {
 	case "accountLabel":
-		value = argv[3]
 		createdLabel, err = AddLabelToAccount(id, key, value, !args.external, connection)
 		if err != nil {
 			return nil, fmt.Errorf("error creating label: %v", err)
 		}
 	case "subscriptionLabel":
-		value = argv[3]
 		createdLabel, err = AddLabelToSubscription(id, key, value, !args.external, connection)
 		if err != nil {
 			return nil, fmt.Errorf("error creating label: %v", err)
 		}
 	case "organizationLabel":
-		value = argv[3]
 		createdLabel, err = AddLabelToOrganization(id, key, value, !args.external, connection)
 		if err != nil {
 			return nil, fmt.Errorf("error creating label: %v", err)
@@ -108,9 +105,8 @@ func ManageOperations(argv []string, external bool) (*v1.Label, error) {
 }
 
 func AddLabelToAccount(accountID string, key string, value string, isInternal bool, connection *sdk.Connection) (*v1.Label, error) {
-	_, err := account.GetAccount(accountID, connection)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get account: %v", err)
+	if err := account.ValidateAccount(accountID, connection); err != nil {
+		return nil, fmt.Errorf("%v", err)
 	}
 	createdLabel, err := account.AddLabel(accountID, key, value, !args.external, connection)
 	if err != nil {
@@ -120,9 +116,8 @@ func AddLabelToAccount(accountID string, key string, value string, isInternal bo
 }
 
 func AddLabelToOrganization(orgID string, key string, value string, isInternal bool, connection *sdk.Connection) (*v1.Label, error) {
-	_, err := organization.GetOrganization(orgID, connection)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get organization: %v", err)
+	if err := organization.ValidateOrganization(orgID, connection); err != nil {
+		return nil, fmt.Errorf("%v", err)
 	}
 	createdLabel, err := organization.AddLabel(orgID, key, value, !args.external, connection)
 	if err != nil {
@@ -132,9 +127,8 @@ func AddLabelToOrganization(orgID string, key string, value string, isInternal b
 }
 
 func AddLabelToSubscription(subscriptionID string, key string, value string, isInternal bool, connection *sdk.Connection) (*v1.Label, error) {
-	_, err := subscription.GetSubscription(subscriptionID, connection)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get subscription: %v", err)
+	if err := subscription.ValidateSubscription(subscriptionID, connection); err != nil {
+		return nil, fmt.Errorf("%v", err)
 	}
 	createdLabel, err := subscription.AddLabel(subscriptionID, key, value, !args.external, connection)
 	if err != nil {
@@ -144,9 +138,8 @@ func AddLabelToSubscription(subscriptionID string, key string, value string, isI
 }
 
 func AddCapabilityToAccount(accountID string, key string, connection *sdk.Connection) (*v1.Label, error) {
-	_, err := account.GetAccount(accountID, connection)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get account: %v", err)
+	if err := account.ValidateAccount(accountID, connection); err != nil {
+		return nil, fmt.Errorf("%v", err)
 	}
 	capabilityKey, err := capability.GetAvailableCapability(key, "account")
 	if err != nil {
@@ -159,32 +152,30 @@ func AddCapabilityToAccount(accountID string, key string, connection *sdk.Connec
 	return createdCapability, nil
 }
 
-func AddCapabilityToOrganization(accountID string, key string, connection *sdk.Connection) (*v1.Label, error) {
-	_, err := organization.GetOrganization(accountID, connection)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get organization: %v", err)
+func AddCapabilityToOrganization(orgID string, key string, connection *sdk.Connection) (*v1.Label, error) {
+	if err := organization.ValidateOrganization(orgID, connection); err != nil {
+		return nil, fmt.Errorf("%v", err)
 	}
 	capabilityKey, err := capability.GetAvailableCapability(key, "organization")
 	if err != nil {
 		return nil, fmt.Errorf("failed to get capability: %v", err)
 	}
-	createdCapability, err := organization.AddLabel(accountID, capabilityKey, "true", true, connection)
+	createdCapability, err := organization.AddLabel(orgID, capabilityKey, "true", true, connection)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create capability: %v", err)
 	}
 	return createdCapability, nil
 }
 
-func AddCapabilityToSubscription(accountID string, key string, connection *sdk.Connection) (*v1.Label, error) {
-	_, err := subscription.GetSubscription(accountID, connection)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get subscription: %v", err)
+func AddCapabilityToSubscription(subscriptionID string, key string, connection *sdk.Connection) (*v1.Label, error) {
+	if err := subscription.ValidateSubscription(subscriptionID, connection); err != nil {
+		return nil, fmt.Errorf("%v", err)
 	}
 	capabilityKey, err := capability.GetAvailableCapability(key, "cluster")
 	if err != nil {
 		return nil, fmt.Errorf("failed to get capability: %v", err)
 	}
-	createdCapability, err := subscription.AddLabel(accountID, capabilityKey, "true", true, connection)
+	createdCapability, err := subscription.AddLabel(subscriptionID, capabilityKey, "true", true, connection)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create capability: %v", err)
 	}

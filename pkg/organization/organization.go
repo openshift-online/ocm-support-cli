@@ -45,9 +45,10 @@ func GetOrganization(orgID string, conn *sdk.Connection) (*v1.Organization, erro
 }
 
 func AddLabel(orgID string, key string, value string, isInternal bool, conn *sdk.Connection) (*v1.Label, error) {
-	lbl, err := v1.NewLabel().Key(key).Value(value).Internal(isInternal).Build()
-	if err != nil {
-		return nil, fmt.Errorf("can't create new label: %w", err)
+	var lbl *v1.Label
+	var err error
+	if lbl, err = label.CreateLabel(key, value, isInternal); err != nil {
+		return nil, fmt.Errorf("%v", err)
 	}
 	lblResponse, err := conn.AccountsMgmt().V1().Organizations().Organization(orgID).Labels().Add().Body(lbl).Send()
 	if err != nil {
@@ -65,4 +66,12 @@ func PresentOrganization(organization *v1.Organization, subscriptions []*v1.Subs
 		Labels:        label.PresentLabels(organization.Labels()),
 		Capabilities:  capability.PresentCapabilities(organization.Capabilities()),
 	}
+}
+
+func ValidateOrganization(orgID string, conn *sdk.Connection) error {
+	_, err := GetOrganization(orgID, conn)
+	if err != nil {
+		return fmt.Errorf("failed to get organization: %v", err)
+	}
+	return nil
 }

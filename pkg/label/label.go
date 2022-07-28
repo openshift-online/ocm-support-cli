@@ -1,6 +1,7 @@
 package label
 
 import (
+	"fmt"
 	"ocm-support-cli/pkg/types"
 	"time"
 
@@ -35,4 +36,12 @@ func PresentLabels(labels []*v1.Label) LabelsList {
 		labelsList = append(labelsList, lbl)
 	}
 	return labelsList
+}
+
+func CreateLabel(key string, value string, isInternal bool) (*v1.Label, error) {
+	lbl, err := v1.NewLabel().Key(key).Value(value).Internal(isInternal).Build()
+	if err != nil {
+		return nil, fmt.Errorf("can't create new label: %w", err)
+	}
+	return lbl, nil
 }

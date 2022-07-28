@@ -6,6 +6,7 @@ import (
 	sdk "github.com/openshift-online/ocm-sdk-go"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 
+	"ocm-support-cli/pkg/label"
 	"ocm-support-cli/pkg/types"
 )
 
@@ -41,9 +42,10 @@ func GetSubscription(subscriptionID string, conn *sdk.Connection) (*v1.Subscript
 }
 
 func AddLabel(subscriptionID string, key string, value string, isInternal bool, conn *sdk.Connection) (*v1.Label, error) {
-	lbl, err := v1.NewLabel().Key(key).Value(value).Internal(isInternal).Build()
-	if err != nil {
-		return nil, fmt.Errorf("can't create new label: %w", err)
+	var lbl *v1.Label
+	var err error
+	if lbl, err = label.CreateLabel(key, value, isInternal); err != nil {
+		return nil, fmt.Errorf("%v", err)
 	}
 	lblResponse, err := conn.AccountsMgmt().V1().Subscriptions().Subscription(subscriptionID).Labels().Add().Body(lbl).Send()
 	if err != nil {
@@ -74,4 +76,12 @@ func PresentSubscription(subscription *v1.Subscription) Subscription {
 		Managed:           subscription.Managed(),
 		Status:            subscription.Status(),
 	}
+}
+
+func ValidateSubscription(subscriptionID string, conn *sdk.Connection) error {
+	_, err := GetSubscription(subscriptionID, conn)
+	if err != nil {
+		return fmt.Errorf("failed to get subscription: %v", err)
+	}
+	return nil
 }
