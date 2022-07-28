@@ -6,12 +6,12 @@ import (
 	sdk "github.com/openshift-online/ocm-sdk-go"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 
-	"ocm-support-cli/pkg/capability"
-	"ocm-support-cli/pkg/label"
-	"ocm-support-cli/pkg/organization"
-	"ocm-support-cli/pkg/registry_credential"
-	"ocm-support-cli/pkg/role"
-	"ocm-support-cli/pkg/types"
+	"github.com/openshift-online/ocm-support-cli/pkg/capability"
+	"github.com/openshift-online/ocm-support-cli/pkg/label"
+	"github.com/openshift-online/ocm-support-cli/pkg/organization"
+	"github.com/openshift-online/ocm-support-cli/pkg/registry_credential"
+	"github.com/openshift-online/ocm-support-cli/pkg/role"
+	"github.com/openshift-online/ocm-support-cli/pkg/types"
 )
 
 type Account struct {

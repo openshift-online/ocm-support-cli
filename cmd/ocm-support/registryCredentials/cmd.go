@@ -3,9 +3,9 @@ package registrycredentials
 import (
 	"github.com/spf13/cobra"
 
-	"ocm-support-cli/cmd/ocm-support/registryCredentials/create"
-	"ocm-support-cli/cmd/ocm-support/registryCredentials/delete"
-	"ocm-support-cli/cmd/ocm-support/registryCredentials/show"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/registryCredentials/create"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/registryCredentials/delete"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/registryCredentials/show"
 )
 
 // Cmd ...

@@ -7,7 +7,7 @@ import (
 	sdk "github.com/openshift-online/ocm-sdk-go"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 
-	"ocm-support-cli/pkg/types"
+	"github.com/openshift-online/ocm-support-cli/pkg/types"
 )
 
 type RegistryCredential struct {

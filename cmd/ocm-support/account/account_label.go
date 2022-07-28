@@ -2,13 +2,14 @@ package account
 
 import (
 	"fmt"
-	"ocm-support-cli/cmd/ocm-support/utils"
-	"ocm-support-cli/pkg/account"
-	"ocm-support-cli/pkg/label"
 
 	"github.com/openshift-online/ocm-cli/pkg/ocm"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 	"github.com/spf13/cobra"
+
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
+	"github.com/openshift-online/ocm-support-cli/pkg/account"
+	"github.com/openshift-online/ocm-support-cli/pkg/label"
 )
 
 var args struct {

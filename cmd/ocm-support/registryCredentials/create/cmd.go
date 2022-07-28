@@ -2,10 +2,11 @@ package create
 
 import (
 	"fmt"
-	"ocm-support-cli/pkg/access_token"
 
 	"github.com/openshift-online/ocm-cli/pkg/ocm"
 	"github.com/spf13/cobra"
+
+	"github.com/openshift-online/ocm-support-cli/pkg/access_token"
 )
 
 // Cmd represents the version command

@@ -1,11 +1,11 @@
 package create
 
 import (
-	"ocm-support-cli/cmd/ocm-support/account"
-	"ocm-support-cli/cmd/ocm-support/organization"
-	"ocm-support-cli/cmd/ocm-support/subscription"
-
 	"github.com/spf13/cobra"
+
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/account"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/organization"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/subscription"
 )
 
 // Cmd ...

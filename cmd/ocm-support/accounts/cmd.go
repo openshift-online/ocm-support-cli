@@ -3,7 +3,7 @@ package accounts
 import (
 	"github.com/spf13/cobra"
 
-	"ocm-support-cli/cmd/ocm-support/accounts/find"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/accounts/find"
 )
 
 // Cmd ...
