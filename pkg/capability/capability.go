@@ -114,6 +114,6 @@ func GetCapability(capability string, resourceType string) (string, error) {
 	if err := ValidateCapability(capability, resourceType); err != nil {
 		return "", err
 	}
-	val, _ := availableCapabilities[capability]
+	val := availableCapabilities[capability]
 	return val, nil
 }

@@ -8,13 +8,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var args struct {
-	external bool
-}
-
-var vailidResources []string = []string{"accountLabel", "subscriptionLabel", "organizationLabel",
-	"accountCapability", "subscriptionCapability", "organizationCapability"}
-
 // Cmd ...
 var Cmd = &cobra.Command{
 	Use:   "create [COMMAND]",
