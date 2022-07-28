@@ -71,3 +71,11 @@ func PresentAccount(account *v1.Account, roles []*v1.RoleBinding, registryCreden
 		Capabilities:        capability.PresentCapabilities(account.Capabilities()),
 	}
 }
+
+func ValidateAccount(accountID string, conn *sdk.Connection) error {
+	_, err := GetAccount(accountID, conn)
+	if err != nil {
+		return fmt.Errorf("failed to get account: %v", err)
+	}
+	return nil
+}
