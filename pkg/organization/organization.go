@@ -2,15 +2,15 @@ package organization
 
 import (
 	"fmt"
-	"ocm-support-cli/pkg/capability"
-	"ocm-support-cli/pkg/label"
-	"ocm-support-cli/pkg/quota"
 
 	sdk "github.com/openshift-online/ocm-sdk-go"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 
-	"ocm-support-cli/pkg/subscription"
-	"ocm-support-cli/pkg/types"
+	"github.com/openshift-online/ocm-support-cli/pkg/capability"
+	"github.com/openshift-online/ocm-support-cli/pkg/label"
+	"github.com/openshift-online/ocm-support-cli/pkg/quota"
+	"github.com/openshift-online/ocm-support-cli/pkg/subscription"
+	"github.com/openshift-online/ocm-support-cli/pkg/types"
 )
 
 type Organization struct {

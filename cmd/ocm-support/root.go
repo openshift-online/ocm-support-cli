@@ -24,11 +24,11 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	"ocm-support-cli/cmd/ocm-support/accounts"
-	"ocm-support-cli/cmd/ocm-support/create"
-	"ocm-support-cli/cmd/ocm-support/organizations"
-	registrycredentials "ocm-support-cli/cmd/ocm-support/registryCredentials"
-	"ocm-support-cli/cmd/ocm-support/version"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/accounts"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/organizations"
+	registrycredentials "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/registryCredentials"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/version"
 )
 
 // Created so that multiple inputs can be accepted

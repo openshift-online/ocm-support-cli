@@ -1,4 +1,4 @@
-module ocm-support-cli
+module github.com/openshift-online/ocm-support-cli
 
 go 1.17
 

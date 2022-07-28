@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"ocm-support-cli/pkg/info"
+	"github.com/openshift-online/ocm-support-cli/pkg/info"
 )
 
 // Cmd represents the version command

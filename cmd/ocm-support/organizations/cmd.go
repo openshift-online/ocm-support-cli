@@ -3,7 +3,7 @@ package organizations
 import (
 	"github.com/spf13/cobra"
 
-	"ocm-support-cli/cmd/ocm-support/organizations/find"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/organizations/find"
 )
 
 // Cmd ...

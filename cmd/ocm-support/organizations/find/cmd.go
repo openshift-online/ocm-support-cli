@@ -2,15 +2,15 @@ package find
 
 import (
 	"fmt"
-	"ocm-support-cli/pkg/quota"
 
 	"github.com/openshift-online/ocm-cli/pkg/ocm"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 	"github.com/spf13/cobra"
 
-	"ocm-support-cli/cmd/ocm-support/utils"
-	"ocm-support-cli/pkg/organization"
-	"ocm-support-cli/pkg/subscription"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
+	"github.com/openshift-online/ocm-support-cli/pkg/organization"
+	"github.com/openshift-online/ocm-support-cli/pkg/quota"
+	"github.com/openshift-online/ocm-support-cli/pkg/subscription"
 )
 
 var args struct {
