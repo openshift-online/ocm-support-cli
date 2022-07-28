@@ -18,8 +18,8 @@ var args struct {
 // CmdCreateAccountLabel represents the create account label command
 var CmdCreateAccountLabel = &cobra.Command{
 	Use:   "accountLabel [accountID] [key] [value]",
-	Short: "Creates a Label to an Account",
-	Long:  "Creates a Label to an Account",
+	Short: "Assigns a Label to an Account",
+	Long:  "Assigns a Label to an Account",
 	RunE:  runCreateAccountLabel,
 	Args:  cobra.ExactArgs(3),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -49,6 +49,7 @@ func init() {
 
 func runCreateAccountLabel(cmd *cobra.Command, argv []string) error {
 	accountID := argv[0]
+	// TODO : avoid creating multiple connection pools
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)

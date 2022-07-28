@@ -133,7 +133,7 @@ The `create` command assigns Labels, Capabilities to Accounts, Subscriptions, Or
 
 #### Creating account labels
 
-Use the `accountLabel` subcommand to create a label to an account, passing a key and a value. 
+Use the `accountLabel` subcommand to assign a label to an account, passing a key and a value. 
 
 The following flags are available for `create accountLabel`:
 
@@ -144,7 +144,7 @@ The following flags are available for `create accountLabel`:
 
 #### Creating organization labels
 
-Use the `organizationLabel` subcommand to create a label to an organization, passing a key and a value. 
+Use the `organizationLabel` subcommand to assign a label to an organization, passing a key and a value. 
 
 The following flags are available for `create organizationLabel`:
 
@@ -155,7 +155,7 @@ The following flags are available for `create organizationLabel`:
 
 #### Creating subscription labels
 
-Use the `subscriptionLabel` subcommand to create a label to a subscription, passing a key and a value. 
+Use the `subscriptionLabel` subcommand to assign a label to a subscription, passing a key and a value. 
 
 The following flags are available for `create subscriptionLabel`:
 
@@ -166,15 +166,15 @@ The following flags are available for `create subscriptionLabel`:
 
 #### Creating account capabilities
 
-Use the `accountCapability` subcommand to create a capability to an account, passing a valid capability key. 
+Use the `accountCapability` subcommand to assign a capability to an account, passing a valid capability key. 
 
 #### Creating organization capabilities
 
-Use the `organizationCapability` subcommand to create a capability to an organization, passing a valid capability key. 
+Use the `organizationCapability` subcommand to assign a capability to an organization, passing a valid capability key. 
 
 #### Creating subscription capabilities
 
-Use the `subscriptionCapability` subcommand to create a capability to a subscription, passing a valid capability key. 
+Use the `subscriptionCapability` subcommand to assign a capability to a subscription, passing a valid capability key. 
 
 #### Examples
 

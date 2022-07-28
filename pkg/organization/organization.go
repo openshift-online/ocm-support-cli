@@ -45,9 +45,8 @@ func GetOrganization(orgID string, conn *sdk.Connection) (*v1.Organization, erro
 }
 
 func AddLabel(orgID string, key string, value string, isInternal bool, conn *sdk.Connection) (*v1.Label, error) {
-	var lbl *v1.Label
-	var err error
-	if lbl, err = label.CreateLabel(key, value, isInternal); err != nil {
+	lbl, err := label.CreateLabel(key, value, isInternal)
+	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
 	lblResponse, err := conn.AccountsMgmt().V1().Organizations().Organization(orgID).Labels().Add().Body(lbl).Send()

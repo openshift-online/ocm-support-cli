@@ -15,8 +15,8 @@ import (
 // CmdCreateSubscriptionCapability represents the create subscription capability command
 var CmdCreateSubscriptionCapability = &cobra.Command{
 	Use:   "subscriptionCapability [subscriptionID] [capability]",
-	Short: "Creates a Capability to a Subscription",
-	Long:  "Creates a Capability to a Subscription",
+	Short: "Assigns a Capability to a Subscription",
+	Long:  "Assigns a Capability to a Subscription",
 	RunE:  runCreateSubscriptionCapability,
 	Args:  cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -42,6 +42,7 @@ var CmdCreateSubscriptionCapability = &cobra.Command{
 
 func runCreateSubscriptionCapability(cmd *cobra.Command, argv []string) error {
 	subscriptionID := argv[0]
+	// TODO : avoid creating multiple connection pools
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)

@@ -18,8 +18,8 @@ var args struct {
 // CmdCreateOrganizationLabel represents the create organization label command
 var CmdCreateOrganizationLabel = &cobra.Command{
 	Use:   "organizationLabel [organizationID] [key] [value]",
-	Short: "Creates a Label to an organization",
-	Long:  "Creates a Label to an organization",
+	Short: "Assigns a Label to an organization",
+	Long:  "Assigns a Label to an organization",
 	RunE:  runCreateOrganizationLabel,
 	Args:  cobra.ExactArgs(3),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -49,6 +49,7 @@ func init() {
 
 func runCreateOrganizationLabel(cmd *cobra.Command, argv []string) error {
 	organizationID := argv[0]
+	// TODO : avoid creating multiple connection pools
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)

@@ -15,8 +15,8 @@ import (
 // CmdCreateAccountCapability represents the create account capability command
 var CmdCreateAccountCapability = &cobra.Command{
 	Use:   "accountCapability [accountID] [capability]",
-	Short: "Creates a Capability to an Account",
-	Long:  "Creates a Capability to an Account",
+	Short: "Assigns a Capability to an Account",
+	Long:  "Assigns a Capability to an Account",
 	RunE:  runCreateAccountCapability,
 	Args:  cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -42,6 +42,7 @@ var CmdCreateAccountCapability = &cobra.Command{
 
 func runCreateAccountCapability(cmd *cobra.Command, argv []string) error {
 	accountID := argv[0]
+	// TODO : avoid creating multiple connection pools
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)

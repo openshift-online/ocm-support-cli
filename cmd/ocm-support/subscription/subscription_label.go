@@ -18,8 +18,8 @@ var args struct {
 // CmdSetsubscriptionLabel represents the create subscription label command
 var CmdCreateSubscriptionLabel = &cobra.Command{
 	Use:   "subscriptionLabel [subscriptionID] [key] [value]",
-	Short: "Creates a Label to a subscription",
-	Long:  "Creates a Label to a subscription",
+	Short: "Assigns a Label to a subscription",
+	Long:  "Assigns a Label to a subscription",
 	RunE:  runCreateSubscriptionLabel,
 	Args:  cobra.ExactArgs(3),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -49,6 +49,7 @@ func init() {
 
 func runCreateSubscriptionLabel(cmd *cobra.Command, argv []string) error {
 	subscriptionID := argv[0]
+	// TODO : avoid creating multiple connection pools
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)

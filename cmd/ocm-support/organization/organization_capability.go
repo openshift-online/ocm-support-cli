@@ -15,8 +15,8 @@ import (
 // CmdCreateOrganizationCapability represents the create organization capability command
 var CmdCreateOrganizationCapability = &cobra.Command{
 	Use:   "organizationCapability [organizationID] [capability]",
-	Short: "Creates a Capability to an Organization",
-	Long:  "Creates a Capability to an Organization",
+	Short: "Assigns a Capability to an Organization",
+	Long:  "Assigns a Capability to an Organization",
 	RunE:  runCreateOrganizationCapability,
 	Args:  cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -42,6 +42,7 @@ var CmdCreateOrganizationCapability = &cobra.Command{
 
 func runCreateOrganizationCapability(cmd *cobra.Command, argv []string) error {
 	organizationID := argv[0]
+	// TODO : avoid creating multiple connection pools
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)

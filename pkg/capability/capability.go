@@ -88,10 +88,8 @@ func PresentCapabilities(capabilities []*v1.Capability) CapabilityList {
 func ValidateCapability(capability string, resourceType string) error {
 	val, ok := availableCapabilities[capability]
 	if !ok {
-		capabilities := GetResourceTypeSpecificCapabilities("account")
-		capabilities = append(capabilities, GetResourceTypeSpecificCapabilities("organization")...)
-		capabilities = append(capabilities, GetResourceTypeSpecificCapabilities("cluster")...)
-		return fmt.Errorf("capability not found. Available capabilities are '%v'", capabilities)
+		capabilities := GetResourceTypeSpecificCapabilities(resourceType)
+		return fmt.Errorf("capability not available for '%s'. Available capabilities are '%v'", resourceType, capabilities)
 	}
 	if strings.Split(val, ".")[1] != resourceType {
 		capabilities := GetResourceTypeSpecificCapabilities(resourceType)
