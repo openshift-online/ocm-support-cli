@@ -85,13 +85,35 @@ func PresentCapabilities(capabilities []*v1.Capability) CapabilityList {
 	return capabilitiesList
 }
 
-func GetAvailableCapability(capability string, resourceType string) (string, error) {
+func ValidateCapability(capability string, resourceType string) error {
 	val, ok := availableCapabilities[capability]
 	if !ok {
-		return "", fmt.Errorf("capability not found. Please refer to https://docs.google.com/spreadsheets/d/1XMFkbG9DeXoBSOn5HPbzk-l2T_OjQdLjz452a6vaYCE/edit#gid=0 to check for available capabilities.")
+		capabilities := GetResourceTypeSpecificCapabilities("account")
+		capabilities = append(capabilities, GetResourceTypeSpecificCapabilities("organization")...)
+		capabilities = append(capabilities, GetResourceTypeSpecificCapabilities("cluster")...)
+		return fmt.Errorf("capability not found. Available capabilities are '%v'", capabilities)
 	}
 	if strings.Split(val, ".")[1] != resourceType {
-		return "", fmt.Errorf("capability not available for given resource type")
+		capabilities := GetResourceTypeSpecificCapabilities(resourceType)
+		return fmt.Errorf("capability not available for '%s'. Available capabilities are '%v'", resourceType, capabilities)
 	}
+	return nil
+}
+
+func GetResourceTypeSpecificCapabilities(resourceType string) []string {
+	var capabilities []string
+	for key, val := range availableCapabilities {
+		if strings.Split(val, ".")[1] == resourceType {
+			capabilities = append(capabilities, key)
+		}
+	}
+	return capabilities
+}
+
+func GetCapability(capability string, resourceType string) (string, error) {
+	if err := ValidateCapability(capability, resourceType); err != nil {
+		return "", err
+	}
+	val, _ := availableCapabilities[capability]
 	return val, nil
 }

@@ -129,24 +129,58 @@ The following flags are available for `registryCredentials delete`:
 
 ### Create
 
-The `create` command creates the given resource with provided key and value.
+The `create` command assigns Labels, Capabilities to Accounts, Subscriptions, Organizations.
 
-Available values for creating resources are `accountLabel|organizationLabel|subscriptionLabel|accountCapability|organizationCapability|subscriptionCapability`
+#### Creating account labels
 
-Pass key and value for creating a label, and pass a valid key for creating a capability
+Use the `accountLabel` subcommand to create a label to an account, passing a key and a value. 
 
-The following flags are available for `create`:
+The following flags are available for `create accountLabel`:
 
 ```
 --external                   If true, sets the internal flag for labels as false.
 -h, --help                   help for create
 ```
 
+#### Creating organization labels
+
+Use the `organizationLabel` subcommand to create a label to an organization, passing a key and a value. 
+
+The following flags are available for `create organizationLabel`:
+
+```
+--external                   If true, sets the internal flag for labels as false.
+-h, --help                   help for create
+```
+
+#### Creating subscription labels
+
+Use the `subscriptionLabel` subcommand to create a label to a subscription, passing a key and a value. 
+
+The following flags are available for `create subscriptionLabel`:
+
+```
+--external                   If true, sets the internal flag for labels as false.
+-h, --help                   help for create
+```
+
+#### Creating account capabilities
+
+Use the `accountCapability` subcommand to create a capability to an account, passing a valid capability key. 
+
+#### Creating organization capabilities
+
+Use the `organizationCapability` subcommand to create a capability to an organization, passing a valid capability key. 
+
+#### Creating subscription capabilities
+
+Use the `subscriptionCapability` subcommand to create a capability to a subscription, passing a valid capability key. 
+
 #### Examples
 
 * Add label to an account `ocm support create accountLabel [accountID] [key] [value]`
 * Add label to an organization `ocm support create organizationLabel [orgID] [key] [value]`
-* Add label to a subscription with internal flag as false `ocm support create subscriptionLabel [subscriptionID] [key] [value] --external`
+* Add label to a subscription (with internal flag as false) `ocm support create subscriptionLabel [subscriptionID] [key] [value] --external`
 * Add capability to an account `ocm support create accountCapability [accountID] [capabilityKey]`
 * Add capability to an organization `ocm support create organizationCapability [orgID] [capabilityKey]`
 * Add capability to a subscription `ocm support create subscriptionCapability [subscriptionID] [capabilityKey]`
