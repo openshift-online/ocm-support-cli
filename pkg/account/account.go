@@ -46,12 +46,25 @@ func GetAccounts(key string, limit int, fetchLabels bool, fetchCapabilities bool
 func GetAccount(accountID string, conn *sdk.Connection) (*v1.Account, error) {
 	accountResponse, err := conn.AccountsMgmt().V1().Accounts().Account(accountID).Get().Send()
 	if err != nil {
-		return nil, fmt.Errorf("can't retrieve accounts: %w", err)
+		return nil, fmt.Errorf("can't retrieve account: %w", err)
 	}
 
 	account, _ := accountResponse.GetBody()
 
 	return account, nil
+}
+
+func AddLabel(accountID string, key string, value string, isInternal bool, conn *sdk.Connection) (*v1.Label, error) {
+	var lbl *v1.Label
+	var err error
+	if lbl, err = label.CreateLabel(key, value, isInternal); err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+	lblResponse, err := conn.AccountsMgmt().V1().Accounts().Account(accountID).Labels().Add().Body(lbl).Send()
+	if err != nil {
+		return nil, fmt.Errorf("can't add new label: %w", err)
+	}
+	return lblResponse.Body(), err
 }
 
 func PresentAccount(account *v1.Account, roles []*v1.RoleBinding, registryCredentials []*v1.RegistryCredential) Account {
@@ -70,4 +83,12 @@ func PresentAccount(account *v1.Account, roles []*v1.RoleBinding, registryCreden
 		Labels:              label.PresentLabels(account.Labels()),
 		Capabilities:        capability.PresentCapabilities(account.Capabilities()),
 	}
+}
+
+func ValidateAccount(accountID string, conn *sdk.Connection) error {
+	_, err := GetAccount(accountID, conn)
+	if err != nil {
+		return fmt.Errorf("failed to get account: %v", err)
+	}
+	return nil
 }

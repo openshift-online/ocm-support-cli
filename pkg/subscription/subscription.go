@@ -6,6 +6,7 @@ import (
 	sdk "github.com/openshift-online/ocm-sdk-go"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 
+	"ocm-support-cli/pkg/label"
 	"ocm-support-cli/pkg/types"
 )
 
@@ -31,6 +32,28 @@ func GetSubscriptionsByOrg(organizationId string, conn *sdk.Connection) ([]*v1.S
 	return response.Items().Slice(), nil
 }
 
+func GetSubscription(subscriptionID string, conn *sdk.Connection) (*v1.Subscription, error) {
+	response, err := conn.AccountsMgmt().V1().Subscriptions().Subscription(subscriptionID).Get().Send()
+	if err != nil {
+		return nil, fmt.Errorf("can't retrieve subscription: %w", err)
+	}
+
+	return response.Body(), nil
+}
+
+func AddLabel(subscriptionID string, key string, value string, isInternal bool, conn *sdk.Connection) (*v1.Label, error) {
+	var lbl *v1.Label
+	var err error
+	if lbl, err = label.CreateLabel(key, value, isInternal); err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+	lblResponse, err := conn.AccountsMgmt().V1().Subscriptions().Subscription(subscriptionID).Labels().Add().Body(lbl).Send()
+	if err != nil {
+		return nil, fmt.Errorf("can't add new label: %w", err)
+	}
+	return lblResponse.Body(), err
+}
+
 func PresentSubscriptions(subscriptions []*v1.Subscription) []Subscription {
 	var subs []Subscription
 	for _, sub := range subscriptions {
@@ -53,4 +76,12 @@ func PresentSubscription(subscription *v1.Subscription) Subscription {
 		Managed:           subscription.Managed(),
 		Status:            subscription.Status(),
 	}
+}
+
+func ValidateSubscription(subscriptionID string, conn *sdk.Connection) error {
+	_, err := GetSubscription(subscriptionID, conn)
+	if err != nil {
+		return fmt.Errorf("failed to get subscription: %v", err)
+	}
+	return nil
 }

@@ -586,8 +586,6 @@ github.com/openshift-online/ocm-cli v0.1.64 h1:U/ILl054dNln9Kb/dhZOCgnhYFwfUMHhj
 github.com/openshift-online/ocm-cli v0.1.64/go.mod h1:Ccu+zHRdPOHNjHVe+MuD54DTk+ZmqcY1F+waulB8ELA=
 github.com/openshift-online/ocm-sdk-go v0.1.219/go.mod h1:uDiBAEupl2F5rkTBFC4y4ZPEV/ku/fFEBHot6OkYL+I=
 github.com/openshift-online/ocm-sdk-go v0.1.273/go.mod h1:KYOw8kAKAHyPrJcQoVR82CneQ4ofC02Na4cXXaTq4Nw=
-github.com/openshift-online/ocm-sdk-go v0.1.276 h1:Sa/HBiCOjGjkSu3kgZqWzE2nDqCqrVGWPLFqWPbOrAk=
-github.com/openshift-online/ocm-sdk-go v0.1.276/go.mod h1:KYOw8kAKAHyPrJcQoVR82CneQ4ofC02Na4cXXaTq4Nw=
 github.com/openshift-online/ocm-sdk-go v0.1.277 h1:T3224wvmZWfDafKLxdRmHQJjX2Q3vaHM77eDa+7R7QY=
 github.com/openshift-online/ocm-sdk-go v0.1.277/go.mod h1:KYOw8kAKAHyPrJcQoVR82CneQ4ofC02Na4cXXaTq4Nw=
 github.com/openshift/rosa v1.1.7/go.mod h1:Ap4vfflxHXfzY0MIt1l9dckwG+DkPUDc/vv1mk1cSCQ=
