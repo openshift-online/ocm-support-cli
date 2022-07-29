@@ -1,4 +1,4 @@
-package registry_credentials
+package registrycredentials
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 	"github.com/openshift-online/ocm-support-cli/pkg/access_token"
 )
 
-// CmdCreateRegistryCredentials represents the version command
+// CmdCreateRegistryCredentials creates registry credentials
 var CmdCreateRegistryCredentials = &cobra.Command{
 	Use:     "registryCredentials",
 	Aliases: []string{"rcs"},

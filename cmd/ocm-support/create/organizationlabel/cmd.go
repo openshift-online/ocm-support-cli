@@ -1,4 +1,4 @@
-package organization_label
+package organizationlabel
 
 import (
 	"fmt"

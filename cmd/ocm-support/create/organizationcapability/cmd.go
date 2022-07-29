@@ -1,4 +1,4 @@
-package organization_capability
+package organizationcapability
 
 import (
 	"fmt"

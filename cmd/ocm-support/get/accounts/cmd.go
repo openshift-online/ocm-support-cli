@@ -21,17 +21,17 @@ var args struct {
 	fetchCapabilities        bool
 }
 
-// CmdFindAccounts represents the account find command
-var CmdFindAccounts = &cobra.Command{
+// CmdGetAccounts represents the account getF command
+var CmdGetAccounts = &cobra.Command{
 	Use:   "accounts [id|username|email|organization.id|organization.external_id|organization.ebs_account_id]",
-	Short: "Finds an account or a list of accounts that matches the search criteria",
-	Long:  "Finds an account or a list of accounts that matches the search criteria",
+	Short: "Gets an account or a list of accounts that matches the search criteria",
+	Long:  "Gets an account or a list of accounts that matches the search criteria",
 	RunE:  run,
 	Args:  cobra.ExactArgs(1),
 }
 
 func init() {
-	flags := CmdFindAccounts.Flags()
+	flags := CmdGetAccounts.Flags()
 	flags.BoolVar(
 		&args.all,
 		"all",

@@ -3,7 +3,7 @@ package delete
 import (
 	"github.com/spf13/cobra"
 
-	registry_credentials "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/registryCredentials"
+	registrycredentials "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/registrycredentials"
 )
 
 // Cmd ...
@@ -15,5 +15,5 @@ var Cmd = &cobra.Command{
 }
 
 func init() {
-	Cmd.AddCommand(registry_credentials.CmdDeleteRegistryCredentials)
+	Cmd.AddCommand(registrycredentials.CmdDeleteRegistryCredentials)
 }

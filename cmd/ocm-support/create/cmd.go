@@ -3,13 +3,13 @@ package create
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/account_capability"
-	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/account_label"
-	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/organization_capability"
-	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/organization_label"
-	registry_credentials "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/registryCredentials"
-	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/subscription_capability"
-	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/subscription_label"
+	accountcapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/accountcapability"
+	accountlabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/accountlabel"
+	organizationcapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/organizationcapability"
+	organizationlabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/organizationlabel"
+	registrycredentials "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/registrycredentials"
+	subscriptioncapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/subscriptioncapability"
+	subscriptionlabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/subscriptionlabel"
 )
 
 // Cmd ...
@@ -21,11 +21,11 @@ var Cmd = &cobra.Command{
 }
 
 func init() {
-	Cmd.AddCommand(account_label.CmdCreateAccountLabel)
-	Cmd.AddCommand(organization_label.CmdCreateOrganizationLabel)
-	Cmd.AddCommand(subscription_label.CmdCreateSubscriptionLabel)
-	Cmd.AddCommand(account_capability.CmdCreateAccountCapability)
-	Cmd.AddCommand(organization_capability.CmdCreateOrganizationCapability)
-	Cmd.AddCommand(subscription_capability.CmdCreateSubscriptionCapability)
-	Cmd.AddCommand(registry_credentials.CmdCreateRegistryCredentials)
+	Cmd.AddCommand(accountlabel.CmdCreateAccountLabel)
+	Cmd.AddCommand(organizationlabel.CmdCreateOrganizationLabel)
+	Cmd.AddCommand(subscriptionlabel.CmdCreateSubscriptionLabel)
+	Cmd.AddCommand(accountcapability.CmdCreateAccountCapability)
+	Cmd.AddCommand(organizationcapability.CmdCreateOrganizationCapability)
+	Cmd.AddCommand(subscriptioncapability.CmdCreateSubscriptionCapability)
+	Cmd.AddCommand(registrycredentials.CmdCreateRegistryCredentials)
 }

@@ -1,4 +1,4 @@
-package registry_credentials
+package registrycredentials
 
 import (
 	"fmt"

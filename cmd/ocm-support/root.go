@@ -26,7 +26,7 @@ import (
 
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete"
-	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/find"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/get"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/version"
 )
 
@@ -82,7 +82,7 @@ func init() {
 	// Register sub-commands
 	rootCmd.AddCommand(version.Cmd)
 	rootCmd.AddCommand(create.Cmd)
-	rootCmd.AddCommand(find.Cmd)
+	rootCmd.AddCommand(get.Cmd)
 	rootCmd.AddCommand(delete.Cmd)
 
 	// Set the log level before each command runs.

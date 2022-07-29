@@ -1,4 +1,4 @@
-package subscription_label
+package subscriptionlabel
 
 import (
 	"fmt"
