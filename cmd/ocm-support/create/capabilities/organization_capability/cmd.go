@@ -1,4 +1,4 @@
-package subscriptioncapability
+package organization
 
 import (
 	"fmt"
@@ -10,30 +10,30 @@ import (
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/capability"
 	"github.com/openshift-online/ocm-support-cli/pkg/label"
-	"github.com/openshift-online/ocm-support-cli/pkg/subscription"
+	"github.com/openshift-online/ocm-support-cli/pkg/organization"
 )
 
-// CmdCreateSubscriptionCapability represents the create subscription capability command
-var CmdCreateSubscriptionCapability = &cobra.Command{
-	Use:   "subscriptionCapability [subscriptionID] [capability]",
-	Short: "Assigns a Capability to a Subscription",
-	Long:  "Assigns a Capability to a Subscription",
-	RunE:  runCreateSubscriptionCapability,
+// CmdCreateOrganizationCapability represents the create organization capability command
+var CmdCreateOrganizationCapability = &cobra.Command{
+	Use:   "organizationCapability [organizationID] [capability]",
+	Short: "Assigns a Capability to an Organization",
+	Long:  "Assigns a Capability to an Organization",
+	RunE:  runCreateOrganizationCapability,
 	Args:  cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
-		subscriptionID := args[0]
+		organizationID := args[0]
 		connection, err := ocm.NewConnection().Build()
 		if err != nil {
 			return fmt.Errorf("failed to create OCM connection: %v", err)
 		}
-		// validates the subscription
-		err = subscription.ValidateSubscription(subscriptionID, connection)
+		// validates the organization
+		err = organization.ValidateOrganization(organizationID, connection)
 		if err != nil {
 			return fmt.Errorf("%v", err)
 		}
 		//validates the capability
 		capabilityKey := args[1]
-		err = capability.ValidateCapability(capabilityKey, "cluster")
+		err = capability.ValidateCapability(capabilityKey, "organization")
 		if err != nil {
 			return fmt.Errorf("%v", err)
 		}
@@ -41,19 +41,19 @@ var CmdCreateSubscriptionCapability = &cobra.Command{
 	},
 }
 
-func runCreateSubscriptionCapability(cmd *cobra.Command, argv []string) error {
-	subscriptionID := argv[0]
+func runCreateOrganizationCapability(cmd *cobra.Command, argv []string) error {
+	organizationID := argv[0]
 	// TODO : avoid creating multiple connection pools
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
 	key := argv[1]
-	capabilityKey, err := capability.GetCapability(key, "cluster")
+	capabilityKey, err := capability.GetCapability(key, "organization")
 	if err != nil {
 		return fmt.Errorf("failed to get capability: %v", err)
 	}
-	createdCapability, err := subscription.AddLabel(subscriptionID, capabilityKey, "true", true, connection)
+	createdCapability, err := organization.AddLabel(organizationID, capabilityKey, "true", true, connection)
 	if err != nil {
 		return fmt.Errorf("failed to create capability: %v", err)
 	}

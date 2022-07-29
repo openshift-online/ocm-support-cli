@@ -3,7 +3,7 @@ package get
 import (
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/get/accounts"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/get/organizations"
-	registrycredentials "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/get/registrycredentials"
+	registrycredentials "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/get/registry_credentials"
 	"github.com/spf13/cobra"
 )
 

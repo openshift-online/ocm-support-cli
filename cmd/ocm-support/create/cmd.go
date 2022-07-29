@@ -3,13 +3,13 @@ package create
 import (
 	"github.com/spf13/cobra"
 
-	accountcapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/accountcapability"
-	accountlabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/accountlabel"
-	organizationcapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/organizationcapability"
-	organizationlabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/organizationlabel"
-	registrycredentials "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/registrycredentials"
-	subscriptioncapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/subscriptioncapability"
-	subscriptionlabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/subscriptionlabel"
+	accountcapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/capabilities/account_capability"
+	organizationcapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/capabilities/organization_capability"
+	subscriptioncapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/capabilities/subscription_capability"
+	accountlabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/labels/account_label"
+	organizationlabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/labels/organization_label"
+	subscriptionlabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/labels/subscription_label"
+	registrycredentials "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/registry_credentials"
 )
 
 // Cmd ...

@@ -3,7 +3,7 @@ package delete
 import (
 	"github.com/spf13/cobra"
 
-	registrycredentials "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/registrycredentials"
+	registrycredentials "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/registry_credentials"
 )
 
 // Cmd ...

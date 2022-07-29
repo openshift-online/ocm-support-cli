@@ -1,4 +1,4 @@
-package organizationlabel
+package subscription
 
 import (
 	"fmt"
@@ -9,28 +9,28 @@ import (
 
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/label"
-	"github.com/openshift-online/ocm-support-cli/pkg/organization"
+	"github.com/openshift-online/ocm-support-cli/pkg/subscription"
 )
 
 var args struct {
 	external bool
 }
 
-// CmdCreateOrganizationLabel represents the create organization label command
-var CmdCreateOrganizationLabel = &cobra.Command{
-	Use:   "organizationLabel [organizationID] [key] [value]",
-	Short: "Assigns a Label to an organization",
-	Long:  "Assigns a Label to an organization",
-	RunE:  runCreateOrganizationLabel,
+// CmdSetsubscriptionLabel represents the create subscription label command
+var CmdCreateSubscriptionLabel = &cobra.Command{
+	Use:   "subscriptionLabel [subscriptionID] [key] [value]",
+	Short: "Assigns a Label to a subscription",
+	Long:  "Assigns a Label to a subscription",
+	RunE:  runCreateSubscriptionLabel,
 	Args:  cobra.ExactArgs(3),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
-		organizationID := args[0]
+		subscriptionID := args[0]
 		connection, err := ocm.NewConnection().Build()
 		if err != nil {
 			return fmt.Errorf("failed to create OCM connection: %v", err)
 		}
-		// validates the organization
-		err = organization.ValidateOrganization(organizationID, connection)
+		// validates the subscription
+		err = subscription.ValidateSubscription(subscriptionID, connection)
 		if err != nil {
 			return fmt.Errorf("%v", err)
 		}
@@ -39,7 +39,7 @@ var CmdCreateOrganizationLabel = &cobra.Command{
 }
 
 func init() {
-	flags := CmdCreateOrganizationLabel.Flags()
+	flags := CmdCreateSubscriptionLabel.Flags()
 	flags.BoolVar(
 		&args.external,
 		"external",
@@ -48,8 +48,8 @@ func init() {
 	)
 }
 
-func runCreateOrganizationLabel(cmd *cobra.Command, argv []string) error {
-	organizationID := argv[0]
+func runCreateSubscriptionLabel(cmd *cobra.Command, argv []string) error {
+	subscriptionID := argv[0]
 	// TODO : avoid creating multiple connection pools
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
@@ -57,7 +57,7 @@ func runCreateOrganizationLabel(cmd *cobra.Command, argv []string) error {
 	}
 	key := argv[1]
 	value := argv[2]
-	createdLabel, err := organization.AddLabel(organizationID, key, value, !args.external, connection)
+	createdLabel, err := subscription.AddLabel(subscriptionID, key, value, !args.external, connection)
 	if err != nil {
 		return fmt.Errorf("failed to create label: %v", err)
 	}

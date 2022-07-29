@@ -1,4 +1,4 @@
-package accountlabel
+package organization
 
 import (
 	"fmt"
@@ -8,29 +8,29 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
-	"github.com/openshift-online/ocm-support-cli/pkg/account"
 	"github.com/openshift-online/ocm-support-cli/pkg/label"
+	"github.com/openshift-online/ocm-support-cli/pkg/organization"
 )
 
 var args struct {
 	external bool
 }
 
-// CmdCreateAccountLabel represents the create account label command
-var CmdCreateAccountLabel = &cobra.Command{
-	Use:   "accountLabel [accountID] [key] [value]",
-	Short: "Assigns a Label to an Account",
-	Long:  "Assigns a Label to an Account",
-	RunE:  runCreateAccountLabel,
+// CmdCreateOrganizationLabel represents the create organization label command
+var CmdCreateOrganizationLabel = &cobra.Command{
+	Use:   "organizationLabel [organizationID] [key] [value]",
+	Short: "Assigns a Label to an organization",
+	Long:  "Assigns a Label to an organization",
+	RunE:  runCreateOrganizationLabel,
 	Args:  cobra.ExactArgs(3),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
-		accountID := args[0]
+		organizationID := args[0]
 		connection, err := ocm.NewConnection().Build()
 		if err != nil {
 			return fmt.Errorf("failed to create OCM connection: %v", err)
 		}
-		// validates the account
-		err = account.ValidateAccount(accountID, connection)
+		// validates the organization
+		err = organization.ValidateOrganization(organizationID, connection)
 		if err != nil {
 			return fmt.Errorf("%v", err)
 		}
@@ -39,7 +39,7 @@ var CmdCreateAccountLabel = &cobra.Command{
 }
 
 func init() {
-	flags := CmdCreateAccountLabel.Flags()
+	flags := CmdCreateOrganizationLabel.Flags()
 	flags.BoolVar(
 		&args.external,
 		"external",
@@ -48,8 +48,8 @@ func init() {
 	)
 }
 
-func runCreateAccountLabel(cmd *cobra.Command, argv []string) error {
-	accountID := argv[0]
+func runCreateOrganizationLabel(cmd *cobra.Command, argv []string) error {
+	organizationID := argv[0]
 	// TODO : avoid creating multiple connection pools
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
@@ -57,7 +57,7 @@ func runCreateAccountLabel(cmd *cobra.Command, argv []string) error {
 	}
 	key := argv[1]
 	value := argv[2]
-	createdLabel, err := account.AddLabel(accountID, key, value, !args.external, connection)
+	createdLabel, err := organization.AddLabel(organizationID, key, value, !args.external, connection)
 	if err != nil {
 		return fmt.Errorf("failed to create label: %v", err)
 	}
