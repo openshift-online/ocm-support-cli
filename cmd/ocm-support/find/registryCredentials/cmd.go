@@ -1,4 +1,4 @@
-package show
+package registry_credentials
 
 import (
 	"fmt"
@@ -12,11 +12,11 @@ import (
 	"github.com/openshift-online/ocm-support-cli/pkg/registry_credential"
 )
 
-// Cmd ...
-var Cmd = &cobra.Command{
-	Use:   "show accountID",
-	Short: "Shows registry credentials information about the given accountID.",
-	Long:  "Shows registry credentials information about the given accountID.",
+// CmdFindRegistryCredentials ...
+var CmdFindRegistryCredentials = &cobra.Command{
+	Use:   "registryCredentials accountID",
+	Short: "Finds registry credentials information about the given accountID.",
+	Long:  "Finds registry credentials information about the given accountID.",
 	RunE:  run,
 	Args:  cobra.ExactArgs(1),
 }

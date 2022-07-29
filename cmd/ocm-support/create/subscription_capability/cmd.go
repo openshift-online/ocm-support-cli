@@ -1,4 +1,4 @@
-package subscription
+package subscription_capability
 
 import (
 	"fmt"

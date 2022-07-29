@@ -1,4 +1,4 @@
-package find
+package organizations
 
 import (
 	"fmt"
@@ -21,9 +21,9 @@ var args struct {
 	fetchCapabilities  bool
 }
 
-// Cmd represents the organization find command
-var Cmd = &cobra.Command{
-	Use:   "find [id|external_id|ebs_account_id]",
+// CmdFindOrganizations represents the organization find command
+var CmdFindOrganizations = &cobra.Command{
+	Use:   "organizations [id|external_id|ebs_account_id]",
 	Short: "Finds an organization or a list of organizations that matches the search criteria",
 	Long:  "Finds an organization or a list of organizations that matches the search criteria",
 	RunE:  run,
@@ -31,7 +31,7 @@ var Cmd = &cobra.Command{
 }
 
 func init() {
-	flags := Cmd.Flags()
+	flags := CmdFindOrganizations.Flags()
 	flags.BoolVar(
 		&args.all,
 		"all",

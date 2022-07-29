@@ -1,4 +1,4 @@
-package find
+package accounts
 
 import (
 	"fmt"
@@ -21,9 +21,9 @@ var args struct {
 	fetchCapabilities        bool
 }
 
-// Cmd represents the account find command
-var Cmd = &cobra.Command{
-	Use:   "find [id|username|email|organization.id|organization.external_id|organization.ebs_account_id]",
+// CmdFindAccounts represents the account find command
+var CmdFindAccounts = &cobra.Command{
+	Use:   "accounts [id|username|email|organization.id|organization.external_id|organization.ebs_account_id]",
 	Short: "Finds an account or a list of accounts that matches the search criteria",
 	Long:  "Finds an account or a list of accounts that matches the search criteria",
 	RunE:  run,
@@ -31,7 +31,7 @@ var Cmd = &cobra.Command{
 }
 
 func init() {
-	flags := Cmd.Flags()
+	flags := CmdFindAccounts.Flags()
 	flags.BoolVar(
 		&args.all,
 		"all",
