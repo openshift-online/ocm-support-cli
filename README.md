@@ -151,6 +151,14 @@ The following flags are available for `accounts get`:
 -h, --help                   help for get
 ```
 
+##### Examples
+
+* Get an account by email `ocm support get accounts user@redhat.com`
+* Get an account and include its roles in the results `ocm support get accounts [accountID] --fetchRoles`
+* Get an account and include its labels in the results `ocm support get accounts [accountID] --fetchLabels`
+* Get an account and include its capabilities in the results `ocm support get accounts [accountID] --fetchCapabilities`
+* Get all accounts from an organization `ocm support get accounts [organizationID] --all`
+
 #### Getting an organization
 
 Use the `organizations` subcommand to get one or more organizations, passing as argument one of the following:
@@ -170,20 +178,18 @@ The following flags are available for `organizations get`:
 -h, --help             help for get
 ```
 
-#### Getting registry credentials
+##### Examples
 
-Use the `registryCredentials` subcommand to to get registry credentials, passing accountID.
-
-#### Examples
-
-* Get an account by email `ocm support get accounts user@redhat.com`
-* Get an account and include its roles in the results `ocm support get accounts [accountID] --fetchRoles`
-* Get an account and include its labels in the results `ocm support get accounts [accountID] --fetchLabels`
-* Get an account and include its capabilities in the results `ocm support get accounts [accountID] --fetchCapabilities`
-* Get all accounts from an organization `ocm support get accounts [organizationID] --all`
 * Get an organization by its externalID: `ocm support get organizations [organizationExternalID]`
 * Get an organization and include its subscriptions: `ocm support get organizations [organizationID] --fetchSubscriptions`
 * Get an organization and include its labels `ocm support get organizations [organizationID] --fetchLabels --fetchCapabilities`
 * Get an organization and include its capabilities `ocm support get organizations [organizationID] --fetchCapabilities`
 * Get an organization and include its quota: `ocm support get organizations [organizationID] --fetchQuota`
+
+#### Getting registry credentials
+
+Use the `registryCredentials` subcommand to to get registry credentials, passing accountID.
+
+##### Examples
+
 * Show registry credentials for a specific account `ocm support get registryCredentials [accountID]`
