@@ -3,24 +3,29 @@ package create
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/account"
-	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/organization"
-	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/subscription"
+	accountcapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/capabilities/account_capability"
+	organizationcapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/capabilities/organization_capability"
+	subscriptioncapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/capabilities/subscription_capability"
+	accountlabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/labels/account_label"
+	organizationlabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/labels/organization_label"
+	subscriptionlabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/labels/subscription_label"
+	registrycredentials "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/registry_credentials"
 )
 
 // Cmd ...
 var Cmd = &cobra.Command{
 	Use:   "create [COMMAND]",
-	Short: "Assigns Labels, Capabilities to Accounts, Subscriptions, Organizations",
-	Long:  "Assigns Labels, Capabilities to Accounts, Subscriptions, Organizations",
+	Short: "Creates the given resource",
+	Long:  "Creates the given resource",
 	Args:  cobra.MinimumNArgs(1),
 }
 
 func init() {
-	Cmd.AddCommand(account.CmdCreateAccountLabel)
-	Cmd.AddCommand(organization.CmdCreateOrganizationLabel)
-	Cmd.AddCommand(subscription.CmdCreateSubscriptionLabel)
-	Cmd.AddCommand(account.CmdCreateAccountCapability)
-	Cmd.AddCommand(organization.CmdCreateOrganizationCapability)
-	Cmd.AddCommand(subscription.CmdCreateSubscriptionCapability)
+	Cmd.AddCommand(accountlabel.CmdCreateAccountLabel)
+	Cmd.AddCommand(organizationlabel.CmdCreateOrganizationLabel)
+	Cmd.AddCommand(subscriptionlabel.CmdCreateSubscriptionLabel)
+	Cmd.AddCommand(accountcapability.CmdCreateAccountCapability)
+	Cmd.AddCommand(organizationcapability.CmdCreateOrganizationCapability)
+	Cmd.AddCommand(subscriptioncapability.CmdCreateSubscriptionCapability)
+	Cmd.AddCommand(registrycredentials.CmdCreateRegistryCredentials)
 }

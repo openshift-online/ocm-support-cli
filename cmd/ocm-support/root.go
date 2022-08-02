@@ -24,10 +24,9 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/accounts"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create"
-	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/organizations"
-	registrycredentials "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/registryCredentials"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/get"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/version"
 )
 
@@ -82,10 +81,9 @@ func init() {
 
 	// Register sub-commands
 	rootCmd.AddCommand(version.Cmd)
-	rootCmd.AddCommand(accounts.Cmd)
-	rootCmd.AddCommand(organizations.Cmd)
-	rootCmd.AddCommand(registrycredentials.Cmd)
 	rootCmd.AddCommand(create.Cmd)
+	rootCmd.AddCommand(get.Cmd)
+	rootCmd.AddCommand(delete.Cmd)
 
 	// Set the log level before each command runs.
 	cobra.OnInitialize(initLogLevel)

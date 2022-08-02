@@ -1,4 +1,4 @@
-package delete
+package registrycredentials
 
 import (
 	"fmt"
@@ -15,17 +15,18 @@ var args struct {
 	all bool
 }
 
-// Cmd ...
-var Cmd = &cobra.Command{
-	Use:   "delete accountID registryCredentialID",
-	Short: "Deletes registry credentials of the given ID.",
-	Long:  "Deletes registry credentials of the given ID.",
-	RunE:  run,
-	Args:  cobra.MinimumNArgs(1),
+// CmdDeleteRegistryCredentials ...
+var CmdDeleteRegistryCredentials = &cobra.Command{
+	Use:     "registryCredentials accountID registryCredentialID",
+	Aliases: []string{"rcs"},
+	Short:   "Deletes registry credentials of the given ID.",
+	Long:    "Deletes registry credentials of the given ID.",
+	RunE:    run,
+	Args:    cobra.MinimumNArgs(1),
 }
 
 func init() {
-	flags := Cmd.Flags()
+	flags := CmdDeleteRegistryCredentials.Flags()
 	flags.BoolVar(
 		&args.all,
 		"all",

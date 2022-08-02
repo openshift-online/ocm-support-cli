@@ -1,4 +1,4 @@
-package create
+package registrycredentials
 
 import (
 	"fmt"
@@ -9,12 +9,13 @@ import (
 	"github.com/openshift-online/ocm-support-cli/pkg/access_token"
 )
 
-// Cmd represents the version command
-var Cmd = &cobra.Command{
-	Use:   "create",
-	Short: "Creates registry credentials for the current account.",
-	Long:  "Created registry credentials for the current account.",
-	RunE:  run,
+// CmdCreateRegistryCredentials creates registry credentials
+var CmdCreateRegistryCredentials = &cobra.Command{
+	Use:     "registryCredentials",
+	Aliases: []string{"rcs"},
+	Short:   "Creates registry credentials for the current account.",
+	Long:    "Creates registry credentials for the current account.",
+	RunE:    run,
 }
 
 func run(cmd *cobra.Command, argv []string) error {
