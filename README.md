@@ -36,7 +36,9 @@ To see all available commands, run `ocm support -h`.
 
 The `create` command creates the given resource.
 
-#### Creating account labels
+#### Creating labels
+
+##### Creating account labels
 
 Use the `accountLabel` subcommand to assign a label to an account, passing a key and a value. 
 
@@ -47,7 +49,7 @@ The following flags are available for `create accountLabel`:
 -h, --help                   help for create
 ```
 
-#### Creating organization labels
+##### Creating organization labels
 
 Use the `organizationLabel` subcommand to assign a label to an organization, passing a key and a value. 
 
@@ -58,7 +60,7 @@ The following flags are available for `create organizationLabel`:
 -h, --help                   help for create
 ```
 
-#### Creating subscription labels
+##### Creating subscription labels
 
 Use the `subscriptionLabel` subcommand to assign a label to a subscription, passing a key and a value. 
 
@@ -69,31 +71,38 @@ The following flags are available for `create subscriptionLabel`:
 -h, --help                   help for create
 ```
 
-#### Creating account capabilities
+##### Examples
+
+* Create a label to an account `ocm support create accountLabel [accountID] [key] [value]`
+* Create a label to an organization `ocm support create organizationLabel [orgID] [key] [value]`
+* Create a label to a subscription (with internal flag as false) `ocm support create subscriptionLabel [subscriptionID] [key] [value] --external`
+
+#### Creating capabilities
+
+##### Creating account capabilities
 
 Use the `accountCapability` subcommand to assign a capability to an account, passing a valid capability key. 
 
-#### Creating organization capabilities
+##### Creating organization capabilities
 
 Use the `organizationCapability` subcommand to assign a capability to an organization, passing a valid capability key. 
 
-#### Creating subscription capabilities
+##### Creating subscription capabilities
 
 Use the `subscriptionCapability` subcommand to assign a capability to a subscription, passing a valid capability key. 
+
+##### Examples
+
+* Create a capability to an account `ocm support create accountCapability [accountID] [capabilityKey]`
+* Create a capability to an organization `ocm support create organizationCapability [orgID] [capabilityKey]`
+* Create a capability to a subscription `ocm support create subscriptionCapability [subscriptionID] [capabilityKey]`
 
 #### Creating registry credentials
 
 Use the `registryCredentials` subcommand to create registry credentials for current account. 
 
-#### Examples
+##### Examples
 
-* Create a label to an account `ocm support create accountLabel [accountID] [key] [value]`
-* Create a label to an organization `ocm support create organizationLabel [orgID] [key] [value]`
-* Create a label to a subscription (with internal flag as false) `ocm support create subscriptionLabel [subscriptionID] [key] [value] --external`
-* Create a capability to an account `ocm support create accountCapability [accountID] [capabilityKey]`
-* Create a capability to an organization `ocm support create organizationCapability [orgID] [capabilityKey]`
-* Create a capability to a subscription `ocm support create subscriptionCapability [subscriptionID] [capabilityKey]`
-* Create a capability to a subscription `ocm support create subscriptionCapability [subscriptionID] [capabilityKey]`
 * Create registryCredentials `ocm support create registryCredentials`
 
 ### Delete
