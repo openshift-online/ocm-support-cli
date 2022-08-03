@@ -19,6 +19,7 @@ var CmdDeleteOrganizationCapability = &cobra.Command{
 	Args:  cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		orgID := args[0]
+		capabilityKey := args[1]
 		connection, err := ocm.NewConnection().Build()
 		if err != nil {
 			return fmt.Errorf("failed to create OCM connection: %v", err)
@@ -29,7 +30,6 @@ var CmdDeleteOrganizationCapability = &cobra.Command{
 			return fmt.Errorf("%v", err)
 		}
 		//validates the capability
-		capabilityKey := args[1]
 		err = capability.ValidateCapability(capabilityKey, "organization")
 		if err != nil {
 			return fmt.Errorf("%v", err)
