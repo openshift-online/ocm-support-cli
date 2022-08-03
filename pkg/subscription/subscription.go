@@ -1,6 +1,7 @@
 package subscription
 
 import (
+	"context"
 	"fmt"
 
 	sdk "github.com/openshift-online/ocm-sdk-go"
@@ -52,6 +53,18 @@ func AddLabel(subscriptionID string, key string, value string, isInternal bool, 
 		return nil, fmt.Errorf("can't add new label: %w", err)
 	}
 	return lblResponse.Body(), err
+}
+
+func DeleteLabel(subscriptionID string, key string, conn *sdk.Connection) error {
+	ctx := context.Background()
+	labels := conn.AccountsMgmt().V1().Subscriptions().Subscription(subscriptionID).Labels()
+
+	resource := labels.Label(key)
+	_, err := resource.Delete().SendContext(ctx)
+	if err != nil {
+		return fmt.Errorf("can't delete label: %w", err)
+	}
+	return nil
 }
 
 func PresentSubscriptions(subscriptions []*v1.Subscription) []Subscription {

@@ -109,6 +109,46 @@ Use the `registryCredentials` subcommand to create registry credentials for curr
 
 The `delete` command deletes the given resource.
 
+#### Deleting labels
+
+##### Deleting account labels
+
+Use the `accountLabel` subcommand to delete a label from an account, passing the label key. 
+
+##### Deleting organization labels
+
+Use the `organizationLabel` subcommand to delete a label from an organization, passing the label key. 
+
+##### Deleting subscription labels
+
+Use the `subscriptionLabel` subcommand to delete a label from a subscription, passing the label key. 
+
+##### Examples
+
+* Delete a label from an account `ocm support delete accountLabel [accountID] [key]`
+* Delete a label from an organization `ocm support delete organizationLabel [orgID] [key]`
+* Delete a label from a subscription `ocm support delete subscriptionLabel [subscriptionID] [key]`
+
+#### Deleting capabilities
+
+##### Deleting account capabilities
+
+Use the `accountCapability` subcommand to delete a capability from an account, passing the valid capability key. 
+
+##### Deleting organization capabilities
+
+Use the `organizationCapability` subcommand to delete a capability from an organization, passing the valid capability key. 
+
+##### Deleting subscription capabilities
+
+Use the `subscriptionCapability` subcommand to delete a capability from a subscription, passing a valid capability key. 
+
+##### Examples
+
+* Delete a capability from an account `ocm support delete accountCapability [accountID] [capabilityKey]`
+* Delete a capability from an organization `ocm support delete organizationCapability [orgID] [capabilityKey]`
+* Delete a capability from a subscription `ocm support delete subscriptionCapability [subscriptionID] [capabilityKey]`
+
 #### Deleting registry credentials
 
 Use the `registryCredentials` subcommand to to delete a specific registry credential, or all registry credentials, for the passed accountID.

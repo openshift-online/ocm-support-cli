@@ -1,6 +1,7 @@
 package account
 
 import (
+	"context"
 	"fmt"
 
 	sdk "github.com/openshift-online/ocm-sdk-go"
@@ -65,6 +66,18 @@ func AddLabel(accountID string, key string, value string, isInternal bool, conn 
 		return nil, fmt.Errorf("can't add new label: %w", err)
 	}
 	return lblResponse.Body(), err
+}
+
+func DeleteLabel(accountID string, key string, conn *sdk.Connection) error {
+	ctx := context.Background()
+	labels := conn.AccountsMgmt().V1().Accounts().Account(accountID).Labels()
+
+	resource := labels.Label(key)
+	_, err := resource.Delete().SendContext(ctx)
+	if err != nil {
+		return fmt.Errorf("can't delete label: %w", err)
+	}
+	return nil
 }
 
 func PresentAccount(account *v1.Account, roles []*v1.RoleBinding, registryCredentials []*v1.RegistryCredential) Account {
