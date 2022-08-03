@@ -12,8 +12,8 @@ import (
 // CmdDeleteSubscriptionLabel represents the create account label command
 var CmdDeleteSubscriptionLabel = &cobra.Command{
 	Use:   "subscriptionLabel [subscriptionID] [key]",
-	Short: "Removes a Label to a Subscription",
-	Long:  "Removes a Label to a Subscription",
+	Short: "Removes a Label from a Subscription",
+	Long:  "Removes a Label from a Subscription",
 	RunE:  runDeleteSubscriptionLabel,
 	Args:  cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -43,6 +43,6 @@ func runDeleteSubscriptionLabel(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to delete label: %v", err)
 	}
-	fmt.Printf("label '%s' successfully from subscription %s\n", key, subscriptionID)
+	fmt.Printf("label '%s' successfully removed from subscription %s\n", key, subscriptionID)
 	return nil
 }

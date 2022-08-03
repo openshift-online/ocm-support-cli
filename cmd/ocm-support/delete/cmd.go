@@ -15,8 +15,8 @@ import (
 // Cmd ...
 var Cmd = &cobra.Command{
 	Use:   "delete [COMMAND]",
-	Short: "Removes Labels, Capabilities to Accounts, Subscriptions, Organizations",
-	Long:  "Removes Labels, Capabilities to Accounts, Subscriptions, Organizations",
+	Short: "Removes Labels, Capabilities from Accounts, Subscriptions, Organizations",
+	Long:  "Removes Labels, Capabilities from Accounts, Subscriptions, Organizations",
 	Args:  cobra.MinimumNArgs(1),
 }
 

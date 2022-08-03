@@ -13,8 +13,8 @@ import (
 // CmdDeleteAccountCapability represents the delete account capability command
 var CmdDeleteAccountCapability = &cobra.Command{
 	Use:   "accountCapability [accountID] [capability]",
-	Short: "Removes a Capability to an Account",
-	Long:  "Removes a Capability to an Account",
+	Short: "Removes a Capability from an Account",
+	Long:  "Removes a Capability from an Account",
 	RunE:  runDeleteAccountCapability,
 	Args:  cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -54,6 +54,6 @@ func runDeleteAccountCapability(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to delete capability: %v", err)
 	}
-	fmt.Printf("capability '%s' successfully from account %s\n", key, accountID)
+	fmt.Printf("capability '%s' successfully removed from account %s\n", key, accountID)
 	return nil
 }

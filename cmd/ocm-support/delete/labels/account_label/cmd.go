@@ -12,8 +12,8 @@ import (
 // CmdDeleteAccountLabel represents the delete account label command
 var CmdDeleteAccountLabel = &cobra.Command{
 	Use:   "accountLabel [accountID] [key]",
-	Short: "Removes a Label to an Account",
-	Long:  "Removes a Label to an Account",
+	Short: "Removes a Label from an Account",
+	Long:  "Removes a Label from an Account",
 	RunE:  runDeleteAccountLabel,
 	Args:  cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -43,6 +43,6 @@ func runDeleteAccountLabel(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to delete label: %v", err)
 	}
-	fmt.Printf("label '%s' successfully from account %s\n", key, accountID)
+	fmt.Printf("label '%s' successfully removed from account %s\n", key, accountID)
 	return nil
 }

@@ -13,8 +13,8 @@ import (
 // CmdDeleteOrganizationCapability represents the delete organization capability command
 var CmdDeleteOrganizationCapability = &cobra.Command{
 	Use:   "organizationCapability [orgID] [capability]",
-	Short: "Removes a Capability to an organization",
-	Long:  "Removes a Capability to an organization",
+	Short: "Removes a Capability from an organization",
+	Long:  "Removes a Capability from an organization",
 	RunE:  runDeleteOrganizationCapability,
 	Args:  cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -54,6 +54,6 @@ func runDeleteOrganizationCapability(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to delete capability: %v", err)
 	}
-	fmt.Printf("capability '%s' successfully from organization %s\n", key, orgID)
+	fmt.Printf("capability '%s' successfully removed from organization %s\n", key, orgID)
 	return nil
 }
