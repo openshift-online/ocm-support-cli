@@ -50,13 +50,13 @@ func init() {
 
 func runCreateOrganizationLabel(cmd *cobra.Command, argv []string) error {
 	organizationID := argv[0]
-	// TODO : avoid creating multiple connection pools
+	key := argv[1]
+	value := argv[2]
+	// TODO : avoid creating multiple connections by using a connection pool
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
-	key := argv[1]
-	value := argv[2]
 	createdLabel, err := organization.AddLabel(organizationID, key, value, !args.external, connection)
 	if err != nil {
 		return fmt.Errorf("failed to create label: %v", err)

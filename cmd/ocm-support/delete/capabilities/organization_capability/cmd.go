@@ -4,35 +4,32 @@ import (
 	"fmt"
 
 	"github.com/openshift-online/ocm-cli/pkg/ocm"
-	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 	"github.com/spf13/cobra"
 
-	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/capability"
-	"github.com/openshift-online/ocm-support-cli/pkg/label"
 	"github.com/openshift-online/ocm-support-cli/pkg/organization"
 )
 
-// CmdCreateOrganizationCapability represents the create organization capability command
-var CmdCreateOrganizationCapability = &cobra.Command{
-	Use:   "organizationCapability [organizationID] [capability]",
-	Short: "Assigns a Capability to an Organization",
-	Long:  "Assigns a Capability to an Organization",
-	RunE:  runCreateOrganizationCapability,
+// CmdDeleteOrganizationCapability represents the delete organization capability command
+var CmdDeleteOrganizationCapability = &cobra.Command{
+	Use:   "organizationCapability [orgID] [capability]",
+	Short: "Removes a Capability from an organization",
+	Long:  "Removes a Capability from an organization",
+	RunE:  runDeleteOrganizationCapability,
 	Args:  cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
-		organizationID := args[0]
+		orgID := args[0]
+		capabilityKey := args[1]
 		connection, err := ocm.NewConnection().Build()
 		if err != nil {
 			return fmt.Errorf("failed to create OCM connection: %v", err)
 		}
 		// validates the organization
-		err = organization.ValidateOrganization(organizationID, connection)
+		err = organization.ValidateOrganization(orgID, connection)
 		if err != nil {
 			return fmt.Errorf("%v", err)
 		}
 		//validates the capability
-		capabilityKey := args[1]
 		err = capability.ValidateCapability(capabilityKey, "organization")
 		if err != nil {
 			return fmt.Errorf("%v", err)
@@ -41,8 +38,8 @@ var CmdCreateOrganizationCapability = &cobra.Command{
 	},
 }
 
-func runCreateOrganizationCapability(cmd *cobra.Command, argv []string) error {
-	organizationID := argv[0]
+func runDeleteOrganizationCapability(cmd *cobra.Command, argv []string) error {
+	orgID := argv[0]
 	key := argv[1]
 	// TODO : avoid creating multiple connections by using a connection pool
 	connection, err := ocm.NewConnection().Build()
@@ -53,10 +50,10 @@ func runCreateOrganizationCapability(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to get capability: %v", err)
 	}
-	createdCapability, err := organization.AddLabel(organizationID, capabilityKey, "true", true, connection)
+	err = organization.DeleteLabel(orgID, capabilityKey, connection)
 	if err != nil {
-		return fmt.Errorf("failed to create capability: %v", err)
+		return fmt.Errorf("failed to delete capability: %v", err)
 	}
-	utils.PrettyPrint(label.PresentLabels([]*v1.Label{createdCapability}))
+	fmt.Printf("capability '%s' successfully removed from organization %s\n", key, orgID)
 	return nil
 }

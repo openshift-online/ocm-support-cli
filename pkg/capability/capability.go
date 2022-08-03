@@ -64,6 +64,7 @@ var availableCapabilities map[string]string = map[string]string{
 	"OrganizationOverrideOsdTrialLength": CapabilityOrganizationOverrideOsdTrialLength,
 	"OrganizationCreateClusterProxy":     CapabilityOrganizationCreateClusterProxy,
 	"AllowGCPNonCCSPrivateClusters":      CapabilityAllowGCPNonCCSPrivateClusters,
+	"AllowInstallEOLVersions":            CapabilityAllowInstallEOLVersions,
 	"AddOnVersionSelect":                 CapabilityAddOnVersionSelect,
 	"OrganizationFipsCluster":            CapabilityOrganizationFipsCluster,
 	"OrganizationOvnCluster":             CapabilityOrganizationOvnCluster,
@@ -75,12 +76,12 @@ var availableCapabilities map[string]string = map[string]string{
 func PresentCapabilities(capabilities []*v1.Capability) CapabilityList {
 	var capabilitiesList []Capability
 	for _, capability := range capabilities {
-		cap := Capability{
+		formattedCapability := Capability{
 			Name:      capability.Name(),
 			Value:     capability.Value(),
 			Inherited: capability.Inherited(),
 		}
-		capabilitiesList = append(capabilitiesList, cap)
+		capabilitiesList = append(capabilitiesList, formattedCapability)
 	}
 	return capabilitiesList
 }

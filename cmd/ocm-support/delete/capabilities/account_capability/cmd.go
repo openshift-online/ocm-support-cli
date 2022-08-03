@@ -4,24 +4,22 @@ import (
 	"fmt"
 
 	"github.com/openshift-online/ocm-cli/pkg/ocm"
-	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 	"github.com/spf13/cobra"
 
-	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/account"
 	"github.com/openshift-online/ocm-support-cli/pkg/capability"
-	"github.com/openshift-online/ocm-support-cli/pkg/label"
 )
 
-// CmdCreateAccountCapability represents the create account capability command
-var CmdCreateAccountCapability = &cobra.Command{
+// CmdDeleteAccountCapability represents the delete account capability command
+var CmdDeleteAccountCapability = &cobra.Command{
 	Use:   "accountCapability [accountID] [capability]",
-	Short: "Assigns a Capability to an Account",
-	Long:  "Assigns a Capability to an Account",
-	RunE:  runCreateAccountCapability,
+	Short: "Removes a Capability from an Account",
+	Long:  "Removes a Capability from an Account",
+	RunE:  runDeleteAccountCapability,
 	Args:  cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		accountID := args[0]
+		capabilityKey := args[1]
 		connection, err := ocm.NewConnection().Build()
 		if err != nil {
 			return fmt.Errorf("failed to create OCM connection: %v", err)
@@ -32,7 +30,6 @@ var CmdCreateAccountCapability = &cobra.Command{
 			return fmt.Errorf("%v", err)
 		}
 		//validates the capability
-		capabilityKey := args[1]
 		err = capability.ValidateCapability(capabilityKey, "account")
 		if err != nil {
 			return fmt.Errorf("%v", err)
@@ -41,7 +38,7 @@ var CmdCreateAccountCapability = &cobra.Command{
 	},
 }
 
-func runCreateAccountCapability(cmd *cobra.Command, argv []string) error {
+func runDeleteAccountCapability(cmd *cobra.Command, argv []string) error {
 	accountID := argv[0]
 	key := argv[1]
 	// TODO : avoid creating multiple connections by using a connection pool
@@ -53,10 +50,10 @@ func runCreateAccountCapability(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to get capability: %v", err)
 	}
-	createdCapability, err := account.AddLabel(accountID, capabilityKey, "true", true, connection)
+	err = account.DeleteLabel(accountID, capabilityKey, connection)
 	if err != nil {
-		return fmt.Errorf("failed to create capability: %v", err)
+		return fmt.Errorf("failed to delete capability: %v", err)
 	}
-	utils.PrettyPrint(label.PresentLabels([]*v1.Label{createdCapability}))
+	fmt.Printf("capability '%s' successfully removed from account %s\n", key, accountID)
 	return nil
 }

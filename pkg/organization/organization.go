@@ -1,6 +1,7 @@
 package organization
 
 import (
+	"context"
 	"fmt"
 
 	sdk "github.com/openshift-online/ocm-sdk-go"
@@ -54,6 +55,18 @@ func AddLabel(orgID string, key string, value string, isInternal bool, conn *sdk
 		return nil, fmt.Errorf("can't add new label: %w", err)
 	}
 	return lblResponse.Body(), err
+}
+
+func DeleteLabel(orgID string, key string, conn *sdk.Connection) error {
+	ctx := context.Background()
+	labels := conn.AccountsMgmt().V1().Organizations().Organization(orgID).Labels()
+
+	existingLabel := labels.Label(key)
+	_, err := existingLabel.Delete().SendContext(ctx)
+	if err != nil {
+		return fmt.Errorf("can't delete label: %w", err)
+	}
+	return nil
 }
 
 func PresentOrganization(organization *v1.Organization, subscriptions []*v1.Subscription, quotaCostList []*v1.QuotaCost) Organization {
