@@ -33,16 +33,16 @@ var CmdDeleteAccountLabel = &cobra.Command{
 
 func runDeleteAccountLabel(cmd *cobra.Command, argv []string) error {
 	accountID := argv[0]
-	// TODO : avoid creating multiple connection pools
+	key := argv[1]
+	// TODO : avoid creating multiple connections by using a connection pool
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
-	key := argv[1]
 	err = account.DeleteLabel(accountID, key, connection)
 	if err != nil {
 		return fmt.Errorf("failed to delete label: %v", err)
 	}
-	fmt.Printf("label '%s' deleted successfully\n", key)
+	fmt.Printf("label '%s' successfully from account %s\n", key, accountID)
 	return nil
 }

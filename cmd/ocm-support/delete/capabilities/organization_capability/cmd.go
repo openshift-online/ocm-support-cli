@@ -23,7 +23,7 @@ var CmdDeleteOrganizationCapability = &cobra.Command{
 		if err != nil {
 			return fmt.Errorf("failed to create OCM connection: %v", err)
 		}
-		// validates the account
+		// validates the organization
 		err = organization.ValidateOrganization(orgID, connection)
 		if err != nil {
 			return fmt.Errorf("%v", err)
@@ -40,12 +40,12 @@ var CmdDeleteOrganizationCapability = &cobra.Command{
 
 func runDeleteOrganizationCapability(cmd *cobra.Command, argv []string) error {
 	orgID := argv[0]
-	// TODO : avoid creating multiple connection pools
+	key := argv[1]
+	// TODO : avoid creating multiple connections by using a connection pool
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
-	key := argv[1]
 	capabilityKey, err := capability.GetCapability(key, "organization")
 	if err != nil {
 		return fmt.Errorf("failed to get capability: %v", err)
@@ -54,6 +54,6 @@ func runDeleteOrganizationCapability(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to delete capability: %v", err)
 	}
-	fmt.Printf("capability '%s' deleted successfully\n", key)
+	fmt.Printf("capability '%s' successfully from organization %s\n", key, orgID)
 	return nil
 }

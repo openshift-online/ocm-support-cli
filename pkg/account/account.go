@@ -72,8 +72,8 @@ func DeleteLabel(accountID string, key string, conn *sdk.Connection) error {
 	ctx := context.Background()
 	labels := conn.AccountsMgmt().V1().Accounts().Account(accountID).Labels()
 
-	resource := labels.Label(key)
-	_, err := resource.Delete().SendContext(ctx)
+	existingLabel := labels.Label(key)
+	_, err := existingLabel.Delete().SendContext(ctx)
 	if err != nil {
 		return fmt.Errorf("can't delete label: %w", err)
 	}

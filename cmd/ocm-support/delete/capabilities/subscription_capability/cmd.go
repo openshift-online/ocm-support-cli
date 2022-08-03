@@ -10,7 +10,7 @@ import (
 	"github.com/openshift-online/ocm-support-cli/pkg/subscription"
 )
 
-// CmdDeleteSubscriptionCapability represents the create account capability command
+// CmdDeleteSubscriptionCapability represents the delete subscription capability command
 var CmdDeleteSubscriptionCapability = &cobra.Command{
 	Use:   "subscriptionCapability [subscriptionID] [capability]",
 	Short: "Removes a Capability to a Subscription",
@@ -23,7 +23,7 @@ var CmdDeleteSubscriptionCapability = &cobra.Command{
 		if err != nil {
 			return fmt.Errorf("failed to create OCM connection: %v", err)
 		}
-		// validates the account
+		// validates the subscription
 		err = subscription.ValidateSubscription(subscriptionID, connection)
 		if err != nil {
 			return fmt.Errorf("%v", err)
@@ -40,12 +40,12 @@ var CmdDeleteSubscriptionCapability = &cobra.Command{
 
 func runDeleteSubscriptionCapability(cmd *cobra.Command, argv []string) error {
 	subscriptionID := argv[0]
-	// TODO : avoid creating multiple connection pools
+	key := argv[1]
+	// TODO : avoid creating multiple connections by using a connection pool
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
-	key := argv[1]
 	capabilityKey, err := capability.GetCapability(key, "cluster")
 	if err != nil {
 		return fmt.Errorf("failed to get capability: %v", err)
@@ -54,6 +54,6 @@ func runDeleteSubscriptionCapability(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to delete capability: %v", err)
 	}
-	fmt.Printf("capability '%s' deleted successfully\n", key)
+	fmt.Printf("capability '%s' successfully from account %s\n", key, subscriptionID)
 	return nil
 }

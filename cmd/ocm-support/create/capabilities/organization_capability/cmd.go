@@ -43,12 +43,12 @@ var CmdCreateOrganizationCapability = &cobra.Command{
 
 func runCreateOrganizationCapability(cmd *cobra.Command, argv []string) error {
 	organizationID := argv[0]
-	// TODO : avoid creating multiple connection pools
+	key := argv[1]
+	// TODO : avoid creating multiple connections by using a connection pool
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
-	key := argv[1]
 	capabilityKey, err := capability.GetCapability(key, "organization")
 	if err != nil {
 		return fmt.Errorf("failed to get capability: %v", err)

@@ -13,8 +13,8 @@ import (
 // CmdDeleteAccountCapability represents the delete account capability command
 var CmdDeleteAccountCapability = &cobra.Command{
 	Use:   "accountCapability [accountID] [capability]",
-	Short: "Removed a Capability to an Account",
-	Long:  "Removed a Capability to an Account",
+	Short: "Removes a Capability to an Account",
+	Long:  "Removes a Capability to an Account",
 	RunE:  runDeleteAccountCapability,
 	Args:  cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -40,12 +40,12 @@ var CmdDeleteAccountCapability = &cobra.Command{
 
 func runDeleteAccountCapability(cmd *cobra.Command, argv []string) error {
 	accountID := argv[0]
-	// TODO : avoid creating multiple connection pools
+	key := argv[1]
+	// TODO : avoid creating multiple connections by using a connection pool
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
-	key := argv[1]
 	capabilityKey, err := capability.GetCapability(key, "account")
 	if err != nil {
 		return fmt.Errorf("failed to get capability: %v", err)
@@ -54,6 +54,6 @@ func runDeleteAccountCapability(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to delete capability: %v", err)
 	}
-	fmt.Printf("capability '%s' deleted successfully\n", key)
+	fmt.Printf("capability '%s' successfully from account %s\n", key, accountID)
 	return nil
 }

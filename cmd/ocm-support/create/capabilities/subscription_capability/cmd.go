@@ -43,12 +43,12 @@ var CmdCreateSubscriptionCapability = &cobra.Command{
 
 func runCreateSubscriptionCapability(cmd *cobra.Command, argv []string) error {
 	subscriptionID := argv[0]
-	// TODO : avoid creating multiple connection pools
+	key := argv[1]
+	// TODO : avoid creating multiple connections by using a connection pool
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
-	key := argv[1]
 	capabilityKey, err := capability.GetCapability(key, "cluster")
 	if err != nil {
 		return fmt.Errorf("failed to get capability: %v", err)

@@ -22,7 +22,7 @@ var CmdDeleteOrganizationLabel = &cobra.Command{
 		if err != nil {
 			return fmt.Errorf("failed to create OCM connection: %v", err)
 		}
-		// validates the account
+		// validates the organization
 		err = organization.ValidateOrganization(orgID, connection)
 		if err != nil {
 			return fmt.Errorf("%v", err)
@@ -33,16 +33,16 @@ var CmdDeleteOrganizationLabel = &cobra.Command{
 
 func runDeleteOrganizationLabel(cmd *cobra.Command, argv []string) error {
 	orgID := argv[0]
-	// TODO : avoid creating multiple connection pools
+	key := argv[1]
+	// TODO : avoid creating multiple connections by using a connection pool
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
-	key := argv[1]
 	err = organization.DeleteLabel(orgID, key, connection)
 	if err != nil {
 		return fmt.Errorf("failed to delete label: %v", err)
 	}
-	fmt.Printf("label '%s' deleted successfully\n", key)
+	fmt.Printf("label '%s' successfully from organization %s\n", key, orgID)
 	return nil
 }
