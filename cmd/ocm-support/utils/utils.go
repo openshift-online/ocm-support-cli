@@ -29,7 +29,7 @@ var Aliases = map[string][]string{
 	"organizationLabel": {"ol", "orgLabel"},
 	"subscriptionLabel": {"sl", "subLabel"},
 
-	"applicationRoleBinding":  {"arb", "accRoleBinding"},
+	"applicationRoleBinding":  {"arb", "appRoleBinding"},
 	"organizationRoleBinding": {"orb", "orgRoleBinding"},
 	"subscriptionRoleBinding": {"srb", "subRoleBinding"},
 
