@@ -18,11 +18,12 @@ var args struct {
 
 // CmdCreateOrganizationLabel represents the create organization label command
 var CmdCreateOrganizationLabel = &cobra.Command{
-	Use:   "organizationLabel [organizationID] [key] [value]",
-	Short: "Assigns a Label to an organization",
-	Long:  "Assigns a Label to an organization",
-	RunE:  runCreateOrganizationLabel,
-	Args:  cobra.ExactArgs(3),
+	Use:     "organizationLabel [organizationID] [key] [value]",
+	Aliases: utils.Aliases["organizaitonLabel"],
+	Short:   "Assigns a Label to an organization",
+	Long:    "Assigns a Label to an organization",
+	RunE:    runCreateOrganizationLabel,
+	Args:    cobra.ExactArgs(3),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		organizationID := args[0]
 		connection, err := ocm.NewConnection().Build()

@@ -7,6 +7,7 @@ import (
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 	"github.com/spf13/cobra"
 
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/account"
 	"github.com/openshift-online/ocm-support-cli/pkg/registry_credential"
 )
@@ -18,7 +19,7 @@ var args struct {
 // CmdDeleteRegistryCredentials ...
 var CmdDeleteRegistryCredentials = &cobra.Command{
 	Use:     "registryCredentials accountID registryCredentialID",
-	Aliases: []string{"rcs"},
+	Aliases: utils.Aliases["registryCredentials"],
 	Short:   "Deletes registry credentials of the given ID.",
 	Long:    "Deletes registry credentials of the given ID.",
 	RunE:    run,

@@ -10,6 +10,9 @@ import (
 	organizationLabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/labels/organization_label"
 	subscriptionLabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/labels/subscription_label"
 	registryCredentials "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/registry_credentials"
+	applicationRoleBinding "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/role_bindings/application_role_binding"
+	organizationRoleBinding "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/role_bindings/organization_role_binding"
+	subscriptionRoleBinding "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/role_bindings/subscription_role_binding"
 )
 
 // Cmd ...
@@ -28,4 +31,7 @@ func init() {
 	Cmd.AddCommand(accountLabel.CmdDeleteAccountLabel)
 	Cmd.AddCommand(organizationLabel.CmdDeleteOrganizationLabel)
 	Cmd.AddCommand(subscriptionLabel.CmdDeleteSubscriptionLabel)
+	Cmd.AddCommand(applicationRoleBinding.CmdDeleteApplicationRoleBinding)
+	Cmd.AddCommand(organizationRoleBinding.CmdDeleteOrganizationRoleBinding)
+	Cmd.AddCommand(subscriptionRoleBinding.CmdDeleteSubscriptionRoleBinding)
 }

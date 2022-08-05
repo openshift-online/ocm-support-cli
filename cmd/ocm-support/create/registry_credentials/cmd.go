@@ -6,13 +6,14 @@ import (
 	"github.com/openshift-online/ocm-cli/pkg/ocm"
 	"github.com/spf13/cobra"
 
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/access_token"
 )
 
 // CmdCreateRegistryCredentials creates registry credentials
 var CmdCreateRegistryCredentials = &cobra.Command{
 	Use:     "registryCredentials",
-	Aliases: []string{"rcs"},
+	Aliases: utils.Aliases["registryCredentials"],
 	Short:   "Creates registry credentials for the current account.",
 	Long:    "Creates registry credentials for the current account.",
 	RunE:    run,

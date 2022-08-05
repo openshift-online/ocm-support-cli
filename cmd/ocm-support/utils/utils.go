@@ -19,3 +19,19 @@ func PrettyPrint(data interface{}) {
 		return
 	}
 }
+
+var Aliases = map[string][]string{
+	"accountCapability":      {"ac", "accCapability"},
+	"organizationCapability": {"oc", "orgCapability"},
+	"subscriptionCapability": {"sc", "subCapability"},
+
+	"accountLabel":      {"al", "accLabel"},
+	"organizationLabel": {"ol", "orgLabel"},
+	"subscriptionLabel": {"sl", "subLabel"},
+
+	"applicationRoleBinding":  {"arb", "accRoleBinding"},
+	"organizationRoleBinding": {"orb", "orgRoleBinding"},
+	"subscriptionRoleBinding": {"srb", "subRoleBinding"},
+
+	"registryCredentials": {"rcs"},
+}

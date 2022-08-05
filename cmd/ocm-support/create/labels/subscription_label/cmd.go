@@ -18,11 +18,12 @@ var args struct {
 
 // CmdSetsubscriptionLabel represents the create subscription label command
 var CmdCreateSubscriptionLabel = &cobra.Command{
-	Use:   "subscriptionLabel [subscriptionID] [key] [value]",
-	Short: "Assigns a Label to a subscription",
-	Long:  "Assigns a Label to a subscription",
-	RunE:  runCreateSubscriptionLabel,
-	Args:  cobra.ExactArgs(3),
+	Use:     "subscriptionLabel [subscriptionID] [key] [value]",
+	Aliases: utils.Aliases["subscriptionLabel"],
+	Short:   "Assigns a Label to a subscription",
+	Long:    "Assigns a Label to a subscription",
+	RunE:    runCreateSubscriptionLabel,
+	Args:    cobra.ExactArgs(3),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		subscriptionID := args[0]
 		connection, err := ocm.NewConnection().Build()
