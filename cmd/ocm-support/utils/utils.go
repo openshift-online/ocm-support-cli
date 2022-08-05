@@ -34,4 +34,6 @@ var Aliases = map[string][]string{
 	"subscriptionRoleBinding": {"srb", "subRoleBinding"},
 
 	"registryCredentials": {"rcs"},
+	"organizations":       {"orgs"},
+	"accounts":            {"accs"},
 }

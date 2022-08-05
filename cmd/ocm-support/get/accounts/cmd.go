@@ -23,11 +23,12 @@ var args struct {
 
 // CmdGetAccounts represents the account getF command
 var CmdGetAccounts = &cobra.Command{
-	Use:   "accounts [id|username|email|organization.id|organization.external_id|organization.ebs_account_id]",
-	Short: "Gets an account or a list of accounts that matches the search criteria",
-	Long:  "Gets an account or a list of accounts that matches the search criteria",
-	RunE:  run,
-	Args:  cobra.ExactArgs(1),
+	Use:     "accounts [id|username|email|organization.id|organization.external_id|organization.ebs_account_id]",
+	Aliases: utils.Aliases["accounts"],
+	Short:   "Gets an account or a list of accounts that matches the search criteria",
+	Long:    "Gets an account or a list of accounts that matches the search criteria",
+	RunE:    run,
+	Args:    cobra.ExactArgs(1),
 }
 
 func init() {
