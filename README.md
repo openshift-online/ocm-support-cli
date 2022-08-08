@@ -215,6 +215,7 @@ The following flags are available for `organizations get`:
 --fetchSubscriptions   If true, includes the organization subscriptions.
 --fetchLabels          If true, includes the organization labels.
 --fetchCapabilities    If true, includes the organization capabilities.
+--fetchSkus            If true, returns all the resource quota objects for the organization.
 -h, --help             help for get
 ```
 
@@ -225,6 +226,7 @@ The following flags are available for `organizations get`:
 * Get an organization and include its labels `ocm support get organizations [organizationID] --fetchLabels --fetchCapabilities`
 * Get an organization and include its capabilities `ocm support get organizations [organizationID] --fetchCapabilities`
 * Get an organization and include its quota: `ocm support get organizations [organizationID] --fetchQuota`
+* Get an organization and include its resource quota: `ocm support get organizations [organizationID] --fetchSkus`
 
 #### Getting registry credentials
 
