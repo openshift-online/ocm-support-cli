@@ -127,6 +127,9 @@ func run(cmd *cobra.Command, argv []string) error {
 		var resourceQuotaList []*v1.ResourceQuota
 		if args.fetchSkus {
 			resourceQuotaList, err = resourcequota.GetOrganizationResourceQuota(org.ID(), connection)
+			if err != nil {
+				return fmt.Errorf("failed to fetch skus for organization %s: %s", org.ID(), err)
+			}
 		}
 
 		fo := organization.PresentOrganization(org, subs, quotaList, resourceQuotaList)
