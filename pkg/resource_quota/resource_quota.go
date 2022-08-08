@@ -9,7 +9,6 @@ import (
 )
 
 type ResourceQuota struct {
-	ID        string
 	SKU       string
 	CreatedAt time.Time
 	SkuCount  int
@@ -30,7 +29,6 @@ func PresentResourceQuota(rqList []*v1.ResourceQuota) []ResourceQuota {
 	var formattedResourceQuotaList []ResourceQuota
 	for _, rq := range rqList {
 		formattedResourceQuota := ResourceQuota{
-			ID:        rq.ID(),
 			SKU:       rq.SKU(),
 			CreatedAt: rq.CreatedAt(),
 			UpdatedAt: rq.UpdatedAt(),
