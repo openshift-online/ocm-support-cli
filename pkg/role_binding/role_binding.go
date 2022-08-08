@@ -30,7 +30,7 @@ const (
 	ApplicationRoleBinding  = "Application"
 )
 
-func ValidateRoleBinding(roleID string, conn *sdk.Connection) error {
+func ValidateRole(roleID string, conn *sdk.Connection) error {
 	availableRoles, err := role.GetRoles(conn)
 
 	if err != nil {

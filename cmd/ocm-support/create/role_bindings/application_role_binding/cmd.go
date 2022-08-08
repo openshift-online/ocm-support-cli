@@ -32,7 +32,7 @@ var CmdCreateApplicationRoleBinding = &cobra.Command{
 			return fmt.Errorf("%v", err)
 		}
 		// validates the role binding
-		err = rolebinding.ValidateRoleBinding(roleID, connection)
+		err = rolebinding.ValidateRole(roleID, connection)
 		if err != nil {
 			return fmt.Errorf("%v", err)
 		}

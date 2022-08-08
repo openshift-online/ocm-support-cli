@@ -19,7 +19,7 @@ var args struct {
 // CmdCreateOrganizationLabel represents the create organization label command
 var CmdCreateOrganizationLabel = &cobra.Command{
 	Use:     "organizationLabel [organizationID] [key] [value]",
-	Aliases: utils.Aliases["organizaitonLabel"],
+	Aliases: utils.Aliases["organizationLabel"],
 	Short:   "Assigns a Label to an organization",
 	Long:    "Assigns a Label to an organization",
 	RunE:    runCreateOrganizationLabel,
