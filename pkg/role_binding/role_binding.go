@@ -7,6 +7,7 @@ import (
 
 	sdk "github.com/openshift-online/ocm-sdk-go"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
+	"github.com/openshift-online/ocm-support-cli/pkg/role"
 	"github.com/openshift-online/ocm-support-cli/pkg/types"
 )
 
@@ -29,18 +30,8 @@ const (
 	ApplicationRoleBinding  = "Application"
 )
 
-func GetRoleBindings(conn *sdk.Connection) ([]*v1.Role, error) {
-	response, err := conn.AccountsMgmt().V1().Roles().List().Send()
-
-	if err != nil {
-		return nil, fmt.Errorf("can't retrieve role bindings : %v", err)
-	}
-
-	return response.Items().Slice(), nil
-}
-
 func ValidateRoleBinding(roleID string, conn *sdk.Connection) error {
-	availableRoles, err := GetRoleBindings(conn)
+	availableRoles, err := role.GetRoles(conn)
 
 	if err != nil {
 		return fmt.Errorf("can't validate role binding : %v", err)

@@ -14,7 +14,7 @@ import (
 
 // CmdDeleteSubscriptionRoleBinding represents the delete subscription role binding command
 var CmdDeleteSubscriptionRoleBinding = &cobra.Command{
-	Use:     "subscriptionRoleBinding [accountID] [roleID] [subscriptionID]",
+	Use:     "subscriptionRoleBinding [accountID] [subscriptionID] [roleID]",
 	Aliases: utils.Aliases["subscriptionRoleBinding"],
 	Short:   "Removes a role binding to an Account at subscription level",
 	Long:    "Removes a role binding to an Account at subscription level",
@@ -22,8 +22,8 @@ var CmdDeleteSubscriptionRoleBinding = &cobra.Command{
 	Args:    cobra.ExactArgs(3),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		accountID := args[0]
-		roleID := args[1]
-		subscriptionID := args[2]
+		subscriptionID := args[1]
+		roleID := args[2]
 		connection, err := ocm.NewConnection().Build()
 		if err != nil {
 			return fmt.Errorf("failed to create OCM connection: %v", err)
@@ -33,13 +33,13 @@ var CmdDeleteSubscriptionRoleBinding = &cobra.Command{
 		if err != nil {
 			return fmt.Errorf("%v", err)
 		}
-		// validates the role binding
-		err = rolebinding.ValidateRoleBinding(roleID, connection)
+		// validates the subscription
+		err = subscription.ValidateSubscription(subscriptionID, connection)
 		if err != nil {
 			return fmt.Errorf("%v", err)
 		}
-		// validates the subscription
-		err = subscription.ValidateSubscription(subscriptionID, connection)
+		// validates the role binding
+		err = rolebinding.ValidateRoleBinding(roleID, connection)
 		if err != nil {
 			return fmt.Errorf("%v", err)
 		}
@@ -49,8 +49,8 @@ var CmdDeleteSubscriptionRoleBinding = &cobra.Command{
 
 func runDeleteSubscriptionRoleBinding(cmd *cobra.Command, argv []string) error {
 	accountID := argv[0]
-	roleID := argv[1]
-	subscriptionID := argv[2]
+	subscriptionID := argv[1]
+	roleID := argv[2]
 	connection, err := ocm.NewConnection().Build()
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)

@@ -27,3 +27,13 @@ func PresentRoles(roleBindings []*v1.RoleBinding) []string {
 	}
 	return roleList
 }
+
+func GetRoles(conn *sdk.Connection) ([]*v1.Role, error) {
+	response, err := conn.AccountsMgmt().V1().Roles().List().Send()
+
+	if err != nil {
+		return nil, fmt.Errorf("can't retrieve role bindings : %v", err)
+	}
+
+	return response.Items().Slice(), nil
+}

@@ -122,8 +122,8 @@ Use the `subscriptionRoleBinding` subcommand to assign a role binding to an acco
 ##### Examples
 
 * Create a role binding to an application `ocm support create applicationRoleBinding [accountID] [roleID]`
-* Create a role binding to an organization `ocm support create organizationRoleBinding [accountID] [roleID] [orgID]`
-* Create a role binding to a subscription `ocm support create subscriptionRoleBinding [accountID] [roleID] [subscriptionID]`
+* Create a role binding to an organization `ocm support create organizationRoleBinding [accountID] [orgID] [roleID]`
+* Create a role binding to a subscription `ocm support create subscriptionRoleBinding [accountID] [subscriptionID] [roleID]`
 
 ### Delete
 
@@ -201,9 +201,9 @@ Use the `subscriptionRoleBinding` subcommand to remove a role binding to an acco
 
 ##### Examples
 
-* Delete a role binding to an application `ocm support delete applicationRoleBinding [accountID] [roleID]`
-* Delete a role binding to an organization `ocm support delete organizationRoleBinding [accountID] [roleID] [orgID]`
-* Delete a role binding to a subscription `ocm support delete subscriptionRoleBinding [accountID] [roleID] [subscriptionID]`
+* For the given account, delete a role binding created at application level using the roleID `ocm support delete applicationRoleBinding [accountID] [roleID]`
+* For the given account, delete a role binding created at organization level using the roleID `ocm support delete organizationRoleBinding [accountID] [orgID] [roleID]`
+* For the given account, delete a role binding created at subscription level using the roleID `ocm support delete subscriptionRoleBinding [accountID] [subscriptionID] [roleID]`
 
 ### Get
 
