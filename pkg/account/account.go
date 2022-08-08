@@ -90,7 +90,7 @@ func PresentAccount(account *v1.Account, roles []*v1.RoleBinding, registryCreden
 		LastName:            account.LastName(),
 		Username:            account.Username(),
 		Email:               account.Email(),
-		Organization:        organization.PresentOrganization(account.Organization(), []*v1.Subscription{}, []*v1.QuotaCost{}),
+		Organization:        organization.PresentOrganization(account.Organization(), []*v1.Subscription{}, []*v1.QuotaCost{}, []*v1.ResourceQuota{}),
 		Roles:               role.PresentRoles(roles),
 		RegistryCredentials: registry_credential.PresentRegistryCredentials(registryCredentials),
 		Labels:              label.PresentLabels(account.Labels()),
