@@ -9,12 +9,11 @@ import (
 )
 
 type ResourceQuota struct {
-	ID             string
-	SKU            string
-	CreatedAt      time.Time
-	OrganizationID string
-	SkuCount       int
-	UpdatedAt      time.Time
+	ID        string
+	SKU       string
+	CreatedAt time.Time
+	SkuCount  int
+	UpdatedAt time.Time
 }
 
 type ResoueceQuotaList []ResourceQuota
@@ -31,12 +30,11 @@ func PresentResourceQuota(rqList []*v1.ResourceQuota) []ResourceQuota {
 	var formattedResourceQuotaList []ResourceQuota
 	for _, rq := range rqList {
 		formattedResourceQuota := ResourceQuota{
-			ID:             rq.ID(),
-			SKU:            rq.SKU(),
-			CreatedAt:      rq.CreatedAt(),
-			UpdatedAt:      rq.UpdatedAt(),
-			OrganizationID: rq.OrganizationID(),
-			SkuCount:       rq.SkuCount(),
+			ID:        rq.ID(),
+			SKU:       rq.SKU(),
+			CreatedAt: rq.CreatedAt(),
+			UpdatedAt: rq.UpdatedAt(),
+			SkuCount:  rq.SkuCount(),
 		}
 		formattedResourceQuotaList = append(formattedResourceQuotaList, formattedResourceQuota)
 	}
