@@ -7,6 +7,7 @@ import (
 	sdk "github.com/openshift-online/ocm-sdk-go"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 
+	"github.com/openshift-online/ocm-support-cli/pkg/capability"
 	"github.com/openshift-online/ocm-support-cli/pkg/label"
 	"github.com/openshift-online/ocm-support-cli/pkg/types"
 )
@@ -20,6 +21,8 @@ type Subscription struct {
 	CreatorID         string
 	Managed           bool
 	Status            string
+	Labels            label.LabelsList          `json:",omitempty"`
+	Capabilities      capability.CapabilityList `json:",omitempty"`
 }
 
 func GetSubscriptionsByOrg(organizationId string, conn *sdk.Connection) ([]*v1.Subscription, error) {
@@ -88,6 +91,8 @@ func PresentSubscription(subscription *v1.Subscription) Subscription {
 		CreatorID:         subscription.Creator().ID(),
 		Managed:           subscription.Managed(),
 		Status:            subscription.Status(),
+		Labels:            label.PresentLabels(subscription.Labels()),
+		Capabilities:      capability.PresentCapabilities(subscription.Capabilities()),
 	}
 }
 
@@ -97,4 +102,13 @@ func ValidateSubscription(subscriptionID string, conn *sdk.Connection) error {
 		return fmt.Errorf("failed to get subscription: %v", err)
 	}
 	return nil
+}
+
+func GetSubscriptions(key string, limit int, fetchLabels bool, fetchCapabilities bool, conn *sdk.Connection) ([]*v1.Subscription, error) {
+	search := fmt.Sprintf("id = '%s'", key)
+	subscriptions, err := conn.AccountsMgmt().V1().Subscriptions().List().Parameter("fetchLabels", fetchLabels).Parameter("fetchCapabilities", fetchCapabilities).Size(limit).Search(search).Send()
+	if err != nil {
+		return []*v1.Subscription{}, fmt.Errorf("can't retrieve accounts: %w", err)
+	}
+	return subscriptions.Items().Slice(), nil
 }

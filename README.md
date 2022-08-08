@@ -262,9 +262,30 @@ The following flags are available for `organizations get`:
 
 * Get an organization by its externalID: `ocm support get organizations [organizationExternalID]`
 * Get an organization and include its subscriptions: `ocm support get organizations [organizationID] --fetchSubscriptions`
-* Get an organization and include its labels `ocm support get organizations [organizationID] --fetchLabels --fetchCapabilities`
+* Get an organization and include its labels `ocm support get organizations [organizationID] --fetchLabels`
 * Get an organization and include its capabilities `ocm support get organizations [organizationID] --fetchCapabilities`
 * Get an organization and include its quota: `ocm support get organizations [organizationID] --fetchQuota`
+
+#### Getting a subscription
+
+Use the `subscriptions` subcommand to get one or more subscriptions, passing as argument one of the following:
+
+* subscriptionID
+
+The following flags are available for `subscriptions get`:
+
+```
+--all                  If true, returns all organizations that matched the search instead of the first one only (default behaviour).
+--fetchLabels          If true, includes the organization labels.
+--fetchCapabilities    If true, includes the organization capabilities.
+-h, --help             help for get
+```
+
+##### Examples
+
+* Get a subscription by its ID: `ocm support get subscriptions [subscriptionID]`
+* Get a subscription and include its labels `ocm support get subscriptions [subscriptionID] --fetchLabels`
+* Get a subscription and include its capabilities `ocm support get subscriptions [subscriptionsID] --fetchCapabilities`
 
 #### Getting registry credentials
 
