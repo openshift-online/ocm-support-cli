@@ -3,6 +3,7 @@ package organization
 import (
 	"context"
 	"fmt"
+	"time"
 
 	sdk "github.com/openshift-online/ocm-sdk-go"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
@@ -10,6 +11,7 @@ import (
 	"github.com/openshift-online/ocm-support-cli/pkg/capability"
 	"github.com/openshift-online/ocm-support-cli/pkg/label"
 	"github.com/openshift-online/ocm-support-cli/pkg/quota"
+	resourcequota "github.com/openshift-online/ocm-support-cli/pkg/resource_quota"
 	"github.com/openshift-online/ocm-support-cli/pkg/subscription"
 	"github.com/openshift-online/ocm-support-cli/pkg/types"
 )
@@ -17,10 +19,15 @@ import (
 type Organization struct {
 	types.Meta
 	Name          string
-	Subscriptions []subscription.Subscription `json:",omitempty"`
-	Quota         []quota.Quota               `json:",omitempty"`
-	Labels        label.LabelsList            `json:",omitempty"`
-	Capabilities  capability.CapabilityList   `json:",omitempty"`
+	CreatedAt     time.Time
+	UpdatedAt     time.Time
+	EbsAccountID  string
+	ExternalID    string
+	Subscriptions []subscription.Subscription   `json:",omitempty"`
+	Quota         []quota.Quota                 `json:",omitempty"`
+	Labels        label.LabelsList              `json:",omitempty"`
+	Capabilities  capability.CapabilityList     `json:",omitempty"`
+	ResourceQuota []resourcequota.ResourceQuota `json:",omitempty"`
 }
 
 func GetOrganizations(key string, limit int, fetchLabels bool, fetchCapabilities bool, conn *sdk.Connection) ([]*v1.Organization, error) {
@@ -69,7 +76,7 @@ func DeleteLabel(orgID string, key string, conn *sdk.Connection) error {
 	return nil
 }
 
-func PresentOrganization(organization *v1.Organization, subscriptions []*v1.Subscription, quotaCostList []*v1.QuotaCost) Organization {
+func PresentOrganization(organization *v1.Organization, subscriptions []*v1.Subscription, quotaCostList []*v1.QuotaCost, resourceQuotaList []*v1.ResourceQuota) Organization {
 	return Organization{
 		Meta:          types.Meta{ID: organization.ID(), HREF: organization.HREF()},
 		Name:          organization.Name(),
@@ -77,6 +84,11 @@ func PresentOrganization(organization *v1.Organization, subscriptions []*v1.Subs
 		Quota:         quota.PresentQuotaList(quotaCostList),
 		Labels:        label.PresentLabels(organization.Labels()),
 		Capabilities:  capability.PresentCapabilities(organization.Capabilities()),
+		CreatedAt:     organization.CreatedAt(),
+		UpdatedAt:     organization.UpdatedAt(),
+		EbsAccountID:  organization.EbsAccountID(),
+		ExternalID:    organization.ExternalID(),
+		ResourceQuota: resourcequota.PresentResourceQuota(resourceQuotaList),
 	}
 }
 

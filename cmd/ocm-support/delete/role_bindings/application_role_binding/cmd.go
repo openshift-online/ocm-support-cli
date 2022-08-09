@@ -16,8 +16,8 @@ import (
 var CmdDeleteApplicationRoleBinding = &cobra.Command{
 	Use:     "applicationRoleBinding [accountID] [roleID]",
 	Aliases: utils.Aliases["applicationRoleBinding"],
-	Short:   "Removes a role binding to an Account at application level",
-	Long:    "Removes a role binding to an Account at application level",
+	Short:   "Removes a role binding from an Account at application level",
+	Long:    "Removes a role binding from an Account at application level",
 	RunE:    runDeleteApplicationRoleBinding,
 	Args:    cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {

@@ -10,6 +10,7 @@ import (
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/organization"
 	"github.com/openshift-online/ocm-support-cli/pkg/quota"
+	resourcequota "github.com/openshift-online/ocm-support-cli/pkg/resource_quota"
 	"github.com/openshift-online/ocm-support-cli/pkg/subscription"
 )
 
@@ -19,6 +20,7 @@ var args struct {
 	fetchQuota         bool
 	fetchLabels        bool
 	fetchCapabilities  bool
+	fetchSkus          bool
 }
 
 // CmdGetOrganizations represents the organization get command
@@ -62,6 +64,12 @@ func init() {
 		"fetchCapabilities",
 		false,
 		"If true, returns all the capabilities for the organization.",
+	)
+	flags.BoolVar(
+		&args.fetchSkus,
+		"fetchSkus",
+		false,
+		"If true, returns all the resource quota objects for the organization.",
 	)
 }
 
@@ -117,7 +125,15 @@ func run(cmd *cobra.Command, argv []string) error {
 			}
 		}
 
-		fo := organization.PresentOrganization(org, subs, quotaList)
+		var resourceQuotaList []*v1.ResourceQuota
+		if args.fetchSkus {
+			resourceQuotaList, err = resourcequota.GetOrganizationResourceQuota(org.ID(), connection)
+			if err != nil {
+				return fmt.Errorf("failed to fetch skus for organization %s: %s", org.ID(), err)
+			}
+		}
+
+		fo := organization.PresentOrganization(org, subs, quotaList, resourceQuotaList)
 		formattedOrganizations = append(formattedOrganizations, fo)
 	}
 

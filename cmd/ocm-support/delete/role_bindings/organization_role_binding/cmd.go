@@ -17,8 +17,8 @@ import (
 var CmdDeleteOrganizationRoleBinding = &cobra.Command{
 	Use:     "organizationRoleBinding [accountID] [orgID] [roleID]",
 	Aliases: utils.Aliases["organizationRoleBinding"],
-	Short:   "Removes a role binding to an Account at organization level",
-	Long:    "Removes a role binding to an Account at organization level",
+	Short:   "Removes a role binding from an Account at organization level",
+	Long:    "Removes a role binding from an Account at organization level",
 	RunE:    runDeleteOrganizationRoleBinding,
 	Args:    cobra.ExactArgs(3),
 	PreRunE: func(cmd *cobra.Command, args []string) error {

@@ -17,8 +17,8 @@ import (
 var CmdDeleteSubscriptionRoleBinding = &cobra.Command{
 	Use:     "subscriptionRoleBinding [accountID] [subscriptionID] [roleID]",
 	Aliases: utils.Aliases["subscriptionRoleBinding"],
-	Short:   "Removes a role binding to an Account at subscription level",
-	Long:    "Removes a role binding to an Account at subscription level",
+	Short:   "Removes a role binding from an Account at subscription level",
+	Long:    "Removes a role binding from an Account at subscription level",
 	RunE:    runDeleteSubscriptionRoleBinding,
 	Args:    cobra.ExactArgs(3),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
