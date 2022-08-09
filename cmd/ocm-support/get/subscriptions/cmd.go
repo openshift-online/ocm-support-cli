@@ -18,7 +18,7 @@ var args struct {
 
 // CmdGetSubscriptions represents the subscription get command
 var CmdGetSubscriptions = &cobra.Command{
-	Use:     "subscriptions [id]",
+	Use:     "subscriptions [id|cluster_id|external_cluster_id|organization_id]",
 	Aliases: utils.Aliases["subscriptions"],
 	Short:   "Gets a subscription or a list of subscriptions that matches the search criteria",
 	Long:    "Gets a subscription or a list of subscriptions that matches the search criteria",

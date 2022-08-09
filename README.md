@@ -273,6 +273,9 @@ The following flags are available for `organizations get`:
 Use the `subscriptions` subcommand to get one or more subscriptions, passing as argument one of the following:
 
 * subscriptionID
+* cluster_id
+* external_cluster_id
+* organization_id
 
 The following flags are available for `subscriptions get`:
 
@@ -286,8 +289,8 @@ The following flags are available for `subscriptions get`:
 ##### Examples
 
 * Get a subscription by its ID: `ocm support get subscriptions [subscriptionID]`
-* Get a subscription and include its labels `ocm support get subscriptions [subscriptionID] --fetchLabels`
-* Get a subscription and include its capabilities `ocm support get subscriptions [subscriptionsID] --fetchCapabilities`
+* Get a subscription by ClusterID and include its labels `ocm support get subscriptions [clusterID] --fetchLabels`
+* Get all subscriptions by OrganizationID and include its capabilities `ocm support get subscriptions [organizationID] --all --fetchCapabilities`
 
 #### Getting registry credentials
 
