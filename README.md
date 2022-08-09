@@ -273,9 +273,9 @@ The following flags are available for `organizations get`:
 Use the `subscriptions` subcommand to get one or more subscriptions, passing as argument one of the following:
 
 * subscriptionID
-* clusterId
-* externalClusterId
-* organizationId
+* clusterID
+* externalClusterID
+* organizationID
 
 The following flags are available for `subscriptions get`:
 
