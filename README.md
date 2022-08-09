@@ -266,7 +266,7 @@ The following flags are available for `organizations get`:
 * Get an organization and include its labels `ocm support get organizations [organizationID] --fetchLabels --fetchCapabilities`
 * Get an organization and include its capabilities `ocm support get organizations [organizationID] --fetchCapabilities`
 * Get an organization and include its quota: `ocm support get organizations [organizationID] --fetchQuota`
-* Get an organization and include its resource quota: `ocm support get organizations [organizationID] --fetchSkus`
+* Get an organization and include its SKUs: `ocm support get organizations [organizationID] --fetchSkus`
 
 #### Getting registry credentials
 
