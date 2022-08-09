@@ -11,7 +11,7 @@ import (
 )
 
 var args struct {
-	all               bool
+	first             bool
 	fetchLabels       bool
 	fetchCapabilities bool
 	fetchCpuAndSocket bool
@@ -30,10 +30,10 @@ var CmdGetSubscriptions = &cobra.Command{
 func init() {
 	flags := CmdGetSubscriptions.Flags()
 	flags.BoolVar(
-		&args.all,
-		"all",
+		&args.first,
+		"first",
 		false,
-		"If true, returns all subscriptions that matched the search instead of the first one only.",
+		"If true, returns only the first subscription that matches the search instead of all of them.",
 	)
 	flags.BoolVar(
 		&args.fetchLabels,
@@ -63,10 +63,10 @@ func run(cmd *cobra.Command, argv []string) error {
 	// search term
 	key := argv[0]
 
-	// by default, returns only the first subscription found
-	size := 1
-	if args.all {
-		size = -1
+	// by default, returns all subscriptions found
+	size := -1
+	if args.first {
+		size = 1
 	}
 
 	connection, err := ocm.NewConnection().Build()

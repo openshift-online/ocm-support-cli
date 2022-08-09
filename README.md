@@ -280,7 +280,7 @@ Use the `subscriptions` subcommand to get one or more subscriptions, passing as 
 The following flags are available for `subscriptions get`:
 
 ```
---all                  If true, returns all organizations that matched the search instead of the first one only (default behaviour).
+--first                If true, returns only the first subscription that matches the search instead of all of them (default behaviour).
 --fetchLabels          If true, includes the organization labels.
 --fetchCapabilities    If true, includes the organization capabilities.
 --fetchCpuAndSocket    If true, returns the total numbers of CPU's and sockets under an obligation for the subscription
