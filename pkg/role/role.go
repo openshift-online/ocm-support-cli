@@ -17,7 +17,7 @@ func ValidateRole(roleID string, conn *sdk.Connection) error {
 			return nil
 		}
 	}
-	return fmt.Errorf("role not found")
+	return fmt.Errorf("role %s not found", roleID)
 }
 
 func GetRoles(conn *sdk.Connection) ([]*v1.Role, error) {
