@@ -8,6 +8,7 @@ import (
 
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/account"
+	"github.com/openshift-online/ocm-support-cli/pkg/role"
 	rolebinding "github.com/openshift-online/ocm-support-cli/pkg/role_binding"
 )
 
@@ -29,12 +30,12 @@ var CmdCreateApplicationRoleBinding = &cobra.Command{
 		// validates the account
 		err = account.ValidateAccount(accountID, connection)
 		if err != nil {
-			return fmt.Errorf("%v", err)
+			return err
 		}
-		// validates the role binding
-		err = rolebinding.ValidateRoleBinding(roleID, connection)
+		// validates the role
+		err = role.ValidateRole(roleID, connection)
 		if err != nil {
-			return fmt.Errorf("%v", err)
+			return err
 		}
 		return nil
 	},
@@ -49,7 +50,7 @@ func runCreateApplicationRoleBinding(cmd *cobra.Command, argv []string) error {
 	}
 	rb, err := rolebinding.AddRoleBinding(accountID, roleID, rolebinding.ApplicationRoleBinding, nil, connection)
 	if err != nil {
-		return fmt.Errorf("failed to validate role %s: %v", roleID, err)
+		return fmt.Errorf("failed to add role binding for role %s: %v", roleID, err)
 	}
 	utils.PrettyPrint(rolebinding.PresentRoleBinding(rb))
 	return nil

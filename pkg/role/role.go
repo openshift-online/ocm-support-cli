@@ -7,25 +7,17 @@ import (
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 )
 
-func GetAccountRoles(accountID string, conn *sdk.Connection) ([]*v1.RoleBinding, error) {
-	query := fmt.Sprintf("account_id = '%s'", accountID)
-	response, err := conn.AccountsMgmt().V1().RoleBindings().List().
-		Parameter("search", query).
-		Send()
-
+func ValidateRole(roleID string, conn *sdk.Connection) error {
+	availableRoles, err := GetRoles(conn)
 	if err != nil {
-		return nil, fmt.Errorf("can't retrieve roles for account %s : %v", accountID, err)
+		return fmt.Errorf("can't validate role : %v", err)
 	}
-
-	return response.Items().Slice(), nil
-}
-
-func PresentRoles(roleBindings []*v1.RoleBinding) []string {
-	var roleList []string
-	for _, roleBinding := range roleBindings {
-		roleList = append(roleList, roleBinding.Role().ID())
+	for _, avavailableRole := range availableRoles {
+		if avavailableRole.ID() == roleID {
+			return nil
+		}
 	}
-	return roleList
+	return fmt.Errorf("role %s not found", roleID)
 }
 
 func GetRoles(conn *sdk.Connection) ([]*v1.Role, error) {

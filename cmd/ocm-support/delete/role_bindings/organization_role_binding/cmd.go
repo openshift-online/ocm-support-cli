@@ -9,6 +9,7 @@ import (
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/account"
 	"github.com/openshift-online/ocm-support-cli/pkg/organization"
+	"github.com/openshift-online/ocm-support-cli/pkg/role"
 	rolebinding "github.com/openshift-online/ocm-support-cli/pkg/role_binding"
 )
 
@@ -16,8 +17,8 @@ import (
 var CmdDeleteOrganizationRoleBinding = &cobra.Command{
 	Use:     "organizationRoleBinding [accountID] [orgID] [roleID]",
 	Aliases: utils.Aliases["organizationRoleBinding"],
-	Short:   "Removes a role binding to an Account at organization level",
-	Long:    "Removes a role binding to an Account at organization level",
+	Short:   "Removes a role binding from an Account at organization level",
+	Long:    "Removes a role binding from an Account at organization level",
 	RunE:    runDeleteOrganizationRoleBinding,
 	Args:    cobra.ExactArgs(3),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -31,17 +32,17 @@ var CmdDeleteOrganizationRoleBinding = &cobra.Command{
 		// validates the account
 		err = account.ValidateAccount(accountID, connection)
 		if err != nil {
-			return fmt.Errorf("%v", err)
+			return err
 		}
 		// validates the organization
 		err = organization.ValidateOrganization(orgID, connection)
 		if err != nil {
-			return fmt.Errorf("%v", err)
+			return err
 		}
-		// validates the role binding
-		err = rolebinding.ValidateRoleBinding(roleID, connection)
+		// validates the role
+		err = role.ValidateRole(roleID, connection)
 		if err != nil {
-			return fmt.Errorf("%v", err)
+			return err
 		}
 		return nil
 	},

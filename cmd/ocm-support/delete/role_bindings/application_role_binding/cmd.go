@@ -8,6 +8,7 @@ import (
 
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/account"
+	"github.com/openshift-online/ocm-support-cli/pkg/role"
 	rolebinding "github.com/openshift-online/ocm-support-cli/pkg/role_binding"
 )
 
@@ -15,8 +16,8 @@ import (
 var CmdDeleteApplicationRoleBinding = &cobra.Command{
 	Use:     "applicationRoleBinding [accountID] [roleID]",
 	Aliases: utils.Aliases["applicationRoleBinding"],
-	Short:   "Removes a role binding to an Account at application level",
-	Long:    "Removes a role binding to an Account at application level",
+	Short:   "Removes a role binding from an Account at application level",
+	Long:    "Removes a role binding from an Account at application level",
 	RunE:    runDeleteApplicationRoleBinding,
 	Args:    cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
@@ -29,12 +30,12 @@ var CmdDeleteApplicationRoleBinding = &cobra.Command{
 		// validates the account
 		err = account.ValidateAccount(accountID, connection)
 		if err != nil {
-			return fmt.Errorf("%v", err)
+			return err
 		}
-		// validates the role binding
-		err = rolebinding.ValidateRoleBinding(roleID, connection)
+		// validates the role
+		err = role.ValidateRole(roleID, connection)
 		if err != nil {
-			return fmt.Errorf("%v", err)
+			return err
 		}
 		return nil
 	},
