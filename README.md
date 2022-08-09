@@ -283,6 +283,7 @@ The following flags are available for `subscriptions get`:
 --all                  If true, returns all organizations that matched the search instead of the first one only (default behaviour).
 --fetchLabels          If true, includes the organization labels.
 --fetchCapabilities    If true, includes the organization capabilities.
+--fetchCpuAndSocket    If true, returns the total numbers of CPU's and sockets under an obligation for the subscription
 -h, --help             help for get
 ```
 
@@ -290,7 +291,7 @@ The following flags are available for `subscriptions get`:
 
 * Get a subscription by its ID: `ocm support get subscriptions [subscriptionID]`
 * Get a subscription by ClusterID and include its labels `ocm support get subscriptions [clusterID] --fetchLabels`
-* Get a subscription by its externalClusterID: `ocm support get subscriptions [externalClusterID]`
+* Get a subscription by its externalClusterID and include numbers of cpu and sockets: `ocm support get subscriptions [externalClusterID] --fetchCpuAndSocket`
 * Get all subscriptions by OrganizationID and include its capabilities `ocm support get subscriptions [organizationID] --all --fetchCapabilities`
 
 #### Getting registry credentials

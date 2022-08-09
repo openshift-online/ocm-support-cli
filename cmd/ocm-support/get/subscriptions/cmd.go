@@ -14,7 +14,6 @@ var args struct {
 	all               bool
 	fetchLabels       bool
 	fetchCapabilities bool
-	fetchAccounts     bool
 	fetchCpuAndSocket bool
 }
 
@@ -49,12 +48,6 @@ func init() {
 		"If true, returns all the capabilities for the subscriptions.",
 	)
 	flags.BoolVar(
-		&args.fetchAccounts,
-		"fetchAccounts",
-		false,
-		"If true, returns all the accounts for the subscriptions.",
-	)
-	flags.BoolVar(
 		&args.fetchCpuAndSocket,
 		"fetchCpuAndSocket",
 		false,
@@ -81,7 +74,7 @@ func run(cmd *cobra.Command, argv []string) error {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
 
-	subscriptions, err := subscription.GetSubscriptions(key, size, args.fetchLabels, args.fetchCapabilities, args.fetchAccounts, args.fetchCpuAndSocket, connection)
+	subscriptions, err := subscription.GetSubscriptions(key, size, args.fetchLabels, args.fetchCapabilities, args.fetchCpuAndSocket, connection)
 	if err != nil {
 		return fmt.Errorf("failed to get subscriptions: %v", err)
 	}
