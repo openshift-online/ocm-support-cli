@@ -6,17 +6,19 @@ import (
 	"github.com/openshift-online/ocm-cli/pkg/ocm"
 	"github.com/spf13/cobra"
 
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/account"
 	"github.com/openshift-online/ocm-support-cli/pkg/capability"
 )
 
 // CmdDeleteAccountCapability represents the delete account capability command
 var CmdDeleteAccountCapability = &cobra.Command{
-	Use:   "accountCapability [accountID] [capability]",
-	Short: "Removes a Capability from an Account",
-	Long:  "Removes a Capability from an Account",
-	RunE:  runDeleteAccountCapability,
-	Args:  cobra.ExactArgs(2),
+	Use:     "accountCapability [accountID] [capability]",
+	Aliases: utils.Aliases["accountCapability"],
+	Short:   "Removes a Capability from an Account",
+	Long:    "Removes a Capability from an Account",
+	RunE:    runDeleteAccountCapability,
+	Args:    cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		accountID := args[0]
 		capabilityKey := args[1]

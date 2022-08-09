@@ -6,16 +6,18 @@ import (
 	"github.com/openshift-online/ocm-cli/pkg/ocm"
 	"github.com/spf13/cobra"
 
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/subscription"
 )
 
 // CmdDeleteSubscriptionLabel represents the create account label command
 var CmdDeleteSubscriptionLabel = &cobra.Command{
-	Use:   "subscriptionLabel [subscriptionID] [key]",
-	Short: "Removes a Label from a Subscription",
-	Long:  "Removes a Label from a Subscription",
-	RunE:  runDeleteSubscriptionLabel,
-	Args:  cobra.ExactArgs(2),
+	Use:     "subscriptionLabel [subscriptionID] [key]",
+	Aliases: utils.Aliases["subscriptionLabel"],
+	Short:   "Removes a Label from a Subscription",
+	Long:    "Removes a Label from a Subscription",
+	RunE:    runDeleteSubscriptionLabel,
+	Args:    cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		subscriptionID := args[0]
 		connection, err := ocm.NewConnection().Build()

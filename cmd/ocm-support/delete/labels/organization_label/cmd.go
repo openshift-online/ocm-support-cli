@@ -6,16 +6,18 @@ import (
 	"github.com/openshift-online/ocm-cli/pkg/ocm"
 	"github.com/spf13/cobra"
 
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/organization"
 )
 
 // CmdDeleteOrganizationLabel represents the delete organization label command
 var CmdDeleteOrganizationLabel = &cobra.Command{
-	Use:   "organizationLabel [orgID] [key]",
-	Short: "Removes a Label from an organization",
-	Long:  "Removes a Label from an organization",
-	RunE:  runDeleteOrganizationLabel,
-	Args:  cobra.ExactArgs(2),
+	Use:     "organizationLabel [orgID] [key]",
+	Aliases: utils.Aliases["organizationLabel"],
+	Short:   "Removes a Label from an organization",
+	Long:    "Removes a Label from an organization",
+	RunE:    runDeleteOrganizationLabel,
+	Args:    cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		orgID := args[0]
 		connection, err := ocm.NewConnection().Build()

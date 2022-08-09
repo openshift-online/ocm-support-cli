@@ -6,17 +6,19 @@ import (
 	"github.com/openshift-online/ocm-cli/pkg/ocm"
 	"github.com/spf13/cobra"
 
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/capability"
 	"github.com/openshift-online/ocm-support-cli/pkg/subscription"
 )
 
 // CmdDeleteSubscriptionCapability represents the delete subscription capability command
 var CmdDeleteSubscriptionCapability = &cobra.Command{
-	Use:   "subscriptionCapability [subscriptionID] [capability]",
-	Short: "Removes a Capability from a Subscription",
-	Long:  "Removes a Capability from a Subscription",
-	RunE:  runDeleteSubscriptionCapability,
-	Args:  cobra.ExactArgs(2),
+	Use:     "subscriptionCapability [subscriptionID] [capability]",
+	Aliases: utils.Aliases["subscriptionCapability"],
+	Short:   "Removes a Capability from a Subscription",
+	Long:    "Removes a Capability from a Subscription",
+	RunE:    runDeleteSubscriptionCapability,
+	Args:    cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		subscriptionID := args[0]
 		capabilityKey := args[1]

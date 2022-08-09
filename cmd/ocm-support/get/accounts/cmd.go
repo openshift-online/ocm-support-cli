@@ -10,7 +10,7 @@ import (
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/account"
 	"github.com/openshift-online/ocm-support-cli/pkg/registry_credential"
-	"github.com/openshift-online/ocm-support-cli/pkg/role"
+	rolebinding "github.com/openshift-online/ocm-support-cli/pkg/role_binding"
 )
 
 var args struct {
@@ -21,13 +21,14 @@ var args struct {
 	fetchCapabilities        bool
 }
 
-// CmdGetAccounts represents the account getF command
+// CmdGetAccounts represents the account get command
 var CmdGetAccounts = &cobra.Command{
-	Use:   "accounts [id|username|email|organization.id|organization.external_id|organization.ebs_account_id]",
-	Short: "Gets an account or a list of accounts that matches the search criteria",
-	Long:  "Gets an account or a list of accounts that matches the search criteria",
-	RunE:  run,
-	Args:  cobra.ExactArgs(1),
+	Use:     "accounts [id|username|email|organization.id|organization.external_id|organization.ebs_account_id]",
+	Aliases: utils.Aliases["accounts"],
+	Short:   "Gets an account or a list of accounts that matches the search criteria",
+	Long:    "Gets an account or a list of accounts that matches the search criteria",
+	RunE:    run,
+	Args:    cobra.ExactArgs(1),
 }
 
 func init() {
@@ -102,7 +103,7 @@ func run(cmd *cobra.Command, argv []string) error {
 
 		var roles []*v1.RoleBinding
 		if args.fetchRoles {
-			roles, err = role.GetAccountRoles(acc.ID(), connection)
+			roles, err = rolebinding.GetAccountRoleBindings(acc.ID(), connection)
 			if err != nil {
 				return fmt.Errorf("failed to fetch roles: %s", err)
 			}

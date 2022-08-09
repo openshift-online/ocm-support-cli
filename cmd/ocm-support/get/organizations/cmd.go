@@ -25,11 +25,12 @@ var args struct {
 
 // CmdGetOrganizations represents the organization get command
 var CmdGetOrganizations = &cobra.Command{
-	Use:   "organizations [id|external_id|ebs_account_id]",
-	Short: "Gets an organization or a list of organizations that matches the search criteria",
-	Long:  "Gets an organization or a list of organizations that matches the search criteria",
-	RunE:  run,
-	Args:  cobra.ExactArgs(1),
+	Use:     "organizations [id|external_id|ebs_account_id]",
+	Aliases: utils.Aliases["organizations"],
+	Short:   "Gets an organization or a list of organizations that matches the search criteria",
+	Long:    "Gets an organization or a list of organizations that matches the search criteria",
+	RunE:    run,
+	Args:    cobra.ExactArgs(1),
 }
 
 func init() {
