@@ -15,11 +15,12 @@ import (
 
 // CmdCreateSubscriptionCapability represents the create subscription capability command
 var CmdCreateSubscriptionCapability = &cobra.Command{
-	Use:   "subscriptionCapability [subscriptionID] [capability]",
-	Short: "Assigns a Capability to a Subscription",
-	Long:  "Assigns a Capability to a Subscription",
-	RunE:  runCreateSubscriptionCapability,
-	Args:  cobra.ExactArgs(2),
+	Use:     "subscriptionCapability [subscriptionID] [capability]",
+	Aliases: utils.Aliases["subscriptionCapability"],
+	Short:   "Assigns a Capability to a Subscription",
+	Long:    "Assigns a Capability to a Subscription",
+	RunE:    runCreateSubscriptionCapability,
+	Args:    cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		subscriptionID := args[0]
 		connection, err := ocm.NewConnection().Build()

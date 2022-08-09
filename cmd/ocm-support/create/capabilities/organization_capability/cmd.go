@@ -15,11 +15,12 @@ import (
 
 // CmdCreateOrganizationCapability represents the create organization capability command
 var CmdCreateOrganizationCapability = &cobra.Command{
-	Use:   "organizationCapability [organizationID] [capability]",
-	Short: "Assigns a Capability to an Organization",
-	Long:  "Assigns a Capability to an Organization",
-	RunE:  runCreateOrganizationCapability,
-	Args:  cobra.ExactArgs(2),
+	Use:     "organizationCapability [organizationID] [capability]",
+	Aliases: utils.Aliases["organizationCapability"],
+	Short:   "Assigns a Capability to an Organization",
+	Long:    "Assigns a Capability to an Organization",
+	RunE:    runCreateOrganizationCapability,
+	Args:    cobra.ExactArgs(2),
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		organizationID := args[0]
 		connection, err := ocm.NewConnection().Build()

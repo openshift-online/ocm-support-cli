@@ -10,6 +10,9 @@ import (
 	organizationlabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/labels/organization_label"
 	subscriptionlabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/labels/subscription_label"
 	registrycredentials "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/registry_credentials"
+	applicationrolebinding "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/role_bindings/application_role_binding"
+	organizationrolebinding "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/role_bindings/organization_role_binding"
+	subscriptionrolebinding "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/role_bindings/subscription_role_binding"
 )
 
 // Cmd ...
@@ -28,4 +31,7 @@ func init() {
 	Cmd.AddCommand(organizationcapability.CmdCreateOrganizationCapability)
 	Cmd.AddCommand(subscriptioncapability.CmdCreateSubscriptionCapability)
 	Cmd.AddCommand(registrycredentials.CmdCreateRegistryCredentials)
+	Cmd.AddCommand(applicationrolebinding.CmdCreateApplicationRoleBinding)
+	Cmd.AddCommand(organizationrolebinding.CmdCreateOrganizationRoleBinding)
+	Cmd.AddCommand(subscriptionrolebinding.CmdCreateSubscriptionRoleBinding)
 }

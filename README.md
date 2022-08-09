@@ -105,6 +105,26 @@ Use the `registryCredentials` subcommand to create registry credentials for curr
 
 * Create registryCredentials `ocm support create registryCredentials`
 
+#### Creating role bindings
+
+##### Creating application role bindings
+
+Use the `applicationRoleBinding` subcommand to assign a role binding to an account at application level, passing a valid role id. 
+
+##### Creating organization role bindings
+
+Use the `organizationRoleBinding` subcommand to assign a role binding to an account at organization level, passing a valid role id.
+
+##### Creating subscription role bindings
+
+Use the `subscriptionRoleBinding` subcommand to assign a role binding to an account at subscription level, passing a valid role id.
+
+##### Examples
+
+* Create a role binding to an application `ocm support create applicationRoleBinding [accountID] [roleID]`
+* Create a role binding to an organization `ocm support create organizationRoleBinding [accountID] [orgID] [roleID]`
+* Create a role binding to a subscription `ocm support create subscriptionRoleBinding [accountID] [subscriptionID] [roleID]`
+
 ### Delete
 
 The `delete` command deletes the given resource.
@@ -164,6 +184,26 @@ The following flags are available for `registryCredentials delete`:
 
 * Delete a specific registry credential for a specific account `ocm support delete registryCredentials [accountID] [registryCredentialID]`
 * Delete all registry credentials for a specific account `ocm support delete registryCredentials [accountID] --all`
+
+#### Deleting role bindings
+
+##### Deleting application role bindings
+
+Use the `applicationRoleBinding` subcommand to remove a role binding from an account at application level, passing a valid role id. 
+
+##### Creating organization role bindings
+
+Use the `organizationRoleBinding` subcommand to remove a role binding from an account at organization level, passing a valid role id.
+
+##### Creating subscription role bindings
+
+Use the `subscriptionRoleBinding` subcommand to remove a role binding from an account at subscription level, passing a valid role id.
+
+##### Examples
+
+* For the given account, delete a role binding created at application level using the roleID `ocm support delete applicationRoleBinding [accountID] [roleID]`
+* For the given account, delete a role binding created at organization level using the roleID `ocm support delete organizationRoleBinding [accountID] [orgID] [roleID]`
+* For the given account, delete a role binding created at subscription level using the roleID `ocm support delete subscriptionRoleBinding [accountID] [subscriptionID] [roleID]`
 
 ### Get
 
