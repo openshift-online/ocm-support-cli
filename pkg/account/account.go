@@ -11,7 +11,7 @@ import (
 	"github.com/openshift-online/ocm-support-cli/pkg/label"
 	"github.com/openshift-online/ocm-support-cli/pkg/organization"
 	"github.com/openshift-online/ocm-support-cli/pkg/registry_credential"
-	"github.com/openshift-online/ocm-support-cli/pkg/role"
+	rolebinding "github.com/openshift-online/ocm-support-cli/pkg/role_binding"
 	"github.com/openshift-online/ocm-support-cli/pkg/types"
 )
 
@@ -91,7 +91,7 @@ func PresentAccount(account *v1.Account, roles []*v1.RoleBinding, registryCreden
 		Username:            account.Username(),
 		Email:               account.Email(),
 		Organization:        organization.PresentOrganization(account.Organization(), []*v1.Subscription{}, []*v1.QuotaCost{}),
-		Roles:               role.PresentRoles(roles),
+		Roles:               rolebinding.PresentRoleBindings(roles),
 		RegistryCredentials: registry_credential.PresentRegistryCredentials(registryCredentials),
 		Labels:              label.PresentLabels(account.Labels()),
 		Capabilities:        capability.PresentCapabilities(account.Capabilities()),

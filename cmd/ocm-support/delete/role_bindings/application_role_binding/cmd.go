@@ -8,6 +8,7 @@ import (
 
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/account"
+	"github.com/openshift-online/ocm-support-cli/pkg/role"
 	rolebinding "github.com/openshift-online/ocm-support-cli/pkg/role_binding"
 )
 
@@ -29,12 +30,12 @@ var CmdDeleteApplicationRoleBinding = &cobra.Command{
 		// validates the account
 		err = account.ValidateAccount(accountID, connection)
 		if err != nil {
-			return fmt.Errorf("%v", err)
+			return err
 		}
-		// validates the role binding
-		err = rolebinding.ValidateRole(roleID, connection)
+		// validates the role
+		err = role.ValidateRole(roleID, connection)
 		if err != nil {
-			return fmt.Errorf("%v", err)
+			return err
 		}
 		return nil
 	},
