@@ -47,7 +47,7 @@ func CreateRoleBinding(accountID string, roleID string, roleType string, resourc
 func AddRoleBinding(accountID string, roleID string, roleType string, resourceID *string, conn *sdk.Connection) (*v1.RoleBinding, error) {
 	rb, err := CreateRoleBinding(accountID, roleID, roleType, resourceID)
 	if err != nil {
-		return nil, fmt.Errorf("%v", err)
+		return nil, err
 	}
 
 	response, err := conn.AccountsMgmt().V1().RoleBindings().Add().Body(rb).Send()
@@ -55,20 +55,6 @@ func AddRoleBinding(accountID string, roleID string, roleType string, resourceID
 		return nil, fmt.Errorf("can't create role binding : %v", err)
 	}
 	return response.Body(), nil
-}
-
-func PresentRoleBinding(rb *v1.RoleBinding) RoleBinding {
-	return RoleBinding{
-		ID:             rb.ID(),
-		HREF:           rb.HREF(),
-		AccountID:      rb.Account().ID(),
-		RoleID:         rb.Role().ID(),
-		OrganizationID: rb.Organization().ID(),
-		SubscriptionID: rb.Subscription().ID(),
-		CreatedAt:      rb.CreatedAt(),
-		UpdatedAt:      rb.UpdatedAt(),
-		Type:           rb.Type(),
-	}
 }
 
 func GetRoleBinding(accountID string, roleBindingKey string, roleType string, resourceID *string, conn *sdk.Connection) (*v1.RoleBinding, error) {
@@ -85,10 +71,11 @@ func GetRoleBinding(accountID string, roleBindingKey string, roleType string, re
 	if err != nil {
 		return nil, fmt.Errorf("can't get role binding : %v", err)
 	}
-	if len(rb.Items().Slice()) == 0 {
+	roleBindings := rb.Items().Slice()
+	if len(roleBindings) == 0 {
 		return nil, fmt.Errorf("role binding not found")
 	}
-	return rb.Items().Slice()[0], nil
+	return roleBindings[0], nil
 }
 
 func DeleteRoleBinding(accountID string, roleBindingKey string, roleType string, resourceID *string, conn *sdk.Connection) error {
@@ -116,6 +103,20 @@ func GetAccountRoleBindings(accountID string, conn *sdk.Connection) ([]*v1.RoleB
 	}
 
 	return response.Items().Slice(), nil
+}
+
+func PresentRoleBinding(rb *v1.RoleBinding) RoleBinding {
+	return RoleBinding{
+		ID:             rb.ID(),
+		HREF:           rb.HREF(),
+		AccountID:      rb.Account().ID(),
+		RoleID:         rb.Role().ID(),
+		OrganizationID: rb.Organization().ID(),
+		SubscriptionID: rb.Subscription().ID(),
+		CreatedAt:      rb.CreatedAt(),
+		UpdatedAt:      rb.UpdatedAt(),
+		Type:           rb.Type(),
+	}
 }
 
 func PresentRoleBindings(roleBindings []*v1.RoleBinding) []string {

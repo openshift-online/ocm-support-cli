@@ -21,7 +21,7 @@ var args struct {
 	fetchCapabilities        bool
 }
 
-// CmdGetAccounts represents the account getF command
+// CmdGetAccounts represents the account get command
 var CmdGetAccounts = &cobra.Command{
 	Use:     "accounts [id|username|email|organization.id|organization.external_id|organization.ebs_account_id]",
 	Aliases: utils.Aliases["accounts"],
