@@ -283,16 +283,16 @@ The following flags are available for `subscriptions get`:
 --first                If true, returns only the first subscription that matches the search instead of all of them (default behaviour).
 --fetchLabels          If true, includes the organization labels.
 --fetchCapabilities    If true, includes the organization capabilities.
---fetchCpuAndSocket    If true, returns the total numbers of CPU's and sockets under an obligation for the subscription
+--parameter            If passed, applies the parameter to which subscriptions search is performed.
 -h, --help             help for get
 ```
 
 ##### Examples
 
-* Get a subscription by its ID: `ocm support get subscriptions [subscriptionID]`
-* Get a subscription by ClusterID and include its labels `ocm support get subscriptions [clusterID] --fetchLabels`
-* Get a subscription by its externalClusterID and include numbers of cpu and sockets: `ocm support get subscriptions [externalClusterID] --fetchCpuAndSocket`
-* Get all subscriptions by OrganizationID and include its capabilities `ocm support get subscriptions [organizationID] --all --fetchCapabilities`
+* Get all subscriptions by its ID: `ocm support get subscriptions [subscriptionID]`
+* Get all subscriptions by ClusterID and include its labels `ocm support get subscriptions [clusterID] --fetchLabels`
+* Get first subscription by its externalClusterID: `ocm support get subscriptions [externalClusterID] --first`
+* Get all subscriptions by OrganizationID and include subscriptions that have Status as 'Reserverd' `ocm support get subscriptions [organizationID] --parameter "search=Status='Reserved'"`
 
 #### Getting registry credentials
 
