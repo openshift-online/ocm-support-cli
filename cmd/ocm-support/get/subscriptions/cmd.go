@@ -14,7 +14,7 @@ var args struct {
 	first             bool
 	fetchLabels       bool
 	fetchCapabilities bool
-	fetchCpuAndSocket bool
+	parameter         string
 }
 
 // CmdGetSubscriptions represents the subscription get command
@@ -47,11 +47,11 @@ func init() {
 		false,
 		"If true, returns all the capabilities for the subscriptions.",
 	)
-	flags.BoolVar(
-		&args.fetchCpuAndSocket,
-		"fetchCpuAndSocket",
-		false,
-		"If true, returns the total numbers of CPU's and sockets under an obligation for the subscription.",
+	flags.StringVar(
+		&args.parameter,
+		"parameter",
+		"",
+		"If passed, applies the parameter to which subscriptions search is performed.",
 	)
 }
 
@@ -74,7 +74,14 @@ func run(cmd *cobra.Command, argv []string) error {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
 
-	subscriptions, err := subscription.GetSubscriptions(key, size, args.fetchLabels, args.fetchCapabilities, args.fetchCpuAndSocket, connection)
+	if args.parameter != "" {
+		err = subscription.ValidateParameters(args.parameter, args.fetchLabels, args.fetchCapabilities)
+		if err != nil {
+			return err
+		}
+	}
+
+	subscriptions, err := subscription.GetSubscriptions(key, size, args.fetchLabels, args.fetchCapabilities, args.parameter, connection)
 	if err != nil {
 		return fmt.Errorf("failed to get subscriptions: %v", err)
 	}
