@@ -3,23 +3,33 @@ package subscription
 import (
 	"context"
 	"fmt"
+	"time"
 
 	sdk "github.com/openshift-online/ocm-sdk-go"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 
+	"github.com/openshift-online/ocm-support-cli/pkg/capability"
 	"github.com/openshift-online/ocm-support-cli/pkg/label"
 	"github.com/openshift-online/ocm-support-cli/pkg/types"
 )
 
 type Subscription struct {
 	types.Meta
-	PlanID            string
+	CloudProviderID   string
 	ClusterID         string
+	ConsoleURL        string
+	CreatedAt         time.Time
 	ExternalClusterID string
-	DisplayName       string
-	CreatorID         string
+	HREF              string
+	ID                string
 	Managed           bool
+	OrganizationId    string
+	PlanID            string
 	Status            string
+	SupportLevel      string
+	UpdatedAt         time.Time
+	Labels            label.LabelsList          `json:",omitempty"`
+	Capabilities      capability.CapabilityList `json:",omitempty"`
 }
 
 func GetSubscriptionsByOrg(organizationId string, conn *sdk.Connection) ([]*v1.Subscription, error) {
@@ -81,13 +91,20 @@ func PresentSubscription(subscription *v1.Subscription) Subscription {
 			ID:   subscription.ID(),
 			HREF: subscription.HREF(),
 		},
-		PlanID:            subscription.Plan().ID(),
+		CloudProviderID:   subscription.CloudProviderID(),
 		ClusterID:         subscription.ClusterID(),
+		ConsoleURL:        subscription.ConsoleURL(),
+		CreatedAt:         subscription.CreatedAt(),
 		ExternalClusterID: subscription.ExternalClusterID(),
-		DisplayName:       subscription.DisplayName(),
-		CreatorID:         subscription.Creator().ID(),
+		HREF:              subscription.HREF(),
+		ID:                subscription.ID(),
 		Managed:           subscription.Managed(),
+		OrganizationId:    subscription.OrganizationID(),
+		PlanID:            subscription.Plan().ID(),
 		Status:            subscription.Status(),
+		SupportLevel:      subscription.SupportLevel(),
+		Labels:            label.PresentLabels(subscription.Labels()),
+		Capabilities:      capability.PresentCapabilities(subscription.Capabilities()),
 	}
 }
 
@@ -97,4 +114,19 @@ func ValidateSubscription(subscriptionID string, conn *sdk.Connection) error {
 		return fmt.Errorf("failed to get subscription: %v", err)
 	}
 	return nil
+}
+
+func GetSubscriptions(key string, limit int, fetchLabels bool, fetchCapabilities bool, searchStr string, conn *sdk.Connection) ([]*v1.Subscription, error) {
+	search := fmt.Sprintf("(id = '%s'", key)
+	search += fmt.Sprintf(" or cluster_id = '%s'", key)
+	search += fmt.Sprintf(" or external_cluster_id = '%s'", key)
+	search += fmt.Sprintf(" or organization_id = '%s')", key)
+	if searchStr != "" {
+		search += fmt.Sprintf(" and %s", searchStr)
+	}
+	subscriptions, err := conn.AccountsMgmt().V1().Subscriptions().List().Parameter("fetchLabels", fetchLabels).Parameter("fetchCapabilities", fetchCapabilities).Size(limit).Search(search).Send()
+	if err != nil {
+		return []*v1.Subscription{}, fmt.Errorf("can't retrieve accounts: %w", err)
+	}
+	return subscriptions.Items().Slice(), nil
 }
