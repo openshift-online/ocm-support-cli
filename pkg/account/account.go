@@ -28,13 +28,16 @@ type Account struct {
 	Capabilities        capability.CapabilityList                  `json:",omitempty"`
 }
 
-func GetAccounts(key string, limit int, fetchLabels bool, fetchCapabilities bool, conn *sdk.Connection) ([]*v1.Account, error) {
-	search := fmt.Sprintf("id = '%s'", key)
-	search += fmt.Sprintf("or username = '%s'", key)
-	search += fmt.Sprintf("or email = '%s'", key)
-	search += fmt.Sprintf("or organization.id = '%s'", key)
-	search += fmt.Sprintf("or organization.external_id = '%s'", key)
-	search += fmt.Sprintf("or organization.ebs_account_id = '%s'", key)
+func GetAccounts(key string, limit int, fetchLabels bool, fetchCapabilities bool, searchStr string, conn *sdk.Connection) ([]*v1.Account, error) {
+	search := fmt.Sprintf("(id = '%s'", key)
+	search += fmt.Sprintf(" or username = '%s'", key)
+	search += fmt.Sprintf(" or email = '%s'", key)
+	search += fmt.Sprintf(" or organization.id = '%s'", key)
+	search += fmt.Sprintf(" or organization.external_id = '%s'", key)
+	search += fmt.Sprintf(" or organization.ebs_account_id = '%s')", key)
+	if searchStr != "" {
+		search += fmt.Sprintf(" and %s", searchStr)
+	}
 
 	accounts, err := conn.AccountsMgmt().V1().Accounts().List().Parameter("fetchLabels", fetchLabels).Parameter("fetchCapabilities", fetchCapabilities).Size(limit).Search(search).Send()
 	if err != nil {

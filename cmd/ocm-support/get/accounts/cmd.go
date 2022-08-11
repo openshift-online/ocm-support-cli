@@ -14,7 +14,7 @@ import (
 )
 
 var args struct {
-	all                      bool
+	first                    bool
 	fetchRoles               bool
 	fetchRegistryCredentials bool
 	fetchLabels              bool
@@ -23,21 +23,21 @@ var args struct {
 
 // CmdGetAccounts represents the account get command
 var CmdGetAccounts = &cobra.Command{
-	Use:     "accounts [id|username|email|organization.id|organization.external_id|organization.ebs_account_id]",
+	Use:     "accounts [id|username|email|organization.id|organization.external_id|organization.ebs_account_id] [optional_search_string]",
 	Aliases: utils.Aliases["accounts"],
 	Short:   "Gets an account or a list of accounts that matches the search criteria",
 	Long:    "Gets an account or a list of accounts that matches the search criteria",
 	RunE:    run,
-	Args:    cobra.ExactArgs(1),
+	Args:    cobra.MinimumNArgs(1),
 }
 
 func init() {
 	flags := CmdGetAccounts.Flags()
 	flags.BoolVar(
-		&args.all,
-		"all",
+		&args.first,
+		"first",
 		false,
-		"If true, returns all accounts that matched the search instead of the first one only.",
+		"If true, returns only the first accounts that matched the search instead of all of them.",
 	)
 	flags.BoolVar(
 		&args.fetchRoles,
@@ -66,17 +66,21 @@ func init() {
 }
 
 func run(cmd *cobra.Command, argv []string) error {
-	if len(argv) != 1 {
-		return fmt.Errorf("expected exactly one argument")
+	if len(argv) < 1 {
+		return fmt.Errorf("expected at least one argument")
 	}
 
 	// search term
 	key := argv[0]
+	searchStr := ""
+	if len(argv) == 2 {
+		searchStr = argv[1]
+	}
 
-	// by default, returns only the first account found
-	size := 1
-	if args.all {
-		size = -1
+	// by default, returns all the accounts found
+	size := -1
+	if args.first {
+		size = 1
 	}
 
 	connection, err := ocm.NewConnection().Build()
@@ -84,7 +88,7 @@ func run(cmd *cobra.Command, argv []string) error {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
 
-	accounts, err := account.GetAccounts(key, size, args.fetchLabels, args.fetchCapabilities, connection)
+	accounts, err := account.GetAccounts(key, size, args.fetchLabels, args.fetchCapabilities, searchStr, connection)
 	if err != nil {
 		_ = fmt.Errorf("failed to get accounts: %v", err)
 	}

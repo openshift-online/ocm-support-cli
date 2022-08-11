@@ -15,7 +15,7 @@ import (
 )
 
 var args struct {
-	all                bool
+	first              bool
 	fetchSubscriptions bool
 	fetchQuota         bool
 	fetchLabels        bool
@@ -30,16 +30,16 @@ var CmdGetOrganizations = &cobra.Command{
 	Short:   "Gets an organization or a list of organizations that matches the search criteria",
 	Long:    "Gets an organization or a list of organizations that matches the search criteria",
 	RunE:    run,
-	Args:    cobra.ExactArgs(1),
+	Args:    cobra.MinimumNArgs(1),
 }
 
 func init() {
 	flags := CmdGetOrganizations.Flags()
 	flags.BoolVar(
-		&args.all,
-		"all",
+		&args.first,
+		"first",
 		false,
-		"If true, returns all organizations that matched the search instead of the first one only.",
+		"If true, returns only the first organization that matched the search instead of all of them.",
 	)
 	flags.BoolVar(
 		&args.fetchSubscriptions,
@@ -74,17 +74,21 @@ func init() {
 }
 
 func run(cmd *cobra.Command, argv []string) error {
-	if len(argv) != 1 {
-		return fmt.Errorf("expected exactly one argument")
+	if len(argv) < 1 {
+		return fmt.Errorf("expected at least one argument")
 	}
 
 	// search term
 	key := argv[0]
+	searchStr := ""
+	if len(argv) == 2 {
+		searchStr = argv[1]
+	}
 
-	// by default, returns only the first organization found
-	size := 1
-	if args.all {
-		size = -1
+	// by default, returns all the organization found
+	size := -1
+	if args.first {
+		size = 1
 	}
 
 	connection, err := ocm.NewConnection().Build()
@@ -92,7 +96,7 @@ func run(cmd *cobra.Command, argv []string) error {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
 
-	organizations, err := organization.GetOrganizations(key, size, args.fetchLabels, args.fetchCapabilities, connection)
+	organizations, err := organization.GetOrganizations(key, size, args.fetchLabels, args.fetchCapabilities, searchStr, connection)
 	if err != nil {
 		_ = fmt.Errorf("failed to get organizations: %v", err)
 	}
