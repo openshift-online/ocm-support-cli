@@ -80,7 +80,7 @@ func run(cmd *cobra.Command, argv []string) error {
 	}
 
 	if len(subscriptions) > utils.MaxRecords {
-		return fmt.Errorf("too many (%d) subscriptions found. Consider changing your search criteria to something more specific", len(subscriptions))
+		return fmt.Errorf("too many (%d) subscriptions found. Consider changing your search criteria to something more specific by providing optional search filters as a second argument", len(subscriptions))
 	}
 
 	// format the subscription(s) extracting most useful information for support

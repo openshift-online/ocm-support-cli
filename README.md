@@ -291,7 +291,8 @@ The following flags are available for `get subscriptions`:
 ##### Examples
 
 * Get all subscriptions by its ID: `ocm support get subscriptions [subscriptionID]`
-* Get all subscriptions by ClusterID and include its labels and capabilities `ocm support get subscriptions [clusterID] --fetchLabels --fetchCapabilities`
+* Get all subscriptions by ClusterID and include its labels `ocm support get subscriptions [clusterID] --fetchLabels`
+* Get all subscriptions by ClusterID and include its capabilities `ocm support get subscriptions [clusterID] --fetchCapabilities`
 * Get first subscription by its externalClusterID: `ocm support get subscriptions [externalClusterID] --first`
 * Get all subscriptions by OrganizationID and include subscriptions that have Status as 'Reserverd' `ocm support get subscriptions [organizationID] "Status='Reserved'"`
 
