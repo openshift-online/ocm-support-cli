@@ -14,17 +14,16 @@ var args struct {
 	first             bool
 	fetchLabels       bool
 	fetchCapabilities bool
-	parameter         string
 }
 
 // CmdGetSubscriptions represents the subscription get command
 var CmdGetSubscriptions = &cobra.Command{
-	Use:     "subscriptions [id|cluster_id|external_cluster_id|organization_id]",
+	Use:     "subscriptions [id|cluster_id|external_cluster_id|organization_id] [optional_search_string]",
 	Aliases: utils.Aliases["subscriptions"],
 	Short:   "Gets a subscription or a list of subscriptions that matches the search criteria",
 	Long:    "Gets a subscription or a list of subscriptions that matches the search criteria",
 	RunE:    run,
-	Args:    cobra.ExactArgs(1),
+	Args:    cobra.MinimumNArgs(1),
 }
 
 func init() {
@@ -47,21 +46,18 @@ func init() {
 		false,
 		"If true, returns all the capabilities for the subscriptions.",
 	)
-	flags.StringVar(
-		&args.parameter,
-		"parameter",
-		"",
-		"If passed, applies the parameter to which subscriptions search is performed.",
-	)
 }
 
 func run(cmd *cobra.Command, argv []string) error {
-	if len(argv) != 1 {
-		return fmt.Errorf("expected exactly one argument")
+	if len(argv) < 1 {
+		return fmt.Errorf("expected at least one argument")
 	}
 
-	// search term
 	key := argv[0]
+	searchStr := ""
+	if len(argv) == 2 {
+		searchStr = argv[1]
+	}
 
 	// by default, returns all subscriptions found
 	size := -1
@@ -74,14 +70,7 @@ func run(cmd *cobra.Command, argv []string) error {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
 
-	if args.parameter != "" {
-		err = subscription.ValidateParameters(args.parameter, args.fetchLabels, args.fetchCapabilities)
-		if err != nil {
-			return err
-		}
-	}
-
-	subscriptions, err := subscription.GetSubscriptions(key, size, args.fetchLabels, args.fetchCapabilities, args.parameter, connection)
+	subscriptions, err := subscription.GetSubscriptions(key, size, args.fetchLabels, args.fetchCapabilities, searchStr, connection)
 	if err != nil {
 		return fmt.Errorf("failed to get subscriptions: %v", err)
 	}

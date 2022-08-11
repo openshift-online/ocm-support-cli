@@ -3,10 +3,8 @@ package subscription
 import (
 	"context"
 	"fmt"
-	"strings"
 	"time"
 
-	"github.com/bxcodec/faker/v3/support/slice"
 	sdk "github.com/openshift-online/ocm-sdk-go"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 
@@ -33,10 +31,6 @@ type Subscription struct {
 	Labels            label.LabelsList          `json:",omitempty"`
 	Capabilities      capability.CapabilityList `json:",omitempty"`
 }
-
-var ValidParameters []string = []string{"fetchLabels", "fetchCapabilities", "page", "size", "search", "orderBy", "labels"}
-
-var SupportedFlags []string = []string{"fetchLabels", "fetchCapabilities"}
 
 func GetSubscriptionsByOrg(organizationId string, conn *sdk.Connection) ([]*v1.Subscription, error) {
 	search := fmt.Sprintf("organization_id = '%s'", organizationId)
@@ -122,54 +116,17 @@ func ValidateSubscription(subscriptionID string, conn *sdk.Connection) error {
 	return nil
 }
 
-func GetSubscriptions(key string, limit int, fetchLabels bool, fetchCapabilities bool, parameter string, conn *sdk.Connection) ([]*v1.Subscription, error) {
-	search := fmt.Sprintf("id = '%s'", key)
-	search += fmt.Sprintf("or cluster_id = '%s'", key)
-	search += fmt.Sprintf("or external_cluster_id = '%s'", key)
-	search += fmt.Sprintf("or organization_id = '%s'", key)
-	subscriptionsRequest := conn.AccountsMgmt().V1().Subscriptions().List()
-	if fetchLabels {
-		subscriptionsRequest = subscriptionsRequest.Parameter("fetchLabels", fetchLabels)
+func GetSubscriptions(key string, limit int, fetchLabels bool, fetchCapabilities bool, searchStr string, conn *sdk.Connection) ([]*v1.Subscription, error) {
+	search := fmt.Sprintf("(id = '%s'", key)
+	search += fmt.Sprintf(" or cluster_id = '%s'", key)
+	search += fmt.Sprintf(" or external_cluster_id = '%s'", key)
+	search += fmt.Sprintf(" or organization_id = '%s')", key)
+	if searchStr != "" {
+		search += fmt.Sprintf(" and %s", searchStr)
 	}
-	if fetchCapabilities {
-		subscriptionsRequest = subscriptionsRequest.Parameter("fetchCapabilities", fetchCapabilities)
-	}
-	if parameter != "" {
-		parameterName, parameterValue, err := GetParameterNameAndValue(parameter)
-		if err != nil {
-			return nil, err
-		}
-		subscriptionsRequest = subscriptionsRequest.Parameter(parameterName, parameterValue)
-	}
-	subscriptions, err := subscriptionsRequest.Size(limit).Search(search).Send()
+	subscriptions, err := conn.AccountsMgmt().V1().Subscriptions().List().Parameter("fetchLabels", fetchLabels).Parameter("fetchCapabilities", fetchCapabilities).Size(limit).Search(search).Send()
 	if err != nil {
 		return []*v1.Subscription{}, fmt.Errorf("can't retrieve accounts: %w", err)
 	}
 	return subscriptions.Items().Slice(), nil
-}
-
-func ValidateParameters(parameter string, fetchLabels bool, fetchCapabilities bool) error {
-	parameterName, _, err := GetParameterNameAndValue(parameter)
-	if err != nil {
-		return err
-	}
-	if !slice.Contains(ValidParameters, parameterName) {
-		return fmt.Errorf("incorrect parameter name. Correct parameters are: %v", ValidParameters)
-	}
-	if IsParameterSameAsFlag(parameterName, "fetchLabels", fetchLabels) || IsParameterSameAsFlag(parameterName, "fetchCapabilities", fetchCapabilities) {
-		return fmt.Errorf("parameter %s already passed as a flag", parameterName)
-	}
-	return nil
-}
-
-func GetParameterNameAndValue(parameter string) (string, string, error) {
-	param := strings.SplitN(parameter, "=", 2)
-	if len(param) < 2 {
-		return "", "", fmt.Errorf("incorrect format for passing parameter. Parameter can be passed as 'name=value'.")
-	}
-	return param[0], param[1], nil
-}
-
-func IsParameterSameAsFlag(parameterName string, flagName string, flagVal bool) bool {
-	return parameterName == flagName && flagVal
 }
