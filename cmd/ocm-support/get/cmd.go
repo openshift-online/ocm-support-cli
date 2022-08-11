@@ -4,6 +4,7 @@ import (
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/get/accounts"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/get/organizations"
 	registrycredentials "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/get/registry_credentials"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/get/subscriptions"
 	"github.com/spf13/cobra"
 )
 
@@ -19,4 +20,5 @@ func init() {
 	Cmd.AddCommand(accounts.CmdGetAccounts)
 	Cmd.AddCommand(organizations.CmdGetOrganizations)
 	Cmd.AddCommand(registrycredentials.CmdGetRegistryCredentials)
+	Cmd.AddCommand(subscriptions.CmdGetSubscriptions)
 }

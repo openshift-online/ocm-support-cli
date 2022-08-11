@@ -220,7 +220,7 @@ Use the `accounts` subcommand to get one or more accounts, passing as argument o
 * organizationExternalID
 * organizationEBSAccountID
 
-The following flags are available for `accounts get`:
+The following flags are available for `get accounts`:
 
 ```
 --all                        If true, returns all accounts that matched the search instead of the first one only (default behaviour).
@@ -247,7 +247,7 @@ Use the `organizations` subcommand to get one or more organizations, passing as 
 * organizationExternalID
 * organizationEBSAccountID
 
-The following flags are available for `organizations get`:
+The following flags are available for `get organizations`:
 
 ```
 --all                  If true, returns all organizations that matched the search instead of the first one only (default behaviour).
@@ -263,10 +263,38 @@ The following flags are available for `organizations get`:
 
 * Get an organization by its externalID: `ocm support get organizations [organizationExternalID]`
 * Get an organization and include its subscriptions: `ocm support get organizations [organizationID] --fetchSubscriptions`
-* Get an organization and include its labels `ocm support get organizations [organizationID] --fetchLabels --fetchCapabilities`
+* Get an organization and include its labels `ocm support get organizations [organizationID] --fetchLabels`
 * Get an organization and include its capabilities `ocm support get organizations [organizationID] --fetchCapabilities`
 * Get an organization and include its quota: `ocm support get organizations [organizationID] --fetchQuota`
 * Get an organization and include its SKUs: `ocm support get organizations [organizationID] --fetchSkus`
+
+#### Getting a subscription
+
+Use the `subscriptions` subcommand to get one or more subscriptions, passing as argument one of the following:
+
+* subscriptionID
+* clusterID
+* externalClusterID
+* organizationID
+
+Pass the search criteria as an optional second argument.
+
+The following flags are available for `get subscriptions`:
+
+```
+--first                If true, returns only the first subscription that matches the search instead of all of them (default behaviour).
+--fetchLabels          If true, includes the organization labels.
+--fetchCapabilities    If true, includes the organization capabilities.
+-h, --help             help for get
+```
+
+##### Examples
+
+* Get all subscriptions by its ID: `ocm support get subscriptions [subscriptionID]`
+* Get all subscriptions by ClusterID and include its labels `ocm support get subscriptions [clusterID] --fetchLabels`
+* Get all subscriptions by ClusterID and include its capabilities `ocm support get subscriptions [clusterID] --fetchCapabilities`
+* Get first subscription by its externalClusterID: `ocm support get subscriptions [externalClusterID] --first`
+* Get all subscriptions by OrganizationID and include subscriptions that have Status as 'Reserverd' `ocm support get subscriptions [organizationID] "Status='Reserved'"`
 
 #### Getting registry credentials
 
