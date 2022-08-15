@@ -107,7 +107,11 @@ func run(cmd *cobra.Command, argv []string) error {
 
 		var roles []*v1.RoleBinding
 		if args.fetchRoles {
-			roles, err = rolebinding.GetAccountRoleBindings(acc.ID(), connection)
+			// by default, fetch all roles
+			// TODO: Here we are fetching all roles by setting size to -1. In case of performance issues, this can be changed to fetch data by setting default size and
+			// iterating over all the pages from the results
+			rolesSize := -1
+			roles, err = rolebinding.GetAccountRoleBindings(acc.ID(), rolesSize, connection)
 			if err != nil {
 				return fmt.Errorf("failed to fetch roles: %s", err)
 			}

@@ -92,10 +92,11 @@ func DeleteRoleBinding(accountID string, roleBindingKey string, roleType string,
 	return nil
 }
 
-func GetAccountRoleBindings(accountID string, conn *sdk.Connection) ([]*v1.RoleBinding, error) {
+func GetAccountRoleBindings(accountID string, limit int, conn *sdk.Connection) ([]*v1.RoleBinding, error) {
 	query := fmt.Sprintf("account_id = '%s'", accountID)
 	response, err := conn.AccountsMgmt().V1().RoleBindings().List().
 		Parameter("search", query).
+		Size(limit).
 		Send()
 
 	if err != nil {
@@ -120,9 +121,13 @@ func PresentRoleBinding(rb *v1.RoleBinding) RoleBinding {
 }
 
 func PresentRoleBindings(roleBindings []*v1.RoleBinding) []string {
+	var roles = make(map[string]bool)
 	var roleList []string
 	for _, roleBinding := range roleBindings {
-		roleList = append(roleList, roleBinding.Role().ID())
+		if !roles[roleBinding.Role().ID()] {
+			roleList = append(roleList, roleBinding.Role().ID())
+			roles[roleBinding.Role().ID()] = true
+		}
 	}
 	return roleList
 }
