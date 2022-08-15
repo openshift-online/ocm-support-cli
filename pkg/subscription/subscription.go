@@ -116,7 +116,7 @@ func ValidateSubscription(subscriptionID string, conn *sdk.Connection) error {
 	return nil
 }
 
-func GetSubscriptions(key string, limit int, fetchLabels bool, fetchCapabilities bool, searchStr string, conn *sdk.Connection) ([]*v1.Subscription, error) {
+func GetSubscriptions(key string, searchStr string, limit int, fetchLabels bool, fetchCapabilities bool, conn *sdk.Connection) ([]*v1.Subscription, error) {
 	search := fmt.Sprintf("(id = '%s'", key)
 	search += fmt.Sprintf(" or cluster_id = '%s'", key)
 	search += fmt.Sprintf(" or external_cluster_id = '%s'", key)
