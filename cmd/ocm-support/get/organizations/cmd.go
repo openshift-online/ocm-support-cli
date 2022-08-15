@@ -96,7 +96,7 @@ func run(cmd *cobra.Command, argv []string) error {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
 
-	organizations, err := organization.GetOrganizations(key, size, args.fetchLabels, args.fetchCapabilities, searchStr, connection)
+	organizations, err := organization.GetOrganizations(key, searchStr, size, args.fetchLabels, args.fetchCapabilities, connection)
 	if err != nil {
 		_ = fmt.Errorf("failed to get organizations: %v", err)
 	}

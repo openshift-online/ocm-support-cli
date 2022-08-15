@@ -28,7 +28,7 @@ type Account struct {
 	Capabilities        capability.CapabilityList                  `json:",omitempty"`
 }
 
-func GetAccounts(key string, limit int, fetchLabels bool, fetchCapabilities bool, searchStr string, conn *sdk.Connection) ([]*v1.Account, error) {
+func GetAccounts(key string, searchStr string, limit int, fetchLabels bool, fetchCapabilities bool, conn *sdk.Connection) ([]*v1.Account, error) {
 	search := fmt.Sprintf("(id = '%s'", key)
 	search += fmt.Sprintf(" or username = '%s'", key)
 	search += fmt.Sprintf(" or email = '%s'", key)

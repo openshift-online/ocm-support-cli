@@ -88,7 +88,7 @@ func run(cmd *cobra.Command, argv []string) error {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
 
-	accounts, err := account.GetAccounts(key, size, args.fetchLabels, args.fetchCapabilities, searchStr, connection)
+	accounts, err := account.GetAccounts(key, searchStr, size, args.fetchLabels, args.fetchCapabilities, connection)
 	if err != nil {
 		_ = fmt.Errorf("failed to get accounts: %v", err)
 	}
