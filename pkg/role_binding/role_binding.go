@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"sort"
+	"strings"
 	"time"
 
 	sdk "github.com/openshift-online/ocm-sdk-go"
@@ -128,37 +129,31 @@ func PresentRoleBinding(rb *v1.RoleBinding) RoleBinding {
 }
 
 func PresentRoleBindings(roleBindings []*v1.RoleBinding) []AccountRoleBinding {
-	var roleList []AccountRoleBinding
+	keySeparator := "__"
+	uniqueRoleBindingsMap := make(map[string]int)
+	var uniqueRoleList []AccountRoleBinding
 	for _, roleBinding := range roleBindings {
-		accountRoleBinding := AccountRoleBinding{
-			ID:   roleBinding.Role().ID(),
-			Type: roleBinding.Type(),
+		if val, ok := uniqueRoleBindingsMap[roleBinding.Role().ID()+keySeparator+roleBinding.Type()]; ok {
+			uniqueRoleBindingsMap[roleBinding.Role().ID()+keySeparator+roleBinding.Type()] = val + 1
+		} else {
+			uniqueRoleBindingsMap[roleBinding.Role().ID()+keySeparator+roleBinding.Type()] = 1
 		}
-		roleList = append(roleList, accountRoleBinding)
-		sort.Slice(roleList, func(i, j int) bool {
-			return roleList[i].Type < roleList[j].Type
+	}
+	for k := range uniqueRoleBindingsMap {
+		keySegments := strings.Split(k, "__")
+		var totalOccs *int
+		if uniqueRoleBindingsMap[k] != 1 {
+			totalOccs = new(int)
+			*totalOccs = uniqueRoleBindingsMap[k]
+		}
+		uniqueRoleList = append(uniqueRoleList, AccountRoleBinding{
+			ID:               keySegments[0],
+			Type:             keySegments[1],
+			TotalOccurrences: totalOccs,
 		})
 	}
-	var uniqueRoleList []AccountRoleBinding
-	for _, roleBinding := range roleList {
-		if len(uniqueRoleList) != 0 && uniqueRoleList[len(uniqueRoleList)-1].ID == roleBinding.ID && uniqueRoleList[len(uniqueRoleList)-1].Type == roleBinding.Type {
-			existingRoleBinding := IncreaseTotalOccurrences(uniqueRoleList[len(uniqueRoleList)-1])
-			uniqueRoleList[len(uniqueRoleList)-1] = existingRoleBinding
-		} else {
-			uniqueRoleList = append(uniqueRoleList, roleBinding)
-		}
-	}
+	sort.Slice(uniqueRoleList, func(i, j int) bool {
+		return uniqueRoleList[i].Type < uniqueRoleList[j].Type
+	})
 	return uniqueRoleList
-}
-
-func IncreaseTotalOccurrences(roleBinding AccountRoleBinding) AccountRoleBinding {
-	if roleBinding.TotalOccurrences == nil {
-		occ := new(int)
-		*occ = 1
-		roleBinding.TotalOccurrences = occ
-		return roleBinding
-	}
-	val := *roleBinding.TotalOccurrences + 1
-	roleBinding.TotalOccurrences = &val
-	return roleBinding
 }
