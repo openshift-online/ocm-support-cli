@@ -3,6 +3,7 @@ package rolebinding
 import (
 	"context"
 	"fmt"
+	"sort"
 	"time"
 
 	sdk "github.com/openshift-online/ocm-sdk-go"
@@ -21,6 +22,12 @@ type RoleBinding struct {
 	CreatedAt      time.Time
 	UpdatedAt      time.Time
 	Type           string
+}
+
+type AccountRoleBinding struct {
+	ID               string
+	Type             string
+	TotalOccurrences *int `json:",omitempty"`
 }
 
 const (
@@ -120,14 +127,38 @@ func PresentRoleBinding(rb *v1.RoleBinding) RoleBinding {
 	}
 }
 
-func PresentRoleBindings(roleBindings []*v1.RoleBinding) []string {
-	var roles = make(map[string]bool)
-	var roleList []string
+func PresentRoleBindings(roleBindings []*v1.RoleBinding) []AccountRoleBinding {
+	var roleList []AccountRoleBinding
 	for _, roleBinding := range roleBindings {
-		if !roles[roleBinding.Role().ID()] {
-			roleList = append(roleList, roleBinding.Role().ID())
-			roles[roleBinding.Role().ID()] = true
+		accountRoleBinding := AccountRoleBinding{
+			ID:   roleBinding.Role().ID(),
+			Type: roleBinding.Type(),
+		}
+		roleList = append(roleList, accountRoleBinding)
+		sort.Slice(roleList, func(i, j int) bool {
+			return roleList[i].Type < roleList[j].Type
+		})
+	}
+	var uniqueRoleList []AccountRoleBinding
+	for _, roleBinding := range roleList {
+		if len(uniqueRoleList) != 0 && uniqueRoleList[len(uniqueRoleList)-1].ID == roleBinding.ID && uniqueRoleList[len(uniqueRoleList)-1].Type == roleBinding.Type {
+			existingRoleBinding := IncreaseTotalOccurrences(uniqueRoleList[len(uniqueRoleList)-1])
+			uniqueRoleList[len(uniqueRoleList)-1] = existingRoleBinding
+		} else {
+			uniqueRoleList = append(uniqueRoleList, roleBinding)
 		}
 	}
-	return roleList
+	return uniqueRoleList
+}
+
+func IncreaseTotalOccurrences(roleBinding AccountRoleBinding) AccountRoleBinding {
+	if roleBinding.TotalOccurrences == nil {
+		occ := new(int)
+		*occ = 1
+		roleBinding.TotalOccurrences = occ
+		return roleBinding
+	}
+	val := *roleBinding.TotalOccurrences + 1
+	roleBinding.TotalOccurrences = &val
+	return roleBinding
 }
