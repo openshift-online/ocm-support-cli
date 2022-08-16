@@ -97,7 +97,7 @@ func run(cmd *cobra.Command, argv []string) error {
 	for _, sub := range subscriptions {
 		var reservedResources []*v1.ReservedResource
 		if args.fetchReservedResources {
-			reservedResources, err = reserved_resource.GetSubscriptionReservedResources(sub.ID(), connection)
+			reservedResources, err = reserved_resource.GetReservedResources(sub.ID(), connection)
 			if err != nil {
 				return err
 			}
