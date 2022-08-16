@@ -22,7 +22,7 @@ type Account struct {
 	Username            string
 	Email               string
 	Organization        organization.Organization
-	Roles               []string                                   `json:",omitempty"`
+	Roles               []rolebinding.AccountRoleBinding           `json:",omitempty"`
 	RegistryCredentials registry_credential.RegistryCredentialList `json:",omitempty"`
 	Labels              label.LabelsList                           `json:",omitempty"`
 	Capabilities        capability.CapabilityList                  `json:",omitempty"`

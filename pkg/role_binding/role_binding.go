@@ -3,6 +3,8 @@ package rolebinding
 import (
 	"context"
 	"fmt"
+	"sort"
+	"strings"
 	"time"
 
 	sdk "github.com/openshift-online/ocm-sdk-go"
@@ -21,6 +23,12 @@ type RoleBinding struct {
 	CreatedAt      time.Time
 	UpdatedAt      time.Time
 	Type           string
+}
+
+type AccountRoleBinding struct {
+	ID               string
+	Type             string
+	TotalOccurrences *int `json:",omitempty"`
 }
 
 const (
@@ -92,10 +100,11 @@ func DeleteRoleBinding(accountID string, roleBindingKey string, roleType string,
 	return nil
 }
 
-func GetAccountRoleBindings(accountID string, conn *sdk.Connection) ([]*v1.RoleBinding, error) {
+func GetAccountRoleBindings(accountID string, limit int, conn *sdk.Connection) ([]*v1.RoleBinding, error) {
 	query := fmt.Sprintf("account_id = '%s'", accountID)
 	response, err := conn.AccountsMgmt().V1().RoleBindings().List().
 		Parameter("search", query).
+		Size(limit).
 		Send()
 
 	if err != nil {
@@ -119,10 +128,28 @@ func PresentRoleBinding(rb *v1.RoleBinding) RoleBinding {
 	}
 }
 
-func PresentRoleBindings(roleBindings []*v1.RoleBinding) []string {
-	var roleList []string
+func PresentRoleBindings(roleBindings []*v1.RoleBinding) []AccountRoleBinding {
+	keySeparator := "@"
+	uniqueRoleBindingsMap := make(map[string]int)
+	var uniqueRoleList []AccountRoleBinding
 	for _, roleBinding := range roleBindings {
-		roleList = append(roleList, roleBinding.Role().ID())
+		uniqueRoleBindingsKey := roleBinding.Role().ID() + keySeparator + roleBinding.Type()
+		uniqueRoleBindingsMap[uniqueRoleBindingsKey] += 1
 	}
-	return roleList
+	for k := range uniqueRoleBindingsMap {
+		keySegments := strings.Split(k, keySeparator)
+		var totalOccs *int
+		if uniqueRoleBindingsMap[k] > 1 {
+			totalOccs = &[]int{uniqueRoleBindingsMap[k]}[0]
+		}
+		uniqueRoleList = append(uniqueRoleList, AccountRoleBinding{
+			ID:               keySegments[0],
+			Type:             keySegments[1],
+			TotalOccurrences: totalOccs,
+		})
+	}
+	sort.Slice(uniqueRoleList, func(i, j int) bool {
+		return uniqueRoleList[i].Type < uniqueRoleList[j].Type
+	})
+	return uniqueRoleList
 }
