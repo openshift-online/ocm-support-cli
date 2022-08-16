@@ -144,8 +144,7 @@ func PresentRoleBindings(roleBindings []*v1.RoleBinding) []AccountRoleBinding {
 		keySegments := strings.Split(k, keySeparator)
 		var totalOccs *int
 		if uniqueRoleBindingsMap[k] != 1 {
-			totalOccs = new(int)
-			*totalOccs = uniqueRoleBindingsMap[k]
+			totalOccs = &[]int{uniqueRoleBindingsMap[k]}[0]
 		}
 		uniqueRoleList = append(uniqueRoleList, AccountRoleBinding{
 			ID:               keySegments[0],
