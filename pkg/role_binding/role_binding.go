@@ -134,8 +134,8 @@ func PresentRoleBindings(roleBindings []*v1.RoleBinding) []AccountRoleBinding {
 	var uniqueRoleList []AccountRoleBinding
 	for _, roleBinding := range roleBindings {
 		uniqueRoleBindingsKey := roleBinding.Role().ID() + keySeparator + roleBinding.Type()
-		if val, ok := uniqueRoleBindingsMap[uniqueRoleBindingsKey]; ok {
-			uniqueRoleBindingsMap[uniqueRoleBindingsKey] = val + 1
+		if _, ok := uniqueRoleBindingsMap[uniqueRoleBindingsKey]; ok {
+			uniqueRoleBindingsMap[uniqueRoleBindingsKey] += 1
 		} else {
 			uniqueRoleBindingsMap[uniqueRoleBindingsKey] = 1
 		}
