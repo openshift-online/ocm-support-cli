@@ -11,7 +11,7 @@ import (
 type ReservedResource struct {
 	AvailabilityZoneType      string
 	BillingMarketplaceAccount string `json:",omitempty"`
-	BillingModel              BillingModel
+	BillingModel              string
 	BYOC                      bool
 	Count                     int
 	CreatedAt                 time.Time
@@ -19,16 +19,6 @@ type ReservedResource struct {
 	ResourceType              string
 	UpdatedAt                 time.Time
 }
-
-type BillingModel string
-
-const (
-	BillingModelMarketplace      BillingModel = "marketplace"
-	BillingModelMarketplaceAWS   BillingModel = "marketplace-aws"
-	BillingModelMarketplaceRHM   BillingModel = "marketplace-rhm"
-	BillingModelMarketplaceAzure BillingModel = "marketplace-azure"
-	BillingModelStandard         BillingModel = "standard"
-)
 
 type ReservedResourceList []ReservedResource
 
@@ -52,7 +42,7 @@ func PresentReservedResources(reservedResources []*v1.ReservedResource) Reserved
 			ResourceType:              resereservedResource.ResourceType(),
 			UpdatedAt:                 resereservedResource.UpdatedAt(),
 			BYOC:                      resereservedResource.BYOC(),
-			BillingModel:              BillingModel(resereservedResource.BillingModel()),
+			BillingModel:              string(resereservedResource.BillingModel()),
 		}
 		reservedResourceList = append(reservedResourceList, rr)
 	}
