@@ -4,16 +4,19 @@ import (
 	"fmt"
 
 	"github.com/openshift-online/ocm-cli/pkg/ocm"
+	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 	"github.com/spf13/cobra"
 
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
+	"github.com/openshift-online/ocm-support-cli/pkg/reserved_resource"
 	"github.com/openshift-online/ocm-support-cli/pkg/subscription"
 )
 
 var args struct {
-	first             bool
-	fetchLabels       bool
-	fetchCapabilities bool
+	first                  bool
+	fetchLabels            bool
+	fetchCapabilities      bool
+	fetchReservedResources bool
 }
 
 // CmdGetSubscriptions represents the subscription get command
@@ -45,6 +48,12 @@ func init() {
 		"fetchCapabilities",
 		false,
 		"If true, returns all the capabilities for the subscriptions.",
+	)
+	flags.BoolVar(
+		&args.fetchReservedResources,
+		"fetchReservedResources",
+		false,
+		"If true, returns a list of reserved resources for the subscriptions.",
 	)
 }
 
@@ -86,7 +95,14 @@ func run(cmd *cobra.Command, argv []string) error {
 	// format the subscription(s) extracting most useful information for support
 	var formattedSubscriptions []subscription.Subscription
 	for _, sub := range subscriptions {
-		fs := subscription.PresentSubscription(sub)
+		var reservedResources []*v1.ReservedResource
+		if args.fetchReservedResources {
+			reservedResources, err = reserved_resource.GetReservedResources(sub.ID(), connection)
+			if err != nil {
+				return err
+			}
+		}
+		fs := subscription.PresentSubscription(sub, reservedResources)
 		formattedSubscriptions = append(formattedSubscriptions, fs)
 	}
 

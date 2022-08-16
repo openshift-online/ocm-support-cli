@@ -113,10 +113,11 @@ Pass the search criteria as an optional second argument.
 The following flags are available for `get subscriptions`:
 
 ```
---first                If true, returns only the first subscription that matches the search instead of all of them (default behaviour).
---fetchLabels          If true, includes the organization labels.
---fetchCapabilities    If true, includes the organization capabilities.
--h, --help             help for get
+--first                     If true, returns only the first subscription that matches the search instead of all of them (default behaviour).
+--fetchLabels               If true, includes the organization labels.
+--fetchCapabilities         If true, includes the organization capabilities.
+--fetchReservedResources    If true, returns a list of reserved resources for the subscriptions.
+-h, --help                  help for get
 ```
 
 ##### Examples
@@ -126,6 +127,7 @@ The following flags are available for `get subscriptions`:
 * Get all subscriptions by ClusterID and include its capabilities `ocm support get subscriptions [clusterID] --fetchCapabilities`
 * Get first subscription by its externalClusterID: `ocm support get subscriptions [externalClusterID] --first`
 * Get all subscriptions by OrganizationID and include subscriptions that have Status as 'Reserverd' `ocm support get subscriptions [organizationID] "Status='Reserved'"`
+* Get subscription by its ID and include its reserved resources: `ocm support get subscriptions [subscriptionID] --fetchReservedResources`
 
 #### Getting registry credentials
 
