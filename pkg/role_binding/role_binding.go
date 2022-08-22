@@ -125,13 +125,12 @@ func GetAccountRoleBindings(accountID string, limit int, conn *sdk.Connection) (
 }
 
 func GetSubscriptionRoleBindings(subscriptionID string, conn *sdk.Connection) ([]*v1.RoleBinding, error) {
-	response, err := conn.AccountsMgmt().V1().Subscriptions().Subscription(subscriptionID).RoleBindings().List().Send()
-
+	search := fmt.Sprintf("type = 'Subscription' and subscription.id = '%s'", subscriptionID)
+	rb, err := conn.AccountsMgmt().V1().RoleBindings().List().Search(search).Send()
 	if err != nil {
-		return nil, fmt.Errorf("can't retrieve roles for subscription %s : %v", subscriptionID, err)
+		return nil, fmt.Errorf("can't get role binding : %v", err)
 	}
-
-	return response.Items().Slice(), nil
+	return rb.Items().Slice(), nil
 }
 
 func PresentRoleBinding(rb *v1.RoleBinding) RoleBinding {
