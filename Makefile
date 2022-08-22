@@ -12,4 +12,7 @@ install: clean
 clean:
 	rm -f ocm-support
 
-
+cmds:
+	for cmd in $$(ls cmd); do \
+		go build "./cmd/$${cmd}" || exit 1; \
+	done
