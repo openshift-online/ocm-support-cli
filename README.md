@@ -96,7 +96,7 @@ The following flags are available for `get organizations`:
 * Get the organization and include its subscriptions: `ocm support get organizations [organizationID] --fetchSubscriptions`
 * Get all organizations for an organizationExternalID and include its labels `ocm support get organizations [organizationExternalID] --fetchLabels`
 * Get all organizations for an organizationEBSAccountID and include its capabilities `ocm support get organizations [organizationEBSAccountID] --fetchCapabilities`
-* Get the first organization and include its quota: `ocm support get organizations [organizationID] --first --fetchQuota`
+* Get all organizations and include its quota: `ocm support get organizations [organizationID] --fetchQuota`
 * Get all organizations for an organizationExternalID and include its SKUs: `ocm support get organizations [organizationExternalID] --fetchSkus`
 
 #### Getting a subscription
