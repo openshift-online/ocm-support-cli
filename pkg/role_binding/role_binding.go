@@ -48,8 +48,8 @@ func CreateRoleBinding(accountID string, roleID string, roleType string, resourc
 	newRoleBinding := v1.NewRoleBinding().AccountID(accountID).RoleID(roleID).Type(roleType)
 	if roleType == SubscriptionRoleBinding {
 		newRoleBinding.SubscriptionID(*resourceID)
-		//TODO : In case of creating a subscription role binding, managedBy is set to true in uhc-account-manager. Behavior is maintained here for consistency
-		//Ref: https://gitlab.cee.redhat.com/tithakka/uhc-account-manager/-/blob/master/pkg/handlers/subscription_role_binding.go#L83
+		//In case of creating a subscription role binding, managedBy is set to true in uhc-account-manager. Behavior is maintained here for consistency.
+		//In case the behavior changes on the account manager repository, same change should be made here.
 		newRoleBinding.ManagedBy(ManagedByUser)
 	}
 	if roleType == OrganizationRoleBinding {
