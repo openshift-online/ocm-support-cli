@@ -1,3 +1,0 @@
-# This file lists the Python dependencies used by the GitHub actions.
-
-requests
