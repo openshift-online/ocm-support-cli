@@ -22,6 +22,29 @@ git clone git@github.com:openshift-online/ocm-support-cli.git
 
 Next, cd into the ocm-support-cli folder and run `make install`. This command will build the `ocm-support` binary and place it in $GOPATH. As the binary has prefix `ocm-`, it becomes a plugin of `ocm`, and can be invoked by `ocm support`.
 
+### Option 2: Download binary
+
+Download the latest binary file from the [release page](https://github.com/openshift-online/ocm-support-cli/releases).
+
+For Linux, download `ocm-support_linux_amd64`, rename it to `ocm-support` and put it to $PATH. For example:
+~~~
+$ sudo cp ocm-support_linux_amd64 /usr/bin/ocm-support
+$ sudo chmod 0755 /usr/bin/ocm-support
+~~~
+
+For MacOS, download `ocm-support_darwin_amd64`, rename it to `ocm-support` and put it to $PATH. For example:
+~~~
+$ sudo cp ocm-support_darwin_amd64 /usr/local/bin/ocm-support
+$ sudo chmod 0755 /usr/local/bin/ocm-support
+~~~
+
+To verify, you should see version output from backplane sub-command, like:
+~~~
+$ ocm-support version
+0.1.0
+~~~
+
+
 ### Validating the Installation
 
 You can use the following command to confirm that the tool was installed correctly:
