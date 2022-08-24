@@ -25,7 +25,7 @@ $ sudo cp ocm-support_darwin_amd64 /usr/local/bin/ocm-support
 $ sudo chmod 0755 /usr/local/bin/ocm-support
 ~~~
 
-To verify, you should see version output from backplane sub-command, like:
+To verify, you should see version output from ocm support sub-command, like:
 ~~~
 $ ocm support version
 0.1.0
