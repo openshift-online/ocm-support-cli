@@ -9,20 +9,7 @@ Prerequisites:
 
 ## Install
 
-### Option 1: Build from source
-First clone the repository somewhere in your $PATH. A common place would be within your $GOPATH.
-
-Example:
-
-```
-mkdir $GOPATH/src/github.com/openshift-online
-cd $GOPATH/src/github.com/openshift-online
-git clone git@github.com:openshift-online/ocm-support-cli.git
-```
-
-Next, cd into the ocm-support-cli folder and run `make install`. This command will build the `ocm-support` binary and place it in $GOPATH. As the binary has prefix `ocm-`, it becomes a plugin of `ocm`, and can be invoked by `ocm support`.
-
-### Option 2: Download binary
+### Option 1: Download binary
 
 Download the latest binary file from the [release page](https://github.com/openshift-online/ocm-support-cli/releases).
 
@@ -40,10 +27,22 @@ $ sudo chmod 0755 /usr/local/bin/ocm-support
 
 To verify, you should see version output from backplane sub-command, like:
 ~~~
-$ ocm-support version
+$ ocm support version
 0.1.0
 ~~~
 
+### Option 2: Build from source
+First clone the repository somewhere in your $PATH. A common place would be within your $GOPATH.
+
+Example:
+
+```
+mkdir $GOPATH/src/github.com/openshift-online
+cd $GOPATH/src/github.com/openshift-online
+git clone git@github.com:openshift-online/ocm-support-cli.git
+```
+
+Next, cd into the ocm-support-cli folder and run `make install`. This command will build the `ocm-support` binary and place it in $GOPATH. As the binary has prefix `ocm-`, it becomes a plugin of `ocm`, and can be invoked by `ocm support`.
 
 ### Validating the Installation
 
