@@ -1,3 +1,3 @@
-## 1.0.5 Jan 24 2019
+## 0.1.0 Aug 23 2022
 
-- Testing a release
+- First release for OCM Support CLI
