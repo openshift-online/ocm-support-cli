@@ -9,6 +9,7 @@ import (
 
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/reserved_resource"
+	rolebinding "github.com/openshift-online/ocm-support-cli/pkg/role_binding"
 	"github.com/openshift-online/ocm-support-cli/pkg/subscription"
 )
 
@@ -17,6 +18,7 @@ var args struct {
 	fetchLabels            bool
 	fetchCapabilities      bool
 	fetchReservedResources bool
+	fetchRoles             bool
 }
 
 // CmdGetSubscriptions represents the subscription get command
@@ -54,6 +56,12 @@ func init() {
 		"fetchReservedResources",
 		false,
 		"If true, returns a list of reserved resources for the subscriptions.",
+	)
+	flags.BoolVar(
+		&args.fetchRoles,
+		"fetchRoles",
+		false,
+		"If true, returns the subscription roles.",
 	)
 }
 
@@ -102,7 +110,15 @@ func run(cmd *cobra.Command, argv []string) error {
 				return err
 			}
 		}
-		fs := subscription.PresentSubscription(sub, reservedResources)
+
+		var roles []*v1.RoleBinding
+		if args.fetchRoles {
+			roles, err = rolebinding.GetSubscriptionRoleBindings(sub.ID(), connection)
+			if err != nil {
+				return err
+			}
+		}
+		fs := subscription.PresentSubscription(sub, reservedResources, roles)
 		formattedSubscriptions = append(formattedSubscriptions, fs)
 	}
 
