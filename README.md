@@ -25,12 +25,6 @@ $ sudo cp ocm-support_darwin_amd64 /usr/local/bin/ocm-support
 $ sudo chmod 0755 /usr/local/bin/ocm-support
 ~~~
 
-To verify, you should see version output from ocm support sub-command, like:
-~~~
-$ ocm support version
-0.1.0
-~~~
-
 ### Option 2: Build from source
 First clone the repository somewhere in your $PATH. A common place would be within your $GOPATH.
 
