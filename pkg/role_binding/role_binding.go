@@ -33,7 +33,7 @@ type AccountRoleBinding struct {
 
 type SubscriptionsRoleBinding struct {
 	AccountID string
-	RoleIDs   []string
+	RoleIDs   string
 }
 
 const (
@@ -175,21 +175,12 @@ func PresentAccountRoleBindings(roleBindings []*v1.RoleBinding) []AccountRoleBin
 
 func PresentSubscriptionRoleBindings(roleBindings []*v1.RoleBinding) []SubscriptionsRoleBinding {
 	var subscriptionRoleBindings []SubscriptionsRoleBinding
-	uniqueRoleBindingsMap := make(map[string][]string)
 	for _, roleBinding := range roleBindings {
-		if uniqueAccountRoleBindings, ok := uniqueRoleBindingsMap[roleBinding.Account().ID()]; ok {
-			uniqueAccountRoleBindings = append(uniqueAccountRoleBindings, roleBinding.Role().ID())
-			uniqueRoleBindingsMap[roleBinding.Account().ID()] = uniqueAccountRoleBindings
-		} else {
-			uniqueAccountRoleBindings := []string{roleBinding.Role().ID()}
-			uniqueRoleBindingsMap[roleBinding.Account().ID()] = uniqueAccountRoleBindings
+		rb := SubscriptionsRoleBinding{
+			AccountID: roleBinding.Account().ID(),
+			RoleIDs:   roleBinding.Role().ID(),
 		}
-	}
-	for key, val := range uniqueRoleBindingsMap {
-		subscriptionRoleBindings = append(subscriptionRoleBindings, SubscriptionsRoleBinding{
-			AccountID: key,
-			RoleIDs:   val,
-		})
+		subscriptionRoleBindings = append(subscriptionRoleBindings, rb)
 	}
 	return subscriptionRoleBindings
 }
