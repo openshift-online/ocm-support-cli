@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	sdk "github.com/openshift-online/ocm-sdk-go"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 
 	"github.com/openshift-online/ocm-support-cli/pkg/types"
@@ -45,4 +46,29 @@ func CreateLabel(key string, value string, isInternal bool) (*v1.Label, error) {
 		return nil, fmt.Errorf("can't create new label: %w", err)
 	}
 	return lbl, nil
+}
+
+func GetLabels(query string, isInternal bool, size int, conn *sdk.Connection) ([]*v1.Label, error) {
+	search := fmt.Sprintf(query)
+	if isInternal {
+		search += fmt.Sprintf(" and internal=true")
+	}
+	labels, err := conn.AccountsMgmt().V1().Labels().List().Size(size).Search(search).Send()
+	if err != nil {
+		return []*v1.Label{}, fmt.Errorf("can't retrieve labels: %w", err)
+	}
+	return labels.Items().Slice(), nil
+}
+
+func GetLabel(id string, conn *sdk.Connection) (*v1.Label, error) {
+	search := fmt.Sprint("id = '", id, "'")
+	lblResponse, err := conn.AccountsMgmt().V1().Labels().List().Search(search).Send()
+	if err != nil {
+		return nil, fmt.Errorf("can't retrieve label: %w", err)
+	}
+	lbl := lblResponse.Items().Slice()
+	if len(lbl) == 0 {
+		return nil, fmt.Errorf("label with id %s not found", id)
+	}
+	return lbl[0], nil
 }
