@@ -49,9 +49,9 @@ func CreateLabel(key string, value string, isInternal bool) (*v1.Label, error) {
 }
 
 func GetLabels(query string, isInternal bool, size int, conn *sdk.Connection) ([]*v1.Label, error) {
-	search := fmt.Sprintf(query)
+	search := query
 	if isInternal {
-		search += fmt.Sprintf(" and internal=true")
+		search += " and internal=true"
 	}
 	labels, err := conn.AccountsMgmt().V1().Labels().List().Size(size).Search(search).Send()
 	if err != nil {
