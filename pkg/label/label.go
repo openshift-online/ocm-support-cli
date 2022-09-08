@@ -66,9 +66,9 @@ func GetLabel(id string, conn *sdk.Connection) (*v1.Label, error) {
 	if err != nil {
 		return nil, fmt.Errorf("can't retrieve label: %w", err)
 	}
-	lbl := lblResponse.Items().Slice()
-	if len(lbl) == 0 {
+	labels := lblResponse.Items().Slice()
+	if len(labels) == 0 {
 		return nil, fmt.Errorf("label with id %s not found", id)
 	}
-	return lbl[0], nil
+	return labels[0], nil
 }

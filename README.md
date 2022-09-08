@@ -298,7 +298,7 @@ The following flags are available for `delete capability`:
 
 ```
 --filter                     If passed, filters and deletes the matching capabilities.
---no-dry-run                 If passed, it will execute the delete command in the actual environment.
+--no-dry-run                 If passed, it will execute the delete command call in instead of a dry run.
 -h, --help                   help for create
 ```
 

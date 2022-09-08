@@ -29,7 +29,7 @@ func init() {
 		&args.noDryRun,
 		"no-dry-run",
 		false,
-		"If passed, it will execute the delete command in the actual environment.",
+		"If passed, it will execute the delete command call in instead of a dry run.",
 	)
 }
 
@@ -61,18 +61,20 @@ func runDeleteCapability(cmd *cobra.Command, argv []string) error {
 			return fmt.Errorf("expected exactly one argument")
 		}
 		id := argv[0]
-		cap, err := label.GetLabel(id, connection)
+		capabilityToDelete, err := label.GetLabel(id, connection)
 		if err != nil {
 			return err
 		}
-		capabilitiesToDelete = append(capabilitiesToDelete, cap)
+		capabilitiesToDelete = append(capabilitiesToDelete, capabilityToDelete)
 	}
-	for _, cap := range capabilitiesToDelete {
-		err := request.DeleteRequest(cap.HREF(), args.noDryRun, connection)
+	for _, capabilityToDelete := range capabilitiesToDelete {
+		err := request.DeleteRequest(capabilityToDelete.HREF(), args.noDryRun, connection)
 		if err != nil {
 			return err
 		}
 	}
-	fmt.Printf("%v capabilities removed\n", len(capabilitiesToDelete))
+	if args.noDryRun {
+		fmt.Printf("%v capabilities removed\n", len(capabilitiesToDelete))
+	}
 	return nil
 }
