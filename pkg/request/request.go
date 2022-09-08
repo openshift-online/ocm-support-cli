@@ -14,7 +14,7 @@ func DeleteRequest(url string, noDryRun bool, connection *sdk.Connection) error 
 		return fmt.Errorf("can't parse url '%s': %v\n", url, err)
 	}
 	if !noDryRun {
-		fmt.Printf("dry run flag detected. Could have called %v if not passed.\n", request.GetPath())
+		fmt.Printf("DRYRUN: Would have called %v if not passed.\n", request.GetPath())
 		return nil
 	}
 	response, err := request.Send()
