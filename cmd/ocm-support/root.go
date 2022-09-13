@@ -27,6 +27,7 @@ import (
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/get"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/patch"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/version"
 )
 
@@ -84,6 +85,7 @@ func init() {
 	rootCmd.AddCommand(create.Cmd)
 	rootCmd.AddCommand(get.Cmd)
 	rootCmd.AddCommand(delete.Cmd)
+	rootCmd.AddCommand(patch.Cmd)
 
 	// Set the log level before each command runs.
 	cobra.OnInitialize(initLogLevel)
