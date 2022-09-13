@@ -14,7 +14,7 @@ func DeleteRequest(url string, noDryRun bool, connection *sdk.Connection) error 
 		return fmt.Errorf("can't parse url '%s': %v\n", url, err)
 	}
 	if !noDryRun {
-		fmt.Printf("DRYRUN: Would have called %v if not passed.\n", request.GetPath())
+		fmt.Printf("DRYRUN: Would have called %v.\n", request.GetPath())
 		return nil
 	}
 	response, err := request.Send()
@@ -27,6 +27,7 @@ func DeleteRequest(url string, noDryRun bool, connection *sdk.Connection) error 
 	return nil
 }
 
+// Validate the URL and add the same to the request path along with any query parameters
 func ApplyPathArg(request *sdk.Request, value string) error {
 	parsed, err := url.Parse(value)
 	if err != nil {

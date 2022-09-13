@@ -23,13 +23,13 @@ func init() {
 		&args.filter,
 		"filter",
 		"",
-		"If passed, filters and deletes the matching capabilities.",
+		"If non-empty, filters and deletes the matching capabilities.",
 	)
 	flags.BoolVar(
 		&args.noDryRun,
 		"no-dry-run",
 		false,
-		"If passed, it will execute the delete command call in instead of a dry run.",
+		"If true, it will execute the delete command call in instead of a dry run.",
 	)
 }
 
@@ -70,7 +70,7 @@ func runDeleteCapability(cmd *cobra.Command, argv []string) error {
 	for _, capabilityToDelete := range capabilitiesToDelete {
 		err := request.DeleteRequest(capabilityToDelete.HREF(), args.noDryRun, connection)
 		if err != nil {
-			return err
+			return fmt.Errorf("failed to delete capability %s: %v\n", capabilityToDelete.ID(), err)
 		}
 	}
 	if args.noDryRun {
