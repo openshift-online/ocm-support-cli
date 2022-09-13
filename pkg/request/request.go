@@ -7,13 +7,13 @@ import (
 	sdk "github.com/openshift-online/ocm-sdk-go"
 )
 
-func DeleteRequest(url string, noDryRun bool, connection *sdk.Connection) error {
+func DeleteRequest(url string, dryRun bool, connection *sdk.Connection) error {
 	request := connection.Delete()
 	err := ApplyPathArg(request, url)
 	if err != nil {
 		return fmt.Errorf("can't parse url '%s': %v\n", url, err)
 	}
-	if !noDryRun {
+	if dryRun {
 		fmt.Printf("DRYRUN: Would have called %v.\n", request.GetPath())
 		return nil
 	}
@@ -27,7 +27,7 @@ func DeleteRequest(url string, noDryRun bool, connection *sdk.Connection) error 
 	return nil
 }
 
-// Validate the URL and add the same to the request path along with any query parameters
+// ApplyPathArg validates the URL and adds the same to the request path along with any query parameters
 func ApplyPathArg(request *sdk.Request, value string) error {
 	parsed, err := url.Parse(value)
 	if err != nil {

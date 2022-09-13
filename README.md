@@ -297,15 +297,15 @@ Use the `capability` subcommand to delete a capability by passing the ID, or pro
 The following flags are available for `delete capability`:
 
 ```
---filter                     If passed, filters and deletes the matching capabilities.
---no-dry-run                 If passed, it will execute the delete command call in instead of a dry run.
+--filter                     If non-empty, filters and deletes the matching capabilities.
+--no-dry-run                 If false, it will execute the delete command call in instead of a dry run.
 -h, --help                   help for create
 ```
 
 ##### Examples
 
 * Delete a capability by its ID `ocm support delete capability [capabilityID]`
-* Delete all capabilities where key is 'capability.account.create_moa_clusters' (with no dry run) `ocm support delete capability --filter "key = 'capability.account.create_moa_clusters'" --no-dry-run`
+* Delete all capabilities where key is 'capability.account.create_moa_clusters' (with no dry run) `ocm support delete capability --filter "key = 'capability.account.create_moa_clusters'" --dry-run=false`
 
 #### Deleting registry credentials
 

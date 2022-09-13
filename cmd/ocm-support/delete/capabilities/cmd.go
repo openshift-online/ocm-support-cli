@@ -13,8 +13,8 @@ import (
 )
 
 var args struct {
-	filter   string
-	noDryRun bool
+	filter string
+	dryRun bool
 }
 
 func init() {
@@ -26,10 +26,10 @@ func init() {
 		"If non-empty, filters and deletes the matching capabilities.",
 	)
 	flags.BoolVar(
-		&args.noDryRun,
-		"no-dry-run",
-		false,
-		"If true, it will execute the delete command call in instead of a dry run.",
+		&args.dryRun,
+		"dryRun",
+		true,
+		"If false, it will execute the delete command call in instead of a dry run.",
 	)
 }
 
@@ -67,13 +67,17 @@ func runDeleteCapability(cmd *cobra.Command, argv []string) error {
 		}
 		capabilitiesToDelete = append(capabilitiesToDelete, capabilityToDelete)
 	}
+	if len(capabilitiesToDelete) == 0 {
+		fmt.Printf("no capabilities found to delete\n")
+		return nil
+	}
 	for _, capabilityToDelete := range capabilitiesToDelete {
-		err := request.DeleteRequest(capabilityToDelete.HREF(), args.noDryRun, connection)
+		err := request.DeleteRequest(capabilityToDelete.HREF(), args.dryRun, connection)
 		if err != nil {
 			return fmt.Errorf("failed to delete capability %s: %v\n", capabilityToDelete.ID(), err)
 		}
 	}
-	if args.noDryRun {
+	if !args.dryRun {
 		fmt.Printf("%v capabilities removed\n", len(capabilitiesToDelete))
 	}
 	return nil
