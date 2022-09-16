@@ -33,7 +33,7 @@ type AccountRoleBinding struct {
 
 type SubscriptionsRoleBinding struct {
 	AccountID string
-	RoleIDs   string
+	RoleID    string
 }
 
 const (
@@ -178,7 +178,7 @@ func PresentSubscriptionRoleBindings(roleBindings []*v1.RoleBinding) []Subscript
 	for _, roleBinding := range roleBindings {
 		rb := SubscriptionsRoleBinding{
 			AccountID: roleBinding.Account().ID(),
-			RoleIDs:   roleBinding.Role().ID(),
+			RoleID:    roleBinding.Role().ID(),
 		}
 		subscriptionRoleBindings = append(subscriptionRoleBindings, rb)
 	}
