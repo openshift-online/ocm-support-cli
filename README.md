@@ -292,6 +292,23 @@ Use the `subscriptionCapability` subcommand to delete a capability from a subscr
 * Delete a capability from an organization `ocm support delete organizationCapability [orgID] [capabilityKey]`
 * Delete a capability from a subscription `ocm support delete subscriptionCapability [subscriptionID] [capabilityKey]`
 
+##### Deleting type independent capabilities
+
+Use the `capability` subcommand to delete a capability by passing the ID, or provide filter value to search matching capabilities and delete them. By default the dry run flag will be enabled. Set `dryRun` flag to false to actually remove the resource.
+
+The following flags are available for `delete capability`:
+
+```
+--filter                     If non-empty, filters and deletes the matching capabilities.
+--dryRun                     If false, it will execute the delete command call in instead of a dry run.
+-h, --help                   help for create
+```
+
+##### Examples
+
+* Delete a capability by its ID `ocm support delete capability [capabilityID]`
+* Delete all capabilities where key is 'capability.account.create_moa_clusters' (with no dry run) `ocm support delete capability --filter "key = 'capability.account.create_moa_clusters'" --dryRun=false`
+
 #### Deleting registry credentials
 
 Use the `registryCredentials` subcommand to to delete a specific registry credential, or all registry credentials, for the passed accountID.
