@@ -2,7 +2,7 @@ package subscriptions
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 
 	"github.com/openshift-online/ocm-cli/pkg/ocm"
@@ -69,7 +69,7 @@ func run(cmd *cobra.Command, argv []string) error {
 		}
 		subscriptionsToPatch = append(subscriptionsToPatch, subscriptionToPatch)
 	}
-	body, err := ioutil.ReadAll(os.Stdin)
+	body, err := io.ReadAll(os.Stdin)
 	if err != nil {
 		return fmt.Errorf("can't read body: %v\n", err)
 	}
