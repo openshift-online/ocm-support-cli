@@ -292,7 +292,7 @@ Use the `subscriptionCapability` subcommand to delete a capability from a subscr
 
 ##### Deleting type independent capabilities
 
-Use the `capability` subcommand to delete a capability by passing the ID, or provide filter value to search matching capabilities and delete them. By default the dry run flag will be enabled. Pass `dryRun` flag to actually remove the resource.
+Use the `capability` subcommand to delete a capability by passing the ID, or provide filter value to search matching capabilities and delete them. By default the dry run flag will be enabled. Set `dryRun` flag to false to actually remove the resource.
 
 The following flags are available for `delete capability`:
 
