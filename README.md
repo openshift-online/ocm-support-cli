@@ -133,6 +133,7 @@ The following flags are available for `get subscriptions`:
 --fetchLabels               If true, includes the organization labels.
 --fetchCapabilities         If true, includes the organization capabilities.
 --fetchReservedResources    If true, returns a list of reserved resources for the subscriptions.
+--fetchRoles                If true, returns the subscription roles.
 -h, --help                  help for get
 ```
 
@@ -144,6 +145,7 @@ The following flags are available for `get subscriptions`:
 * Get first subscription by its externalClusterID: `ocm support get subscriptions [externalClusterID] --first`
 * Get all subscriptions by OrganizationID and include subscriptions that have Status as 'Reserverd' `ocm support get subscriptions [organizationID] "Status='Reserved'"`
 * Get subscription by its ID and include its reserved resources: `ocm support get subscriptions [subscriptionID] --fetchReservedResources`
+* Get first subscription by its cluster ID and include its roles: `ocm support get subscriptions [clusterID] --first --fetchRoles`
 
 #### Getting registry credentials
 

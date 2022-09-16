@@ -31,16 +31,26 @@ type AccountRoleBinding struct {
 	TotalOccurrences *int `json:",omitempty"`
 }
 
+type SubscriptionsRoleBinding struct {
+	AccountID string
+	RoleID    string
+}
+
 const (
 	SubscriptionRoleBinding = "Subscription"
 	OrganizationRoleBinding = "Organization"
 	ApplicationRoleBinding  = "Application"
+
+	ManagedByUser = "User"
 )
 
 func CreateRoleBinding(accountID string, roleID string, roleType string, resourceID *string) (*v1.RoleBinding, error) {
 	newRoleBinding := v1.NewRoleBinding().AccountID(accountID).RoleID(roleID).Type(roleType)
 	if roleType == SubscriptionRoleBinding {
 		newRoleBinding.SubscriptionID(*resourceID)
+		//In case of creating a subscription role binding, managedBy is set to true in uhc-account-manager. Behavior is maintained here for consistency.
+		//In case the behavior changes on the account manager repository, same change should be made here.
+		newRoleBinding.ManagedBy(ManagedByUser)
 	}
 	if roleType == OrganizationRoleBinding {
 		newRoleBinding.OrganizationID(*resourceID)
@@ -114,6 +124,15 @@ func GetAccountRoleBindings(accountID string, limit int, conn *sdk.Connection) (
 	return response.Items().Slice(), nil
 }
 
+func GetSubscriptionRoleBindings(subscriptionID string, conn *sdk.Connection) ([]*v1.RoleBinding, error) {
+	search := fmt.Sprintf("type = 'Subscription' and subscription.id = '%s'", subscriptionID)
+	rb, err := conn.AccountsMgmt().V1().RoleBindings().List().Search(search).Send()
+	if err != nil {
+		return nil, fmt.Errorf("can't get role binding : %v", err)
+	}
+	return rb.Items().Slice(), nil
+}
+
 func PresentRoleBinding(rb *v1.RoleBinding) RoleBinding {
 	return RoleBinding{
 		ID:             rb.ID(),
@@ -128,7 +147,7 @@ func PresentRoleBinding(rb *v1.RoleBinding) RoleBinding {
 	}
 }
 
-func PresentRoleBindings(roleBindings []*v1.RoleBinding) []AccountRoleBinding {
+func PresentAccountRoleBindings(roleBindings []*v1.RoleBinding) []AccountRoleBinding {
 	keySeparator := "@"
 	uniqueRoleBindingsMap := make(map[string]int)
 	var uniqueRoleList []AccountRoleBinding
@@ -152,4 +171,16 @@ func PresentRoleBindings(roleBindings []*v1.RoleBinding) []AccountRoleBinding {
 		return uniqueRoleList[i].Type < uniqueRoleList[j].Type
 	})
 	return uniqueRoleList
+}
+
+func PresentSubscriptionRoleBindings(roleBindings []*v1.RoleBinding) []SubscriptionsRoleBinding {
+	var subscriptionRoleBindings []SubscriptionsRoleBinding
+	for _, roleBinding := range roleBindings {
+		rb := SubscriptionsRoleBinding{
+			AccountID: roleBinding.Account().ID(),
+			RoleID:    roleBinding.Role().ID(),
+		}
+		subscriptionRoleBindings = append(subscriptionRoleBindings, rb)
+	}
+	return subscriptionRoleBindings
 }
