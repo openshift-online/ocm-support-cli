@@ -7,14 +7,14 @@ import (
 	sdk "github.com/openshift-online/ocm-sdk-go"
 )
 
-func DeleteRequest(url string, noDryRun bool, connection *sdk.Connection) error {
+func DeleteRequest(url string, dryRun bool, connection *sdk.Connection) error {
 	request := connection.Delete()
 	err := ApplyPathArg(request, url)
 	if err != nil {
 		return fmt.Errorf("can't parse url '%s': %v\n", url, err)
 	}
-	if !noDryRun {
-		fmt.Printf("DRYRUN: Would have called %v if not passed.\n", request.GetPath())
+	if dryRun {
+		fmt.Printf("DRYRUN: Would have called %v.\n", request.GetPath())
 		return nil
 	}
 	response, err := request.Send()
@@ -27,26 +27,28 @@ func DeleteRequest(url string, noDryRun bool, connection *sdk.Connection) error 
 	return nil
 }
 
-func PatchRequest(url string, noDryRun bool, connection *sdk.Connection) error {
+func PatchRequest(url string, body []byte, dryRun bool, connection *sdk.Connection) error {
 	request := connection.Patch()
 	err := ApplyPathArg(request, url)
 	if err != nil {
 		return fmt.Errorf("can't parse url '%s': %v\n", url, err)
 	}
-	if !noDryRun {
-		fmt.Printf("DRYRUN: Would have called %v if not passed.\n", request.GetPath())
+	request.Bytes(body)
+	if dryRun {
+		fmt.Printf("DRYRUN: Would have called %v.\n", request.GetPath())
 		return nil
 	}
 	response, err := request.Send()
 	if err != nil {
 		return fmt.Errorf("can't send request: %v", err)
 	}
-	if response.Status() != 204 {
-		return fmt.Errorf("operation failed with response status %v", response.Status())
+	if response.Status() != 200 {
+		return fmt.Errorf("operation failed with response status %v with message %v", response.Status(), response.String())
 	}
 	return nil
 }
 
+// ApplyPathArg validates the URL and adds the same to the request path along with any query parameters
 func ApplyPathArg(request *sdk.Request, value string) error {
 	parsed, err := url.Parse(value)
 	if err != nil {

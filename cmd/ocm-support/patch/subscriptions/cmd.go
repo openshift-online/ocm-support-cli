@@ -2,18 +2,21 @@ package subscriptions
 
 import (
 	"fmt"
+	"io/ioutil"
+	"os"
 
 	"github.com/openshift-online/ocm-cli/pkg/ocm"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
 	"github.com/spf13/cobra"
 
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
+	"github.com/openshift-online/ocm-support-cli/pkg/request"
 	"github.com/openshift-online/ocm-support-cli/pkg/subscription"
 )
 
 var args struct {
-	filter   string
-	noDryRun bool
+	filter string
+	dryRun bool
 }
 
 // CmdPatchSubscriptions represents the subscriptions patch command
@@ -32,13 +35,13 @@ func init() {
 		&args.filter,
 		"filter",
 		"",
-		"If passed, filters and patches the matching subscriptions.",
+		"If non-empty, filters and patches the matching subscriptions.",
 	)
 	flags.BoolVar(
-		&args.noDryRun,
-		"no-dry-run",
-		false,
-		"If passed, it will execute the patch command call in instead of a dry run.",
+		&args.dryRun,
+		"dryRun",
+		true,
+		"If false, it will execute the patch command call in instead of a dry run.",
 	)
 }
 
@@ -66,6 +69,22 @@ func run(cmd *cobra.Command, argv []string) error {
 		}
 		subscriptionsToPatch = append(subscriptionsToPatch, subscriptionToPatch)
 	}
-	fmt.Println(len(subscriptionsToPatch))
+	body, err := ioutil.ReadAll(os.Stdin)
+	if err != nil {
+		return fmt.Errorf("can't read body: %v\n", err)
+	}
+	if len(subscriptionsToPatch) == 0 {
+		fmt.Printf("no subscriptions found to patch\n")
+		return nil
+	}
+	for _, subsubscriptionToPatch := range subscriptionsToPatch {
+		err := request.PatchRequest(subsubscriptionToPatch.HREF(), body, args.dryRun, connection)
+		if err != nil {
+			return fmt.Errorf("failed to patch subscription %s: %v\n", subsubscriptionToPatch.ID(), err)
+		}
+	}
+	if !args.dryRun {
+		fmt.Printf("%v subscriptions patched\n", len(subscriptionsToPatch))
+	}
 	return nil
 }

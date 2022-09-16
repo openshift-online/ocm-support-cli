@@ -325,3 +325,25 @@ Use the `subscriptionRoleBinding` subcommand to remove a role binding from an ac
 * For the given account, delete a role binding created at application level using the roleID `ocm support delete applicationRoleBinding [accountID] [roleID]`
 * For the given account, delete a role binding created at organization level using the roleID `ocm support delete organizationRoleBinding [accountID] [orgID] [roleID]`
 * For the given account, delete a role binding created at subscription level using the roleID `ocm support delete subscriptionRoleBinding [accountID] [subscriptionID] [roleID]`
+
+
+### Patch
+
+The `patch` command patches the given resource.
+
+#### Patching subscriptions
+
+Use the `subscriptions` subcommand to patch a subscription by passing the ID, or provide filter value to search matching subscriptions and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dry-run=false` flag to actually remove the resource.
+
+The following flags are available for `delete capability`:
+
+```
+--filter                     If non-empty, filters and patches the matching subscriptions.
+--no-dry-run                 If false, it will execute the patch command call in instead of a dry run.
+-h, --help                   help for patch
+```
+
+##### Examples
+
+* Patch a subscription by its ID and change the status to 'Reserved' (dry run) `echo '{ "status": "Reserved" }' | ocm support patch subscriptions [subID]`
+* Patch a subscription and change the support level to Self-Support for subscriptions with 'Reserved' status (no dry run) `echo '{ "support_level": "Self-Support" }' | ocm support patch subs --filter "status='Reserved' --dryRun=false`
