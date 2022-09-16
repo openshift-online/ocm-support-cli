@@ -11,6 +11,7 @@ import (
 	"github.com/openshift-online/ocm-support-cli/pkg/capability"
 	"github.com/openshift-online/ocm-support-cli/pkg/label"
 	"github.com/openshift-online/ocm-support-cli/pkg/reserved_resource"
+	rolebinding "github.com/openshift-online/ocm-support-cli/pkg/role_binding"
 	"github.com/openshift-online/ocm-support-cli/pkg/types"
 )
 
@@ -32,6 +33,7 @@ type Subscription struct {
 	Labels            label.LabelsList                       `json:",omitempty"`
 	Capabilities      capability.CapabilityList              `json:",omitempty"`
 	ReservedResources reserved_resource.ReservedResourceList `json:",omitempty"`
+	Roles             []rolebinding.SubscriptionsRoleBinding `json:",omitempty"`
 }
 
 func GetSubscriptionsByOrg(organizationId string, conn *sdk.Connection) ([]*v1.Subscription, error) {
@@ -82,12 +84,12 @@ func DeleteLabel(subscriptionID string, key string, conn *sdk.Connection) error 
 func PresentSubscriptions(subscriptions []*v1.Subscription) []Subscription {
 	var subs []Subscription
 	for _, sub := range subscriptions {
-		subs = append(subs, PresentSubscription(sub, []*v1.ReservedResource{}))
+		subs = append(subs, PresentSubscription(sub, []*v1.ReservedResource{}, []*v1.RoleBinding{}))
 	}
 	return subs
 }
 
-func PresentSubscription(subscription *v1.Subscription, reservedResources []*v1.ReservedResource) Subscription {
+func PresentSubscription(subscription *v1.Subscription, reservedResources []*v1.ReservedResource, roles []*v1.RoleBinding) Subscription {
 	return Subscription{
 		Meta: types.Meta{
 			ID:   subscription.ID(),
@@ -108,6 +110,7 @@ func PresentSubscription(subscription *v1.Subscription, reservedResources []*v1.
 		Labels:            label.PresentLabels(subscription.Labels()),
 		Capabilities:      capability.PresentCapabilities(subscription.Capabilities()),
 		ReservedResources: reserved_resource.PresentReservedResources(reservedResources),
+		Roles:             rolebinding.PresentSubscriptionRoleBindings(roles),
 	}
 }
 

@@ -133,6 +133,7 @@ The following flags are available for `get subscriptions`:
 --fetchLabels               If true, includes the organization labels.
 --fetchCapabilities         If true, includes the organization capabilities.
 --fetchReservedResources    If true, returns a list of reserved resources for the subscriptions.
+--fetchRoles                If true, returns the subscription roles.
 -h, --help                  help for get
 ```
 
@@ -144,6 +145,7 @@ The following flags are available for `get subscriptions`:
 * Get first subscription by its externalClusterID: `ocm support get subscriptions [externalClusterID] --first`
 * Get all subscriptions by OrganizationID and include subscriptions that have Status as 'Reserverd' `ocm support get subscriptions [organizationID] "Status='Reserved'"`
 * Get subscription by its ID and include its reserved resources: `ocm support get subscriptions [subscriptionID] --fetchReservedResources`
+* Get first subscription by its cluster ID and include its roles: `ocm support get subscriptions [clusterID] --first --fetchRoles`
 
 #### Getting registry credentials
 
@@ -289,6 +291,23 @@ Use the `subscriptionCapability` subcommand to delete a capability from a subscr
 * Delete a capability from an account `ocm support delete accountCapability [accountID] [capabilityKey]`
 * Delete a capability from an organization `ocm support delete organizationCapability [orgID] [capabilityKey]`
 * Delete a capability from a subscription `ocm support delete subscriptionCapability [subscriptionID] [capabilityKey]`
+
+##### Deleting type independent capabilities
+
+Use the `capability` subcommand to delete a capability by passing the ID, or provide filter value to search matching capabilities and delete them. By default the dry run flag will be enabled. Set `dryRun` flag to false to actually remove the resource.
+
+The following flags are available for `delete capability`:
+
+```
+--filter                     If non-empty, filters and deletes the matching capabilities.
+--dryRun                     If false, it will execute the delete command call in instead of a dry run.
+-h, --help                   help for create
+```
+
+##### Examples
+
+* Delete a capability by its ID `ocm support delete capability [capabilityID]`
+* Delete all capabilities where key is 'capability.account.create_moa_clusters' (with no dry run) `ocm support delete capability --filter "key = 'capability.account.create_moa_clusters'" --dryRun=false`
 
 #### Deleting registry credentials
 
