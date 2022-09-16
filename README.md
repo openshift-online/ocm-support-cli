@@ -305,7 +305,7 @@ The following flags are available for `delete capability`:
 ##### Examples
 
 * Delete a capability by its ID `ocm support delete capability [capabilityID]`
-* Delete all capabilities where key is 'capability.account.create_moa_clusters' (with no dry run) `ocm support delete capability --filter "key = 'capability.account.create_moa_clusters'" --dry-run=false`
+* Delete all capabilities where key is 'capability.account.create_moa_clusters' (with no dry run) `ocm support delete capability --filter "key = 'capability.account.create_moa_clusters'" --dryRun=false`
 
 #### Deleting registry credentials
 
