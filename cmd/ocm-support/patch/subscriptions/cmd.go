@@ -47,8 +47,8 @@ func init() {
 	flags.IntVar(
 		&args.maxRecords,
 		"maxRecords",
-		100,
-		"Ensures that the maximum number of resources on which the operation is performed does not exceed than maxRecords, when passed dryRun as false.",
+		utils.MaxRecords,
+		"Ensures that the maximum number of resources on which the operation is performed does not exceed than the maxRecords, when passed dryRun as false.",
 	)
 }
 
@@ -85,7 +85,7 @@ func run(cmd *cobra.Command, argv []string) error {
 		return nil
 	}
 	if !args.dryRun && args.maxRecords < len(subscriptionsToPatch) {
-		fmt.Printf("you are attempting to delete %d records, but the maximum allowed is %d. Please use the maxRecords flag to override this value and try again.\n", len(subscriptionsToPatch), args.maxRecords)
+		fmt.Printf("you are attempting to patch %d records, but the maximum allowed is %d. Please use the maxRecords flag to override this value and try again.\n", len(subscriptionsToPatch), args.maxRecords)
 		return nil
 	}
 	for _, subscriptionToPatch := range subscriptionsToPatch {
@@ -96,6 +96,8 @@ func run(cmd *cobra.Command, argv []string) error {
 	}
 	if !args.dryRun {
 		fmt.Printf("%v subscriptions patched\n", len(subscriptionsToPatch))
+	} else {
+		fmt.Printf("%v subscriptions would have been patched\n", len(subscriptionsToPatch))
 	}
 	return nil
 }
