@@ -15,8 +15,9 @@ import (
 )
 
 var args struct {
-	filter string
-	dryRun bool
+	filter     string
+	dryRun     bool
+	maxRecords int
 }
 
 // CmdPatchSubscriptions represents the subscriptions patch command
@@ -42,6 +43,12 @@ func init() {
 		"dryRun",
 		true,
 		"If false, it will execute the patch command call in instead of a dry run.",
+	)
+	flags.IntVar(
+		&args.maxRecords,
+		"maxRecords",
+		100,
+		"Ensures that the maximum number of resources on which the operation is performed does not exceed than maxRecords, when passed dryRun as false.",
 	)
 }
 
@@ -75,6 +82,10 @@ func run(cmd *cobra.Command, argv []string) error {
 	}
 	if len(subscriptionsToPatch) == 0 {
 		fmt.Printf("no subscriptions found to patch\n")
+		return nil
+	}
+	if !args.dryRun && args.maxRecords < len(subscriptionsToPatch) {
+		fmt.Printf("you are attempting to delete %d records, but the maximum allowed is %d. Please use the maxRecords flag to override this value and try again.\n", len(subscriptionsToPatch), args.maxRecords)
 		return nil
 	}
 	for _, subscriptionToPatch := range subscriptionsToPatch {
