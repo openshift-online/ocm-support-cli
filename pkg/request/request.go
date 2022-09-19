@@ -14,7 +14,7 @@ func DeleteRequest(url string, dryRun bool, connection *sdk.Connection) error {
 		return fmt.Errorf("can't parse url '%s': %v\n", url, err)
 	}
 	if dryRun {
-		fmt.Printf("DRYRUN: Would have called %v.\n", request.GetPath())
+		fmt.Printf("DRYRUN: Would have called DELETE on %v.\n", request.GetPath())
 		return nil
 	}
 	response, err := request.Send()
@@ -35,7 +35,7 @@ func PatchRequest(url string, body []byte, dryRun bool, connection *sdk.Connecti
 	}
 	request.Bytes(body)
 	if dryRun {
-		fmt.Printf("DRYRUN: Would have called %v.\n", request.GetPath())
+		fmt.Printf("DRYRUN: Would have called PATCH on %v.\n", request.GetPath())
 		return nil
 	}
 	response, err := request.Send()

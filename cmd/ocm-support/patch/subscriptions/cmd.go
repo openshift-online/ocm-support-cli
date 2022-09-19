@@ -77,10 +77,10 @@ func run(cmd *cobra.Command, argv []string) error {
 		fmt.Printf("no subscriptions found to patch\n")
 		return nil
 	}
-	for _, subsubscriptionToPatch := range subscriptionsToPatch {
-		err := request.PatchRequest(subsubscriptionToPatch.HREF(), body, args.dryRun, connection)
+	for _, subscriptionToPatch := range subscriptionsToPatch {
+		err := request.PatchRequest(subscriptionToPatch.HREF(), body, args.dryRun, connection)
 		if err != nil {
-			return fmt.Errorf("failed to patch subscription %s: %v\n", subsubscriptionToPatch.ID(), err)
+			return fmt.Errorf("failed to patch subscription %s: %v\n", subscriptionToPatch.ID(), err)
 		}
 	}
 	if !args.dryRun {
