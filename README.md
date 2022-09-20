@@ -359,7 +359,7 @@ The following flags are available for `delete capability`:
 ```
 --filter                     If non-empty, filters and patches the matching subscriptions.
 --dryRun                     If false, it will execute the patch command call in instead of a dry run.
---maxRecords                 When dryRun is false, ensures that the maximum number of affecting records do not exceed maxRecords. Defaults to 100.
+--maxRecords                 Maximum number of affected records. Defaults to 100. Only effective when dryRun is set to false.
 -h, --help                   help for patch
 ```
 
@@ -367,4 +367,4 @@ The following flags are available for `delete capability`:
 
 * Patch a subscription by its ID and change the status to 'Reserved' (dry run) `echo '{ "status": "Reserved" }' | ocm support patch subscriptions [subID]`
 * Patch a subscription and change the support level to Self-Support for subscriptions with 'Reserved' status (no dry run) `echo '{ "support_level": "Self-Support" }' | ocm support patch subs --filter "status='Reserved' --dryRun=false`
-* Patch all subscriptions of an organization and change the status to Archived (no dry run and set the maxRecords limit more than the actual number of affecting records) `echo '{ "status": "Archived" }' | ocm support patch subs --filter "organization_id='[orgID]' --dryRun=false --maxRecords=1000`
+* Patch all subscriptions of an organization and change the status to Archived (no dry run and set maxRecords more than the actual number of affected records) `echo '{ "status": "Archived" }' | ocm support patch subs --filter "organization_id='[orgID]' --dryRun=false --maxRecords=1000`

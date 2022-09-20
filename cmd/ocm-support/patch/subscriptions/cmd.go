@@ -48,7 +48,7 @@ func init() {
 		&args.maxRecords,
 		"maxRecords",
 		utils.MaxRecords,
-		"Ensures that the maximum number of resources on which the operation is performed does not exceed than the maxRecords, when passed dryRun as false.",
+		"Maximum number of affected records. Only effective when dryRun is set to false.",
 	)
 }
 
