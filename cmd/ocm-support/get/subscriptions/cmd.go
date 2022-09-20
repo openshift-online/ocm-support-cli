@@ -87,7 +87,7 @@ func run(cmd *cobra.Command, argv []string) error {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
 
-	subscriptions, err := subscription.GetSubscriptions(key, searchStr, size, args.fetchLabels, args.fetchCapabilities, connection)
+	subscriptions, err := subscription.GetSubscriptions(key, searchStr, size, args.fetchLabels, args.fetchCapabilities, false, connection)
 	if err != nil {
 		return fmt.Errorf("failed to get subscriptions: %v", err)
 	}

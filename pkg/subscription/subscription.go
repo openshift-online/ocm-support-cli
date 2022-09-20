@@ -122,13 +122,18 @@ func ValidateSubscription(subscriptionID string, conn *sdk.Connection) error {
 	return nil
 }
 
-func GetSubscriptions(key string, searchStr string, limit int, fetchLabels bool, fetchCapabilities bool, conn *sdk.Connection) ([]*v1.Subscription, error) {
-	search := fmt.Sprintf("(id = '%s'", key)
-	search += fmt.Sprintf(" or cluster_id = '%s'", key)
-	search += fmt.Sprintf(" or external_cluster_id = '%s'", key)
-	search += fmt.Sprintf(" or organization_id = '%s')", key)
-	if searchStr != "" {
-		search += fmt.Sprintf(" and %s", searchStr)
+func GetSubscriptions(key string, searchStr string, limit int, fetchLabels bool, fetchCapabilities bool, searchOnly bool, conn *sdk.Connection) ([]*v1.Subscription, error) {
+	var search string
+	if searchOnly {
+		search = searchStr
+	} else {
+		search = fmt.Sprintf("(id = '%s'", key)
+		search += fmt.Sprintf(" or cluster_id = '%s'", key)
+		search += fmt.Sprintf(" or external_cluster_id = '%s'", key)
+		search += fmt.Sprintf(" or organization_id = '%s')", key)
+		if searchStr != "" {
+			search += fmt.Sprintf(" and %s", searchStr)
+		}
 	}
 	subscriptions, err := conn.AccountsMgmt().V1().Subscriptions().List().Parameter("fetchLabels", fetchLabels).Parameter("fetchCapabilities", fetchCapabilities).Size(limit).Search(search).Send()
 	if err != nil {
