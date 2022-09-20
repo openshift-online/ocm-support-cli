@@ -354,7 +354,7 @@ The `patch` command patches the given resource.
 
 Use the `subscriptions` subcommand to patch a subscription by passing the ID, or provide filter value to search matching subscriptions and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dry-run=false` flag to actually remove the resource.
 
-The following flags are available for `delete capability`:
+The following flags are available for `patch subscriptions`:
 
 ```
 --filter                     If non-empty, filters and patches the matching subscriptions.
