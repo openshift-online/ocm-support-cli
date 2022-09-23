@@ -30,12 +30,17 @@ type Organization struct {
 	ResourceQuota []resourcequota.ResourceQuota `json:",omitempty"`
 }
 
-func GetOrganizations(key string, searchStr string, limit int, fetchLabels bool, fetchCapabilities bool, conn *sdk.Connection) ([]*v1.Organization, error) {
-	search := fmt.Sprintf("(id = '%s'", key)
-	search += fmt.Sprintf(" or external_id = '%s'", key)
-	search += fmt.Sprintf(" or ebs_account_id = '%s')", key)
-	if searchStr != "" {
-		search += fmt.Sprintf(" and %s", searchStr)
+func GetOrganizations(key string, searchStr string, limit int, fetchLabels bool, fetchCapabilities bool, searchOnly bool, conn *sdk.Connection) ([]*v1.Organization, error) {
+	var search string
+	if searchOnly {
+		search = searchStr
+	} else {
+		search := fmt.Sprintf("(id = '%s'", key)
+		search += fmt.Sprintf(" or external_id = '%s'", key)
+		search += fmt.Sprintf(" or ebs_account_id = '%s')", key)
+		if searchStr != "" {
+			search += fmt.Sprintf(" and %s", searchStr)
+		}
 	}
 
 	organizations, err := conn.AccountsMgmt().V1().Organizations().List().Parameter("fetchLabels", fetchLabels).Parameter("fetchCapabilities", fetchCapabilities).Size(limit).Search(search).Send()

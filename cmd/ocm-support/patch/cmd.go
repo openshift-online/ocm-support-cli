@@ -1,6 +1,7 @@
 package patch
 
 import (
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/patch/organizations"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/patch/subscriptions"
 	"github.com/spf13/cobra"
 )
@@ -15,4 +16,5 @@ var Cmd = &cobra.Command{
 
 func init() {
 	Cmd.AddCommand(subscriptions.CmdPatchSubscriptions)
+	Cmd.AddCommand(organizations.CmdPatchOrganizations)
 }
