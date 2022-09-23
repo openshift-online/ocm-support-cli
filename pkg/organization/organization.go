@@ -35,7 +35,7 @@ func GetOrganizations(key string, searchStr string, limit int, fetchLabels bool,
 	if searchOnly {
 		search = searchStr
 	} else {
-		search := fmt.Sprintf("(id = '%s'", key)
+		search = fmt.Sprintf("(id = '%s'", key)
 		search += fmt.Sprintf(" or external_id = '%s'", key)
 		search += fmt.Sprintf(" or ebs_account_id = '%s')", key)
 		if searchStr != "" {
