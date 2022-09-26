@@ -22,7 +22,7 @@ var args struct {
 
 // CmdPatchOrganizations represents the organizations patch command
 var CmdPatchOrganizations = &cobra.Command{
-	Use:     "organizations [id]",
+	Use:     "organizations [filter]",
 	Aliases: utils.Aliases["organizations"],
 	Short:   "Patches organizations matching the filter",
 	Long:    "Patches organizations matching the filter",
@@ -53,6 +53,9 @@ func run(cmd *cobra.Command, argv []string) error {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
 	filter := argv[0]
+	if filter == "" {
+		return fmt.Errorf("filter cannot be empty")
+	}
 	// by default, returns all organizations found
 	size := -1
 	organizationsToPatch, err = organization.GetOrganizations("", filter, size, false, false, true, connection)
