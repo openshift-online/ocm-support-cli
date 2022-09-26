@@ -371,12 +371,27 @@ The following flags are available for `patch subscriptions`:
 
 #### Patching organizations
 
-Use the `organizations` subcommand to patch an organization by passing the ID, or provide filter value to search matching organizations and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default, the dry run flag will be enabled. Pass `dryRun=false` flag to actually remove the resource.
+Use the `organizations` subcommand and provide filter value to search matching organizations and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default, the dry run flag will be enabled. Pass `dryRun=false` flag to actually remove the resource.
 
 The following flags are available for `patch organizations`:
 
 ```
---filter                     If non-empty, filters and patches the matching organizations.
+--dryRun                     If false, it will execute the patch command call in instead of a dry run.
+--maxRecords                 Maximum number of affected records. Defaults to 100. Only effective when dryRun is set to false.
+-h, --help                   help for patch
+```
+
+##### Examples
+
+* Patch all organizations with names starting with "Red Hat" and change the name to "Red Hat Inc." (no dry run and set maxRecords more than the actual number of affected records) `echo '{ "name": "Red Hat Inc." }' | ocm support patch orgs "name like 'Red Hat%' --dryRun=false --maxRecords=1000`
+
+#### Patching organization
+
+Use the `organization` subcommand to patch an organization by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default, the dry run flag will be enabled. Pass `dryRun=false` flag to actually remove the resource.
+
+The following flags are available for `patch organizations`:
+
+```
 --dryRun                     If false, it will execute the patch command call in instead of a dry run.
 --maxRecords                 Maximum number of affected records. Defaults to 100. Only effective when dryRun is set to false.
 -h, --help                   help for patch
@@ -385,4 +400,3 @@ The following flags are available for `patch organizations`:
 ##### Examples
 
 * Patch an organization by its ID and change the externalID (dry run) `echo '{ "external_id": "12541229" }' | ocm support patch organizations [orgID]`
-* Patch all organizations with names starting with "Red Hat" and change the name to "Red Hat Inc." (no dry run and set maxRecords more than the actual number of affected records) `echo '{ "name": "Red Hat Inc." }' | ocm support patch orgs --filter "name like 'Red Hat%' --dryRun=false --maxRecords=1000`

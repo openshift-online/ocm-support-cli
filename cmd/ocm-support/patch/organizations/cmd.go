@@ -24,20 +24,14 @@ var args struct {
 var CmdPatchOrganizations = &cobra.Command{
 	Use:     "organizations [id]",
 	Aliases: utils.Aliases["organizations"],
-	Short:   "Patches an organization for the given ID or organizations matching the filter",
-	Long:    "Patches an organization for the given ID or organizations matching the filter",
+	Short:   "Patches organizations matching the filter",
+	Long:    "Patches organizations matching the filter",
 	RunE:    run,
-	Args:    cobra.MaximumNArgs(1),
+	Args:    cobra.ExactArgs(1),
 }
 
 func init() {
 	flags := CmdPatchOrganizations.Flags()
-	flags.StringVar(
-		&args.filter,
-		"filter",
-		"",
-		"If non-empty, filters and patches the matching organizations.",
-	)
 	flags.BoolVar(
 		&args.dryRun,
 		"dryRun",
@@ -58,23 +52,12 @@ func run(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
-	if args.filter != "" {
-		// by default, returns all organizations found
-		size := -1
-		organizationsToPatch, err = organization.GetOrganizations("", args.filter, size, false, false, true, connection)
-		if err != nil {
-			return err
-		}
-	} else {
-		if len(argv) != 1 {
-			return fmt.Errorf("expected exactly one argument")
-		}
-		key := argv[0]
-		organizationToPatch, err := organization.GetOrganization(key, connection)
-		if err != nil {
-			return err
-		}
-		organizationsToPatch = append(organizationsToPatch, organizationToPatch)
+	filter := argv[0]
+	// by default, returns all organizations found
+	size := -1
+	organizationsToPatch, err = organization.GetOrganizations("", filter, size, false, false, true, connection)
+	if err != nil {
+		return err
 	}
 	body, err := io.ReadAll(os.Stdin)
 	if err != nil {
@@ -88,6 +71,7 @@ func run(cmd *cobra.Command, argv []string) error {
 		fmt.Printf("you are attempting to patch %d records, but the maximum allowed is %d. Please use the maxRecords flag to override this value and try again.\n", len(organizationsToPatch), args.maxRecords)
 		return nil
 	}
+	// send patch request for all matching organizations
 	for _, organizationToPatch := range organizationsToPatch {
 		err := request.PatchRequest(organizationToPatch.HREF(), body, args.dryRun, connection)
 		if err != nil {
