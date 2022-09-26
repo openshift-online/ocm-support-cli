@@ -15,29 +15,22 @@ import (
 )
 
 var args struct {
-	filter     string
 	dryRun     bool
 	maxRecords int
 }
 
 // CmdPatchSubscriptions represents the subscriptions patch command
 var CmdPatchSubscriptions = &cobra.Command{
-	Use:     "subscriptions [id]",
+	Use:     "subscriptions [filter]",
 	Aliases: utils.Aliases["subscriptions"],
-	Short:   "Patches a Subscriptions for the given ID or subscriptions matching the filter",
-	Long:    "Patches a Subscriptions for the given ID or subscriptions matching the filter",
+	Short:   "Patches subscriptions matching the filter",
+	Long:    "Patches subscriptions matching the filter",
 	RunE:    run,
-	Args:    cobra.MaximumNArgs(1),
+	Args:    cobra.ExactArgs(1),
 }
 
 func init() {
 	flags := CmdPatchSubscriptions.Flags()
-	flags.StringVar(
-		&args.filter,
-		"filter",
-		"",
-		"If non-empty, filters and patches the matching subscriptions.",
-	)
 	flags.BoolVar(
 		&args.dryRun,
 		"dryRun",
@@ -58,24 +51,18 @@ func run(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
-	if args.filter != "" {
-		// by default, returns all subscriptions found
-		size := -1
-		subscriptionsToPatch, err = subscription.GetSubscriptions("", args.filter, size, false, false, true, connection)
-		if err != nil {
-			return err
-		}
-	} else {
-		if len(argv) != 1 {
-			return fmt.Errorf("expected exactly one argument")
-		}
-		key := argv[0]
-		subscriptionToPatch, err := subscription.GetSubscription(key, connection)
-		if err != nil {
-			return err
-		}
-		subscriptionsToPatch = append(subscriptionsToPatch, subscriptionToPatch)
+	filter := argv[0]
+	if filter == "" {
+		return fmt.Errorf("filter cannot be empty")
 	}
+
+	// by default, returns all subscriptions found
+	size := -1
+	subscriptionsToPatch, err = subscription.GetSubscriptions("", filter, size, false, false, true, connection)
+	if err != nil {
+		return err
+	}
+
 	body, err := io.ReadAll(os.Stdin)
 	if err != nil {
 		return fmt.Errorf("can't read body: %v\n", err)
@@ -88,6 +75,7 @@ func run(cmd *cobra.Command, argv []string) error {
 		fmt.Printf("you are attempting to patch %d records, but the maximum allowed is %d. Please use the maxRecords flag to override this value and try again.\n", len(subscriptionsToPatch), args.maxRecords)
 		return nil
 	}
+	// send patch request to all matching subscriptions
 	for _, subscriptionToPatch := range subscriptionsToPatch {
 		err := request.PatchRequest(subscriptionToPatch.HREF(), body, args.dryRun, connection)
 		if err != nil {
