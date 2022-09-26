@@ -393,10 +393,9 @@ The following flags are available for `patch organizations`:
 
 ```
 --dryRun                     If false, it will execute the patch command call in instead of a dry run.
---maxRecords                 Maximum number of affected records. Defaults to 100. Only effective when dryRun is set to false.
 -h, --help                   help for patch
 ```
 
 ##### Examples
 
-* Patch an organization by its ID and change the externalID (dry run) `echo '{ "external_id": "12541229" }' | ocm support patch organizations [orgID]`
+* Patch an organization by its ID and change the externalID (dry run) `echo '{ "external_id": "12541229" }' | ocm support patch organization [orgID]`

@@ -36,12 +36,6 @@ func init() {
 		true,
 		"If false, it will execute the patch command call in instead of a dry run.",
 	)
-	flags.IntVar(
-		&args.maxRecords,
-		"maxRecords",
-		utils.MaxRecords,
-		"Maximum number of affected records. Only effective when dryRun is set to false.",
-	)
 }
 
 func run(cmd *cobra.Command, argv []string) error {
