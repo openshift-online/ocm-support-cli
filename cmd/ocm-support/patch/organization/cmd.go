@@ -46,12 +46,12 @@ func run(cmd *cobra.Command, argv []string) error {
 	if len(argv) != 1 {
 		return fmt.Errorf("expected exactly one argument")
 	}
-	// get organization based on the key
-	key := argv[0]
-	if key == "" {
-		return fmt.Errorf("filter cannot be empty")
+	// get organization based on the id
+	id := argv[0]
+	if id == "" {
+		return fmt.Errorf("id cannot be empty")
 	}
-	organizationToPatch, err := organization.GetOrganization(key, connection)
+	organizationToPatch, err := organization.GetOrganization(id, connection)
 	if err != nil {
 		return err
 	}
