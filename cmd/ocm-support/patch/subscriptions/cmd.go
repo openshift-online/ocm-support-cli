@@ -21,7 +21,7 @@ var args struct {
 
 // CmdPatchSubscriptions represents the subscriptions patch command
 var CmdPatchSubscriptions = &cobra.Command{
-	Use:     "subscriptions [id]",
+	Use:     "subscriptions [filter]",
 	Aliases: utils.Aliases["subscriptions"],
 	Short:   "Patches subscriptions matching the filter",
 	Long:    "Patches subscriptions matching the filter",
