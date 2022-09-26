@@ -387,7 +387,7 @@ The following flags are available for `patch organizations`:
 
 #### Patching organization
 
-Use the `organization` subcommand to patch an organization by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default, the dry run flag will be enabled. Pass `dryRun=false` flag to actually remove the resource.
+Use the `organization` subcommand to patch an organization by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default, the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
 
 The following flags are available for `patch organizations`:
 
