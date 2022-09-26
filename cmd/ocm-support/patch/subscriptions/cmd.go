@@ -24,8 +24,8 @@ var args struct {
 var CmdPatchSubscriptions = &cobra.Command{
 	Use:     "subscriptions [id]",
 	Aliases: utils.Aliases["subscriptions"],
-	Short:   "Patches a Subscriptions for the given ID or subscriptions matching the filter passed",
-	Long:    "Patches a Subscriptions for the given ID or subscriptions matching the filter passed",
+	Short:   "Patches a Subscriptions for the given ID or subscriptions matching the filter",
+	Long:    "Patches a Subscriptions for the given ID or subscriptions matching the filter",
 	RunE:    run,
 	Args:    cobra.MaximumNArgs(1),
 }

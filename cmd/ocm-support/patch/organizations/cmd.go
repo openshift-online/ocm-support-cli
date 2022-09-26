@@ -24,8 +24,8 @@ var args struct {
 var CmdPatchOrganizations = &cobra.Command{
 	Use:     "organizations [id]",
 	Aliases: utils.Aliases["organizations"],
-	Short:   "Patches an organization for the given ID or organizations matching the filter passed",
-	Long:    "Patches an organization for the given ID or organizations matching the filter passed",
+	Short:   "Patches an organization for the given ID or organizations matching the filter",
+	Long:    "Patches an organization for the given ID or organizations matching the filter",
 	RunE:    run,
 	Args:    cobra.MaximumNArgs(1),
 }
