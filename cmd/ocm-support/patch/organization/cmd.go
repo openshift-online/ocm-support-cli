@@ -48,6 +48,9 @@ func run(cmd *cobra.Command, argv []string) error {
 	}
 	// get organization based on the key
 	key := argv[0]
+	if key == "" {
+		return fmt.Errorf("filter cannot be empty")
+	}
 	organizationToPatch, err := organization.GetOrganization(key, connection)
 	if err != nil {
 		return err
