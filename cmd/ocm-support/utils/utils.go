@@ -41,4 +41,5 @@ var Aliases = map[string][]string{
 	"capability":   {"cap"},
 	"organization": {"org"},
 	"subscription": {"sub"},
+	"account":      {"acc"},
 }

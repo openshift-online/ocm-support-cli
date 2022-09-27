@@ -1,4 +1,4 @@
-package organization
+package account
 
 import (
 	"fmt"
@@ -9,27 +9,26 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
-	"github.com/openshift-online/ocm-support-cli/pkg/organization"
+	"github.com/openshift-online/ocm-support-cli/pkg/account"
 	"github.com/openshift-online/ocm-support-cli/pkg/request"
 )
 
 var args struct {
-	dryRun     bool
-	maxRecords int
+	dryRun bool
 }
 
-// CmdPatchOrganization represents the organization patch command
-var CmdPatchOrganization = &cobra.Command{
-	Use:     "organization [id]",
-	Aliases: utils.Aliases["organization"],
-	Short:   "Patches an organization for the given ID",
-	Long:    "Patches an organization for the given ID",
+// CmdPatchAccount represents the account patch command
+var CmdPatchAccount = &cobra.Command{
+	Use:     "account [id]",
+	Aliases: utils.Aliases["account"],
+	Short:   "Patches an account for the given ID",
+	Long:    "Patches an account for the given ID",
 	RunE:    run,
 	Args:    cobra.ExactArgs(1),
 }
 
 func init() {
-	flags := CmdPatchOrganization.Flags()
+	flags := CmdPatchAccount.Flags()
 	flags.BoolVar(
 		&args.dryRun,
 		"dryRun",
@@ -46,12 +45,12 @@ func run(cmd *cobra.Command, argv []string) error {
 	if len(argv) != 1 {
 		return fmt.Errorf("expected exactly one argument")
 	}
-	// get organization based on the id
+	// get account based on the id
 	id := argv[0]
 	if id == "" {
 		return fmt.Errorf("id cannot be empty")
 	}
-	organizationToPatch, err := organization.GetOrganization(id, connection)
+	accountToPatch, err := account.GetAccount(id, connection)
 	if err != nil {
 		return err
 	}
@@ -59,15 +58,15 @@ func run(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("can't read body: %v\n", err)
 	}
-	// send organization patch request
-	err = request.PatchRequest(organizationToPatch.HREF(), body, args.dryRun, connection)
+	// send account patch request
+	err = request.PatchRequest(accountToPatch.HREF(), body, args.dryRun, connection)
 	if err != nil {
-		return fmt.Errorf("failed to patch organization %s: %v\n", organizationToPatch.ID(), err)
+		return fmt.Errorf("failed to patch account %s: %v\n", accountToPatch.ID(), err)
 	}
 	if !args.dryRun {
-		fmt.Printf("organization %s patched\n", organizationToPatch.ID())
+		fmt.Printf("account %s patched\n", accountToPatch.ID())
 	} else {
-		fmt.Printf("organization %s would have been patched\n", organizationToPatch.ID())
+		fmt.Printf("account %s would have been patched\n", accountToPatch.ID())
 	}
 	return nil
 }

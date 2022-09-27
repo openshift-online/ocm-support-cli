@@ -15,29 +15,22 @@ import (
 )
 
 var args struct {
-	filter     string
 	dryRun     bool
 	maxRecords int
 }
 
 // CmdPatchAccounts represents the accounts patch command
 var CmdPatchAccounts = &cobra.Command{
-	Use:     "accounts [id]",
+	Use:     "accounts [filter]",
 	Aliases: utils.Aliases["accounts"],
-	Short:   "Patches an account for the given ID or accounts matching the filter",
-	Long:    "Patches an account for the given ID or accounts matching the filter",
+	Short:   "Patches accounts matching the filter",
+	Long:    "Patches accounts matching the filter",
 	RunE:    run,
 	Args:    cobra.MaximumNArgs(1),
 }
 
 func init() {
 	flags := CmdPatchAccounts.Flags()
-	flags.StringVar(
-		&args.filter,
-		"filter",
-		"",
-		"If non-empty, filters and patches the matching accounts.",
-	)
 	flags.BoolVar(
 		&args.dryRun,
 		"dryRun",
@@ -58,23 +51,15 @@ func run(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
-	if args.filter != "" {
-		// by default, returns all accounts found
-		size := -1
-		accountsToPatch, err = account.GetAccounts("", args.filter, size, false, false, true, connection)
-		if err != nil {
-			return err
-		}
-	} else {
-		if len(argv) != 1 {
-			return fmt.Errorf("expected exactly one argument")
-		}
-		key := argv[0]
-		accountToPatch, err := account.GetAccount(key, connection)
-		if err != nil {
-			return err
-		}
-		accountsToPatch = append(accountsToPatch, accountToPatch)
+	filter := argv[0]
+	if filter == "" {
+		return fmt.Errorf("filter cannot be empty")
+	}
+	// by default, returns all accounts found
+	size := -1
+	accountsToPatch, err = account.GetAccounts("", filter, size, false, false, true, connection)
+	if err != nil {
+		return err
 	}
 	body, err := io.ReadAll(os.Stdin)
 	if err != nil {
@@ -88,6 +73,7 @@ func run(cmd *cobra.Command, argv []string) error {
 		fmt.Printf("you are attempting to patch %d records, but the maximum allowed is %d. Please use the maxRecords flag to override this value and try again.\n", len(accountsToPatch), args.maxRecords)
 		return nil
 	}
+	// send patch request for all matching accounts
 	for _, accountToPatch := range accountsToPatch {
 		err := request.PatchRequest(accountToPatch.HREF(), body, args.dryRun, connection)
 		if err != nil {

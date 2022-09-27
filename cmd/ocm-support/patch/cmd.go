@@ -1,6 +1,8 @@
 package patch
 
 import (
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/patch/account"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/patch/accounts"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/patch/organization"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/patch/organizations"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/patch/subscription"
@@ -21,4 +23,6 @@ func init() {
 	Cmd.AddCommand(subscription.CmdPatchSubscription)
 	Cmd.AddCommand(organizations.CmdPatchOrganizations)
 	Cmd.AddCommand(organization.CmdPatchOrganization)
+	Cmd.AddCommand(accounts.CmdPatchAccounts)
+	Cmd.AddCommand(account.CmdPatchAccount)
 }

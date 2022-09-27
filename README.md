@@ -350,9 +350,40 @@ Use the `subscriptionRoleBinding` subcommand to remove a role binding from an ac
 
 The `patch` command patches the given resource.
 
+#### Patching account
+
+Use the `account` subcommand to patch an account by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
+
+The following flags are available for `patch account`:
+
+```
+--dryRun                     If false, it will execute the patch command call in instead of a dry run.
+-h, --help                   help for patch
+```
+
+##### Examples
+
+* Patch an account by its ID and change the first name to 'Red Hat' (dry run) `echo '{ "first_name": "Red Hat" }' | ocm support patch account [accID]`
+
+#### Patching accounts
+
+Use the `accounts` subcommand and provide filter value to search matching accounts and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
+
+The following flags are available for `patch accounts`:
+
+```
+--dryRun                     If false, it will execute the patch command call in instead of a dry run.
+--maxRecords                 Maximum number of affected records. Defaults to 100. Only effective when dryRun is set to false.
+-h, --help                   help for patch
+```
+
+##### Examples
+
+* Patch accounts and change the last name to 'Red Hat' for accounts with username starting with 'rh' (no dry run) `echo '{ "last_name": "Red Hat" }' | ocm support patch accs "username like 'rh%'" --dryRun=false`
+
 #### Patching subscription
 
-Use the `subscription` subcommand to patch a subscription by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually remove the resource.
+Use the `subscription` subcommand to patch a subscription by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
 
 The following flags are available for `patch subscription`:
 
@@ -367,7 +398,7 @@ The following flags are available for `patch subscription`:
 
 #### Patching subscriptions
 
-Use the `subscriptions` subcommand and provide filter value to search matching subscriptions and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually remove the resource.
+Use the `subscriptions` subcommand and provide filter value to search matching subscriptions and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
 
 The following flags are available for `patch subscriptions`:
 
