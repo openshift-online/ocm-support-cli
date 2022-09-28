@@ -366,6 +366,21 @@ The following flags are available for `patch accounts`:
 
 * Patch accounts and change the last name to 'Doe' for accounts with username ending with 'doe' (no dry run) `echo '{ "last_name": "Doe" }' | ocm support patch accs "username like '%doe'" --dryRun=false`
 
+#### Patching account
+
+Use the `account` subcommand to patch an account by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
+
+The following flags are available for `patch account`:
+
+```
+--dryRun                     If false, it will execute the patch command call in instead of a dry run.
+-h, --help                   help for patch
+```
+
+##### Examples
+
+* Patch an account by its ID and change the first name to 'John' (dry run) `echo '{ "first_name": "John" }' | ocm support patch account [accID]`
+
 #### Patching organizations
 
 Use the `organizations` subcommand and provide filter value to search matching organizations and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default, the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
@@ -381,6 +396,22 @@ The following flags are available for `patch organizations`:
 ##### Examples
 
 * Patch all organizations with names starting with "Red Hat" and change the name to "Red Hat Inc." (no dry run and set maxRecords more than the actual number of affected records) `echo '{ "name": "Red Hat Inc." }' | ocm support patch orgs "name like 'Red Hat%' --dryRun=false --maxRecords=1000`
+
+
+#### Patching organization
+
+Use the `organization` subcommand to patch an organization by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default, the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
+
+The following flags are available for `patch organizations`:
+
+```
+--dryRun                     If false, it will execute the patch command call in instead of a dry run.
+-h, --help                   help for patch
+```
+
+##### Examples
+
+* Patch an organization by its ID and change the externalID (dry run) `echo '{ "external_id": "12541229" }' | ocm support patch organization [orgID]`
 
 #### Patching subscriptions
 
@@ -398,36 +429,6 @@ The following flags are available for `patch subscriptions`:
 
 * Patch subscriptions and change the support level to Self-Support for subscriptions with 'Reserved' status (no dry run) `echo '{ "support_level": "Self-Support" }' | ocm support patch subs "status='Reserved'" --dryRun=false`
 * Patch all subscriptions of an organization and change the status to Archived (no dry run and set maxRecords more than the actual number of affected records) `echo '{ "status": "Archived" }' | ocm support patch subs "organization_id='[orgID]' --dryRun=false --maxRecords=1000`
-
-#### Patching account
-
-Use the `account` subcommand to patch an account by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
-
-The following flags are available for `patch account`:
-
-```
---dryRun                     If false, it will execute the patch command call in instead of a dry run.
--h, --help                   help for patch
-```
-
-##### Examples
-
-* Patch an account by its ID and change the first name to 'John' (dry run) `echo '{ "first_name": "John" }' | ocm support patch account [accID]`
-
-#### Patching organization
-
-Use the `organization` subcommand to patch an organization by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default, the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
-
-The following flags are available for `patch organizations`:
-
-```
---dryRun                     If false, it will execute the patch command call in instead of a dry run.
--h, --help                   help for patch
-```
-
-##### Examples
-
-* Patch an organization by its ID and change the externalID (dry run) `echo '{ "external_id": "12541229" }' | ocm support patch organization [orgID]`
 
 #### Patching subscription
 
