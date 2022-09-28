@@ -44,6 +44,9 @@ func runDeleteCapability(cmd *cobra.Command, argv []string) error {
 		return fmt.Errorf("expected exactly one argument")
 	}
 	id := argv[0]
+	if id == "" {
+		return fmt.Errorf("id cannot be empty")
+	}
 	capabilityToDelete, err := label.GetLabel(id, connection)
 	if err != nil {
 		return err
