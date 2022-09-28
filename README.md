@@ -306,7 +306,7 @@ The following flags are available for `delete capability`:
 
 ##### Examples
 
-* Delete all capabilities where key is 'capability.account.create_moa_clusters' (with no dry run) `ocm support delete capability --filter "key = 'capability.account.create_moa_clusters'" --dryRun=false --maxRecords-1000`
+* Delete all capabilities where key is 'capability.account.create_moa_clusters' (with no dry run) `ocm support delete capabilities "key = 'capability.account.create_moa_clusters'" --dryRun=false --maxRecords=1000`
 
 ##### Deleting type independent capability
 
