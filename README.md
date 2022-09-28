@@ -350,26 +350,11 @@ Use the `subscriptionRoleBinding` subcommand to remove a role binding from an ac
 
 The `patch` command patches the given resource.
 
-#### Patching subscription
+#### Patching accounts
 
-Use the `subscription` subcommand to patch a subscription by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually remove the resource.
+Use the `accounts` subcommand and provide filter value to search matching accounts and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
 
-The following flags are available for `patch subscription`:
-
-```
---dryRun                     If false, it will execute the patch command call in instead of a dry run.
--h, --help                   help for patch
-```
-
-##### Examples
-
-* Patch a subscription by its ID and change the status to 'Reserved' (dry run) `echo '{ "status": "Reserved" }' | ocm support patch subscriptions [subID]`
-
-#### Patching subscriptions
-
-Use the `subscriptions` subcommand and provide filter value to search matching subscriptions and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually remove the resource.
-
-The following flags are available for `patch subscriptions`:
+The following flags are available for `patch accounts`:
 
 ```
 --dryRun                     If false, it will execute the patch command call in instead of a dry run.
@@ -379,14 +364,13 @@ The following flags are available for `patch subscriptions`:
 
 ##### Examples
 
-* Patch subscriptions and change the support level to Self-Support for subscriptions with 'Reserved' status (no dry run) `echo '{ "support_level": "Self-Support" }' | ocm support patch subs "status='Reserved'" --dryRun=false`
-* Patch all subscriptions of an organization and change the status to Archived (no dry run and set maxRecords more than the actual number of affected records) `echo '{ "status": "Archived" }' | ocm support patch subs "organization_id='[orgID]' --dryRun=false --maxRecords=1000`
+* Patch accounts and change the last name to 'Doe' for accounts with username ending with 'doe' (no dry run) `echo '{ "last_name": "Doe" }' | ocm support patch accs "username like '%doe'" --dryRun=false`
 
-#### Patching organization
+#### Patching account
 
-Use the `organization` subcommand to patch an organization by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default, the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
+Use the `account` subcommand to patch an account by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
 
-The following flags are available for `patch organizations`:
+The following flags are available for `patch account`:
 
 ```
 --dryRun                     If false, it will execute the patch command call in instead of a dry run.
@@ -395,7 +379,7 @@ The following flags are available for `patch organizations`:
 
 ##### Examples
 
-* Patch an organization by its ID and change the externalID (dry run) `echo '{ "external_id": "12541229" }' | ocm support patch organization [orgID]`
+* Patch an account by its ID and change the first name to 'John' (dry run) `echo '{ "first_name": "John" }' | ocm support patch account [accID]`
 
 #### Patching organizations
 
@@ -413,3 +397,50 @@ The following flags are available for `patch organizations`:
 
 * Patch all organizations with names starting with "Red Hat" and change the name to "Red Hat Inc." (no dry run and set maxRecords more than the actual number of affected records) `echo '{ "name": "Red Hat Inc." }' | ocm support patch orgs "name like 'Red Hat%' --dryRun=false --maxRecords=1000`
 
+
+#### Patching organization
+
+Use the `organization` subcommand to patch an organization by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default, the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
+
+The following flags are available for `patch organizations`:
+
+```
+--dryRun                     If false, it will execute the patch command call in instead of a dry run.
+-h, --help                   help for patch
+```
+
+##### Examples
+
+* Patch an organization by its ID and change the externalID (dry run) `echo '{ "external_id": "12541229" }' | ocm support patch organization [orgID]`
+
+#### Patching subscriptions
+
+Use the `subscriptions` subcommand and provide filter value to search matching subscriptions and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
+
+The following flags are available for `patch subscriptions`:
+
+```
+--dryRun                     If false, it will execute the patch command call in instead of a dry run.
+--maxRecords                 Maximum number of affected records. Defaults to 100. Only effective when dryRun is set to false.
+-h, --help                   help for patch
+```
+
+##### Examples
+
+* Patch subscriptions and change the support level to Self-Support for subscriptions with 'Reserved' status (no dry run) `echo '{ "support_level": "Self-Support" }' | ocm support patch subs "status='Reserved'" --dryRun=false`
+* Patch all subscriptions of an organization and change the status to Archived (no dry run and set maxRecords more than the actual number of affected records) `echo '{ "status": "Archived" }' | ocm support patch subs "organization_id='[orgID]' --dryRun=false --maxRecords=1000`
+
+#### Patching subscription
+
+Use the `subscription` subcommand to patch a subscription by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
+
+The following flags are available for `patch subscription`:
+
+```
+--dryRun                     If false, it will execute the patch command call in instead of a dry run.
+-h, --help                   help for patch
+```
+
+##### Examples
+
+* Patch a subscription by its ID and change the status to 'Reserved' (dry run) `echo '{ "status": "Reserved" }' | ocm support patch subscriptions [subID]`
