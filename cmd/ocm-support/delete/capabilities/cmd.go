@@ -13,34 +13,34 @@ import (
 )
 
 var args struct {
-	filter string
-	dryRun bool
+	dryRun     bool
+	maxRecords int
 }
 
 func init() {
-	flags := CmdDeleteCapability.Flags()
-	flags.StringVar(
-		&args.filter,
-		"filter",
-		"",
-		"If non-empty, filters and deletes the matching capabilities.",
-	)
+	flags := CmdDeleteCapabilities.Flags()
 	flags.BoolVar(
 		&args.dryRun,
 		"dryRun",
 		true,
 		"If false, it will execute the delete command call in instead of a dry run.",
 	)
+	flags.IntVar(
+		&args.maxRecords,
+		"maxRecords",
+		utils.MaxRecords,
+		"Maximum number of affected records. Only effective when dryRun is set to false.",
+	)
 }
 
-// CmdDeleteCapability represents the create account capability command
-var CmdDeleteCapability = &cobra.Command{
-	Use:     "capability [capabilityID]",
-	Aliases: utils.Aliases["capability"],
-	Short:   "Removes a Capability for the given ID or capabilities matching the filter passed.",
-	Long:    "Removes a Capability for the given ID or capabilities matching the filter passed.",
+// CmdDeleteCapabilities represents the create account capabilities command
+var CmdDeleteCapabilities = &cobra.Command{
+	Use:     "capabilities [filter]",
+	Aliases: utils.Aliases["capabilities"],
+	Short:   "Removes capabilities matching the filter",
+	Long:    "Removes capabilities matching the filter",
 	RunE:    runDeleteCapability,
-	Args:    cobra.MaximumNArgs(1),
+	Args:    cobra.ExactArgs(1),
 }
 
 func runDeleteCapability(cmd *cobra.Command, argv []string) error {
@@ -49,28 +49,26 @@ func runDeleteCapability(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
-	if args.filter != "" {
-		// by default, returns all the capabilities found
-		size := -1
-		capabilitiesToDelete, err = label.GetLabels(args.filter, true, size, connection)
-		if err != nil {
-			return err
-		}
-	} else {
-		if len(argv) != 1 {
-			return fmt.Errorf("expected exactly one argument")
-		}
-		id := argv[0]
-		capabilityToDelete, err := label.GetLabel(id, connection)
-		if err != nil {
-			return err
-		}
-		capabilitiesToDelete = append(capabilitiesToDelete, capabilityToDelete)
+
+	filter := argv[0]
+	if filter == "" {
+		return fmt.Errorf("filter cannot be empty")
+	}
+	// by default, returns all capabilities found
+	size := -1
+	capabilitiesToDelete, err = label.GetLabels(filter, true, size, connection)
+	if err != nil {
+		return err
 	}
 	if len(capabilitiesToDelete) == 0 {
 		fmt.Printf("no capabilities found to delete\n")
 		return nil
 	}
+	if !args.dryRun && args.maxRecords < len(capabilitiesToDelete) {
+		fmt.Printf("you are attempting to delete %d records, but the maximum allowed is %d. Please use the maxRecords flag to override this value and try again.\n", len(capabilitiesToDelete), args.maxRecords)
+		return nil
+	}
+	// send delete request to all matching capabilities
 	for _, capabilityToDelete := range capabilitiesToDelete {
 		err := request.DeleteRequest(capabilityToDelete.HREF(), args.dryRun, connection)
 		if err != nil {
@@ -79,6 +77,8 @@ func runDeleteCapability(cmd *cobra.Command, argv []string) error {
 	}
 	if !args.dryRun {
 		fmt.Printf("%v capabilities removed\n", len(capabilitiesToDelete))
+	} else {
+		fmt.Printf("%v capabilities would have been removed\n", len(capabilitiesToDelete))
 	}
 	return nil
 }

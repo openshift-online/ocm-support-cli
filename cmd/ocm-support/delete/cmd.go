@@ -7,6 +7,7 @@ import (
 	accountCapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/capabilities/account_capability"
 	organizationCapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/capabilities/organization_capability"
 	subscriptionCapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/capabilities/subscription_capability"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/capability"
 	accountLabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/labels/account_label"
 	organizationLabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/labels/organization_label"
 	subscriptionLabel "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/labels/subscription_label"
@@ -35,5 +36,6 @@ func init() {
 	Cmd.AddCommand(applicationRoleBinding.CmdDeleteApplicationRoleBinding)
 	Cmd.AddCommand(organizationRoleBinding.CmdDeleteOrganizationRoleBinding)
 	Cmd.AddCommand(subscriptionRoleBinding.CmdDeleteSubscriptionRoleBinding)
-	Cmd.AddCommand(capabilities.CmdDeleteCapability)
+	Cmd.AddCommand(capabilities.CmdDeleteCapabilities)
+	Cmd.AddCommand(capability.CmdDeleteCapability)
 }

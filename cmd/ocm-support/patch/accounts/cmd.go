@@ -26,7 +26,7 @@ var CmdPatchAccounts = &cobra.Command{
 	Short:   "Patches accounts matching the filter",
 	Long:    "Patches accounts matching the filter",
 	RunE:    run,
-	Args:    cobra.MaximumNArgs(1),
+	Args:    cobra.ExactArgs(1),
 }
 
 func init() {
