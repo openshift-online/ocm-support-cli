@@ -17,23 +17,23 @@ import (
 
 type Subscription struct {
 	types.Meta
-	CloudProviderID   string
-	ClusterID         string
-	ConsoleURL        string
-	CreatedAt         time.Time
-	ExternalClusterID string
-	HREF              string
-	ID                string
-	Managed           bool
-	OrganizationId    string
-	PlanID            string
-	Status            string
-	SupportLevel      string
-	UpdatedAt         time.Time
-	Labels            label.LabelsList                       `json:",omitempty"`
-	Capabilities      capability.CapabilityList              `json:",omitempty"`
-	ReservedResources reserved_resource.ReservedResourceList `json:",omitempty"`
-	Roles             []rolebinding.SubscriptionsRoleBinding `json:",omitempty"`
+	CloudProviderID   string                                 `json:"cloud_provider_id"`
+	ClusterID         string                                 `json:"cluster_id"`
+	ConsoleURL        string                                 `json:"console_url"`
+	CreatedAt         time.Time                              `json:"created_at"`
+	ExternalClusterID string                                 `json:"external_cluster_id"`
+	HREF              string                                 `json:"first_name"`
+	ID                string                                 `json:"id"`
+	Managed           bool                                   `json:"managed"`
+	OrganizationId    string                                 `json:"organization_id"`
+	PlanID            string                                 `json:"plan_id"`
+	Status            string                                 `json:"status"`
+	SupportLevel      string                                 `json:"support_level"`
+	UpdatedAt         time.Time                              `json:"updated_at"`
+	Labels            label.LabelsList                       `json:"labels,omitempty"`
+	Capabilities      capability.CapabilityList              `json:"capabilities,omitempty"`
+	ReservedResources reserved_resource.ReservedResourceList `json:"reserved_resources,omitempty"`
+	Roles             []rolebinding.SubscriptionsRoleBinding `json:"roles,omitempty"`
 }
 
 func GetSubscriptionsByOrg(organizationId string, conn *sdk.Connection) ([]*v1.Subscription, error) {

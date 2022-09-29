@@ -8,9 +8,9 @@ import (
 )
 
 type Quota struct {
-	Allowed  int
-	Consumed int
-	QuotaID  string
+	Allowed  int    `json:"allowed"`
+	Consumed int    `json:"consumed"`
+	QuotaID  string `json:"quota_id"`
 }
 
 type QuotaList []Quota

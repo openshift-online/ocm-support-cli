@@ -12,7 +12,7 @@ import (
 
 type RegistryCredential struct {
 	types.Meta
-	RegistryID string
+	RegistryID string `json:"registry_id"`
 }
 
 type RegistryCredentialList []RegistryCredential

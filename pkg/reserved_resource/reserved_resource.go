@@ -9,15 +9,15 @@ import (
 )
 
 type ReservedResource struct {
-	AvailabilityZoneType      string
-	BillingMarketplaceAccount string `json:",omitempty"`
-	BillingModel              string
-	BYOC                      bool
-	Count                     int
-	CreatedAt                 time.Time
-	ResourceName              string
-	ResourceType              string
-	UpdatedAt                 time.Time
+	AvailabilityZoneType      string    `json:"availability_zone_type"`
+	BillingMarketplaceAccount string    `json:"billing_marketplace_account"`
+	BillingModel              string    `json:"billing_model"`
+	BYOC                      bool      `json:"byoc"`
+	Count                     int       `json:"count"`
+	CreatedAt                 time.Time `json:"created_at"`
+	ResourceName              string    `json:"resource_name"`
+	ResourceType              string    `json:"resource_type"`
+	UpdatedAt                 time.Time `json:"updated_at"`
 }
 
 type ReservedResourceList []ReservedResource

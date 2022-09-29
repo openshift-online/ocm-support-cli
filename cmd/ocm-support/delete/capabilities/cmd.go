@@ -21,15 +21,15 @@ func init() {
 	flags := CmdDeleteCapabilities.Flags()
 	flags.BoolVar(
 		&args.dryRun,
-		"dryRun",
+		"dry-run",
 		true,
 		"If false, it will execute the delete command call in instead of a dry run.",
 	)
 	flags.IntVar(
 		&args.maxRecords,
-		"maxRecords",
+		"max-records",
 		utils.MaxRecords,
-		"Maximum number of affected records. Only effective when dryRun is set to false.",
+		"Maximum number of affected records. Only effective when dry-run is set to false.",
 	)
 }
 

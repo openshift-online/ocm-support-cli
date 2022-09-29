@@ -1,6 +1,6 @@
 package types
 
 type Meta struct {
-	ID   string
-	HREF string
+	ID   string `json:"id"`
+	HREF string `json:"href"`
 }

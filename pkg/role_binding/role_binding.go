@@ -14,26 +14,26 @@ import (
 
 type RoleBinding struct {
 	types.Meta
-	ID             string
-	HREF           string
-	AccountID      string
-	RoleID         string
-	OrganizationID string `json:",omitempty"`
-	SubscriptionID string `json:",omitempty"`
-	CreatedAt      time.Time
-	UpdatedAt      time.Time
-	Type           string
+	ID             string    `json:"id"`
+	HREF           string    `json:"href"`
+	AccountID      string    `json:"account_id"`
+	RoleID         string    `json:"role_id"`
+	OrganizationID string    `json:"organization_id"`
+	SubscriptionID string    `json:"subscription_id"`
+	CreatedAt      time.Time `json:"created_at"`
+	UpdatedAt      time.Time `json:"updated_at"`
+	Type           string    `json:"type"`
 }
 
 type AccountRoleBinding struct {
-	ID               string
-	Type             string
-	TotalOccurrences *int `json:",omitempty"`
+	ID               string `json:"id"`
+	Type             string `json:"type"`
+	TotalOccurrences *int   `json:"total_occurrences,omitempty"`
 }
 
 type SubscriptionsRoleBinding struct {
-	AccountID string
-	RoleID    string
+	AccountID string `json:"account_id"`
+	RoleID    string `json:"role_id"`
 }
 
 const (

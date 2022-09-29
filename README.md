@@ -69,20 +69,20 @@ The following flags are available for `get accounts`:
 
 ```
 --first                      If true, returns only the first accounts that matched the search instead of all of them (default behaviour).
---fetchRegistryCredentials   If true, includes the account registry credentials.
---fetchRoles                 If true, includes the account roles.
---fetchLabels                If true, includes the account labels.
---fetchCapabilities          If true, includes the account capabilities.
+--fetch-registry-credentials If true, includes the account registry credentials.
+--fetch-roles                If true, includes the account roles.
+--fetch-labels               If true, includes the account labels.
+--fetch-capabilities         If true, includes the account capabilities.
 -h, --help                   help for get
 ```
 
 ##### Examples
 
 * Get the first account by email `ocm support get accounts user@redhat.com --first`
-* Get the account and include its roles in the results `ocm support get accounts [accountID] --fetchRoles`
-* Get the account and include its registry credentials `ocm support get accounts [username] --fetchRegistryCredentials`
-* Get all accounts for an organizationExternalID and include its labels in the results `ocm support get accounts [organizationExternalID] --fetchLabels`
-* Get all accounts for an organizationEBSAccountID and include its capabilities in the results `ocm support get accounts [organizationEBSAccountID] --fetchCapabilities`
+* Get the account and include its roles in the results `ocm support get accounts [accountID] --fetch-roles`
+* Get the account and include its registry credentials `ocm support get accounts [username] --fetch-registry-credentials`
+* Get all accounts for an organizationExternalID and include its labels in the results `ocm support get accounts [organizationExternalID] --fetch-labels`
+* Get all accounts for an organizationEBSAccountID and include its capabilities in the results `ocm support get accounts [organizationEBSAccountID] --fetch-capabilities`
 * Get all accounts from an organization `ocm support get accounts [organizationID]`
 
 #### Getting an organization
@@ -99,21 +99,21 @@ The following flags are available for `get organizations`:
 
 ```
 --first                If true, returns only the first accounts that matched the search instead of all of them (default behaviour).
---fetchQuota           If true, includes the organization quota.
---fetchSubscriptions   If true, includes the organization subscriptions.
---fetchLabels          If true, includes the organization labels.
---fetchCapabilities    If true, includes the organization capabilities.
---fetchSkus            If true, returns all the resource quota objects for the organization.
+--fetch-quota          If true, includes the organization quota.
+--fetch-subscriptions  If true, includes the organization subscriptions.
+--fetch-labels         If true, includes the organization labels.
+--fetch-capabilities   If true, includes the organization capabilities.
+--fetch-skus           If true, returns all the resource quota objects for the organization.
 -h, --help             help for get
 ```
 
 ##### Examples
 * Get the first organization by its externalID: `ocm support get organizations [organizationExternalID] --first`
-* Get the organization and include its subscriptions: `ocm support get organizations [organizationID] --fetchSubscriptions`
-* Get all organizations for an organizationExternalID and include its labels `ocm support get organizations [organizationExternalID] --fetchLabels`
-* Get all organizations for an organizationEBSAccountID and include its capabilities `ocm support get organizations [organizationEBSAccountID] --fetchCapabilities`
-* Get the first organization and include its quota: `ocm support get organizations [organizationID] --first --fetchQuota`
-* Get all organizations for an organizationExternalID and include its SKUs: `ocm support get organizations [organizationExternalID] --fetchSkus`
+* Get the organization and include its subscriptions: `ocm support get organizations [organizationID] --fetch-subscriptions`
+* Get all organizations for an organizationExternalID and include its labels `ocm support get organizations [organizationExternalID] --fetch-labels`
+* Get all organizations for an organizationEBSAccountID and include its capabilities `ocm support get organizations [organizationEBSAccountID] --fetch-capabilities`
+* Get the first organization and include its quota: `ocm support get organizations [organizationID] --first --fetch-quota`
+* Get all organizations for an organizationExternalID and include its SKUs: `ocm support get organizations [organizationExternalID] --fetch-skus`
 
 #### Getting a subscription
 
@@ -130,22 +130,22 @@ The following flags are available for `get subscriptions`:
 
 ```
 --first                     If true, returns only the first subscription that matches the search instead of all of them (default behaviour).
---fetchLabels               If true, includes the organization labels.
---fetchCapabilities         If true, includes the organization capabilities.
---fetchReservedResources    If true, returns a list of reserved resources for the subscriptions.
---fetchRoles                If true, returns the subscription roles.
+--fetch-labels               If true, includes the organization labels.
+--fetch-capabilities         If true, includes the organization capabilities.
+--fetch-reserved-resources    If true, returns a list of reserved resources for the subscriptions.
+--fetch-roles                If true, returns the subscription roles.
 -h, --help                  help for get
 ```
 
 ##### Examples
 
 * Get subscription by its ID: `ocm support get subscriptions [subscriptionID]`
-* Get all subscriptions by ClusterID and include its labels `ocm support get subscriptions [clusterID] --fetchLabels`
-* Get all subscriptions by ClusterID and include its capabilities `ocm support get subscriptions [clusterID] --fetchCapabilities`
+* Get all subscriptions by ClusterID and include its labels `ocm support get subscriptions [clusterID] --fetch-labels`
+* Get all subscriptions by ClusterID and include its capabilities `ocm support get subscriptions [clusterID] --fetch-capabilities`
 * Get first subscription by its externalClusterID: `ocm support get subscriptions [externalClusterID] --first`
 * Get all subscriptions by OrganizationID and include subscriptions that have Status as 'Reserverd' `ocm support get subscriptions [organizationID] "Status='Reserved'"`
-* Get subscription by its ID and include its reserved resources: `ocm support get subscriptions [subscriptionID] --fetchReservedResources`
-* Get first subscription by its cluster ID and include its roles: `ocm support get subscriptions [clusterID] --first --fetchRoles`
+* Get subscription by its ID and include its reserved resources: `ocm support get subscriptions [subscriptionID] --fetch-reserved-resources`
+* Get first subscription by its cluster ID and include its roles: `ocm support get subscriptions [clusterID] --first --fetch-roles`
 
 #### Getting registry credentials
 
@@ -294,28 +294,28 @@ Use the `subscriptionCapability` subcommand to delete a capability from a subscr
 
 ##### Deleting type independent capabilities
 
-Use the `capabilities` subcommand to provide filter value to search matching capabilities and delete them. By default the dry run flag will be enabled. Set `dryRun` flag to false to actually remove the resource.
+Use the `capabilities` subcommand to provide filter value to search matching capabilities and delete them. By default the dry run flag will be enabled. Set `dry-run` flag to false to actually remove the resource.
 
 The following flags are available for `delete capability`:
 
 ```
---dryRun                     If false, it will execute the delete command call in instead of a dry run.
---maxRecords                 Maximum number of affected records. Defaults to 100. Only effective when dryRun is set to false.
+--dry-run                    If false, it will execute the delete command call in instead of a dry run.
+--max-records                Maximum number of affected records. Defaults to 100. Only effective when dry-run is set to false.
 -h, --help                   help for create
 ```
 
 ##### Examples
 
-* Delete all capabilities where key is 'capability.account.create_moa_clusters' (with no dry run) `ocm support delete capabilities "key = 'capability.account.create_moa_clusters'" --dryRun=false --maxRecords=1000`
+* Delete all capabilities where key is 'capability.account.create_moa_clusters' (with no dry run) `ocm support delete capabilities "key = 'capability.account.create_moa_clusters'" --dry-run=false --max-records=1000`
 
 ##### Deleting type independent capability
 
-Use the `capability` subcommand to delete a capability by passing the ID. By default the dry run flag will be enabled. Set `dryRun` flag to false to actually remove the resource.
+Use the `capability` subcommand to delete a capability by passing the ID. By default the dry run flag will be enabled. Set `dry-run` flag to false to actually remove the resource.
 
 The following flags are available for `delete capability`:
 
 ```
---dryRun                     If false, it will execute the delete command call in instead of a dry run.
+--dry-run                    If false, it will execute the delete command call in instead of a dry run.
 -h, --help                   help for create
 ```
 
@@ -366,28 +366,28 @@ The `patch` command patches the given resource.
 
 #### Patching accounts
 
-Use the `accounts` subcommand and provide filter value to search matching accounts and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
+Use the `accounts` subcommand and provide filter value to search matching accounts and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
 
 The following flags are available for `patch accounts`:
 
 ```
---dryRun                     If false, it will execute the patch command call in instead of a dry run.
---maxRecords                 Maximum number of affected records. Defaults to 100. Only effective when dryRun is set to false.
+--dry-run                    If false, it will execute the patch command call in instead of a dry run.
+--max-records                Maximum number of affected records. Defaults to 100. Only effective when dry-run is set to false.
 -h, --help                   help for patch
 ```
 
 ##### Examples
 
-* Patch accounts and change the last name to 'Doe' for accounts with username ending with 'doe' (no dry run) `echo '{ "last_name": "Doe" }' | ocm support patch accs "username like '%doe'" --dryRun=false`
+* Patch accounts and change the last name to 'Doe' for accounts with username ending with 'doe' (no dry run) `echo '{ "last_name": "Doe" }' | ocm support patch accs "username like '%doe'" --dry-run=false`
 
 #### Patching account
 
-Use the `account` subcommand to patch an account by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
+Use the `account` subcommand to patch an account by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
 
 The following flags are available for `patch account`:
 
 ```
---dryRun                     If false, it will execute the patch command call in instead of a dry run.
+--dry-run                    If false, it will execute the patch command call in instead of a dry run.
 -h, --help                   help for patch
 ```
 
@@ -397,29 +397,29 @@ The following flags are available for `patch account`:
 
 #### Patching organizations
 
-Use the `organizations` subcommand and provide filter value to search matching organizations and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default, the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
+Use the `organizations` subcommand and provide filter value to search matching organizations and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default, the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
 
 The following flags are available for `patch organizations`:
 
 ```
---dryRun                     If false, it will execute the patch command call in instead of a dry run.
---maxRecords                 Maximum number of affected records. Defaults to 100. Only effective when dryRun is set to false.
+--dry-run                    If false, it will execute the patch command call in instead of a dry run.
+--max-records                Maximum number of affected records. Defaults to 100. Only effective when dry-run is set to false.
 -h, --help                   help for patch
 ```
 
 ##### Examples
 
-* Patch all organizations with names starting with "Red Hat" and change the name to "Red Hat Inc." (no dry run and set maxRecords more than the actual number of affected records) `echo '{ "name": "Red Hat Inc." }' | ocm support patch orgs "name like 'Red Hat%' --dryRun=false --maxRecords=1000`
+* Patch all organizations with names starting with "Red Hat" and change the name to "Red Hat Inc." (no dry run and set maxRecords more than the actual number of affected records) `echo '{ "name": "Red Hat Inc." }' | ocm support patch orgs "name like 'Red Hat%' --dry-run=false --max-records=1000`
 
 
 #### Patching organization
 
-Use the `organization` subcommand to patch an organization by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default, the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
+Use the `organization` subcommand to patch an organization by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default, the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
 
 The following flags are available for `patch organizations`:
 
 ```
---dryRun                     If false, it will execute the patch command call in instead of a dry run.
+--dry-run                    If false, it will execute the patch command call in instead of a dry run.
 -h, --help                   help for patch
 ```
 
@@ -429,29 +429,29 @@ The following flags are available for `patch organizations`:
 
 #### Patching subscriptions
 
-Use the `subscriptions` subcommand and provide filter value to search matching subscriptions and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
+Use the `subscriptions` subcommand and provide filter value to search matching subscriptions and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
 
 The following flags are available for `patch subscriptions`:
 
 ```
---dryRun                     If false, it will execute the patch command call in instead of a dry run.
---maxRecords                 Maximum number of affected records. Defaults to 100. Only effective when dryRun is set to false.
+--dry-run                    If false, it will execute the patch command call in instead of a dry run.
+--max-records                Maximum number of affected records. Defaults to 100. Only effective when dry-run is set to false.
 -h, --help                   help for patch
 ```
 
 ##### Examples
 
-* Patch subscriptions and change the support level to Self-Support for subscriptions with 'Reserved' status (no dry run) `echo '{ "support_level": "Self-Support" }' | ocm support patch subs "status='Reserved'" --dryRun=false`
-* Patch all subscriptions of an organization and change the status to Archived (no dry run and set maxRecords more than the actual number of affected records) `echo '{ "status": "Archived" }' | ocm support patch subs "organization_id='[orgID]' --dryRun=false --maxRecords=1000`
+* Patch subscriptions and change the support level to Self-Support for subscriptions with 'Reserved' status (no dry run) `echo '{ "support_level": "Self-Support" }' | ocm support patch subs "status='Reserved'" --dry-run=false`
+* Patch all subscriptions of an organization and change the status to Archived (no dry run and set maxRecords more than the actual number of affected records) `echo '{ "status": "Archived" }' | ocm support patch subs "organization_id='[orgID]' --dry-run=false --max-records=1000`
 
 #### Patching subscription
 
-Use the `subscription` subcommand to patch a subscription by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dryRun=false` flag to actually patch the resource.
+Use the `subscription` subcommand to patch a subscription by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
 
 The following flags are available for `patch subscription`:
 
 ```
---dryRun                     If false, it will execute the patch command call in instead of a dry run.
+--dry-run                    If false, it will execute the patch command call in instead of a dry run.
 -h, --help                   help for patch
 ```
 

@@ -17,15 +17,15 @@ import (
 
 type Account struct {
 	types.Meta
-	FirstName           string
-	LastName            string
-	Username            string
-	Email               string
-	Organization        organization.Organization
-	Roles               []rolebinding.AccountRoleBinding           `json:",omitempty"`
-	RegistryCredentials registry_credential.RegistryCredentialList `json:",omitempty"`
-	Labels              label.LabelsList                           `json:",omitempty"`
-	Capabilities        capability.CapabilityList                  `json:",omitempty"`
+	FirstName           string                                     `json:"first_name"`
+	LastName            string                                     `json:"last_name"`
+	Username            string                                     `json:"username"`
+	Email               string                                     `json:"email"`
+	Organization        organization.Organization                  `json:"organization,omitempty"`
+	Roles               []rolebinding.AccountRoleBinding           `json:"roles,omitempty"`
+	RegistryCredentials registry_credential.RegistryCredentialList `json:"registry_credentials,omitempty"`
+	Labels              label.LabelsList                           `json:"labels,omitempty"`
+	Capabilities        capability.CapabilityList                  `json:"capabilities,omitempty"`
 }
 
 func GetAccounts(key string, searchStr string, limit int, fetchLabels bool, fetchCapabilities bool, searchOnly bool, conn *sdk.Connection) ([]*v1.Account, error) {

@@ -12,13 +12,13 @@ import (
 
 type Label struct {
 	types.Meta
-	ID        string
-	CreatedAt time.Time
-	Key       string
-	UpdatedAt time.Time
-	Value     string
-	Internal  bool
-	HREF      string
+	ID        string    `json:"id"`
+	CreatedAt time.Time `json:"created_at"`
+	Key       string    `json:"key"`
+	UpdatedAt time.Time `json:"updated_at"`
+	Value     string    `json:"value"`
+	Internal  bool      `json:"internal"`
+	HREF      string    `json:"href"`
 }
 
 type LabelsList []Label
