@@ -15,8 +15,8 @@ import (
 
 // CmdCreateOrganizationRoleBinding represents the create organization role binding command
 var CmdCreateOrganizationRoleBinding = &cobra.Command{
-	Use:     "organizationRoleBinding [accountID] [orgID] [roleID]",
-	Aliases: utils.Aliases["organizationRoleBinding"],
+	Use:     "organizationrolebinding [accountID] [orgID] [roleID]",
+	Aliases: utils.Aliases["organizationrolebinding"],
 	Short:   "Assigns a role binding to an Account at organization level",
 	Long:    "Assigns a role binding to an Account at organization level",
 	RunE:    runCreateOrganizationRoleBinding,

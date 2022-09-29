@@ -14,8 +14,8 @@ import (
 
 // CmdCreateApplicationRoleBinding represents the create application role binding command
 var CmdCreateApplicationRoleBinding = &cobra.Command{
-	Use:     "applicationRoleBinding [accountID] [roleID]",
-	Aliases: utils.Aliases["applicationRoleBinding"],
+	Use:     "applicationrolebinding [accountID] [roleID]",
+	Aliases: utils.Aliases["applicationrolebinding"],
 	Short:   "Assigns a role binding to an Account at application level",
 	Long:    "Assigns a role binding to an Account at application level",
 	RunE:    runCreateApplicationRoleBinding,

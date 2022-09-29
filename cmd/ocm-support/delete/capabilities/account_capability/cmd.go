@@ -13,8 +13,8 @@ import (
 
 // CmdDeleteAccountCapability represents the delete account capability command
 var CmdDeleteAccountCapability = &cobra.Command{
-	Use:     "accountCapability [accountID] [capability]",
-	Aliases: utils.Aliases["accountCapability"],
+	Use:     "accountcapability [accountID] [capability]",
+	Aliases: utils.Aliases["accountcapability"],
 	Short:   "Removes a Capability from an Account",
 	Long:    "Removes a Capability from an Account",
 	RunE:    runDeleteAccountCapability,

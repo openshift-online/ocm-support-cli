@@ -21,19 +21,19 @@ func PrettyPrint(data interface{}) {
 }
 
 var Aliases = map[string][]string{
-	"accountCapability":      {"ac", "accCapability"},
-	"organizationCapability": {"oc", "orgCapability"},
-	"subscriptionCapability": {"sc", "subCapability"},
+	"accountcapability":      {"ac", "acctcapability"},
+	"organizationcapability": {"oc", "orgcapability"},
+	"subscriptioncapability": {"sc", "subcapability"},
 
-	"accountLabel":      {"al", "accLabel"},
-	"organizationLabel": {"ol", "orgLabel"},
-	"subscriptionLabel": {"sl", "subLabel"},
+	"accountlabel":      {"al", "acctlabel"},
+	"organizationlabel": {"ol", "orglabel"},
+	"subscriptionlabel": {"sl", "sublabel"},
 
-	"applicationRoleBinding":  {"arb", "appRoleBinding"},
-	"organizationRoleBinding": {"orb", "orgRoleBinding"},
-	"subscriptionRoleBinding": {"srb", "subRoleBinding"},
+	"applicationrolebinding":  {"arb", "approlebinding"},
+	"organizationrolebinding": {"orb", "orgrolebinding"},
+	"subscriptionrolebinding": {"srb", "subrolebinding"},
 
-	"registryCredentials": {"rcs"},
+	"registrycredentials": {"rcs"},
 	"organizations":       {"orgs"},
 	"accounts":            {"accts"},
 	"subscriptions":       {"subs"},

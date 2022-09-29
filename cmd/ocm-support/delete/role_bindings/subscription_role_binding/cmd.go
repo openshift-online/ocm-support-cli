@@ -15,8 +15,8 @@ import (
 
 // CmdDeleteSubscriptionRoleBinding represents the delete subscription role binding command
 var CmdDeleteSubscriptionRoleBinding = &cobra.Command{
-	Use:     "subscriptionRoleBinding [accountID] [subscriptionID] [roleID]",
-	Aliases: utils.Aliases["subscriptionRoleBinding"],
+	Use:     "subscriptionrolebinding [accountID] [subscriptionID] [roleID]",
+	Aliases: utils.Aliases["subscriptionrolebinding"],
 	Short:   "Removes a role binding from an Account at subscription level",
 	Long:    "Removes a role binding from an Account at subscription level",
 	RunE:    runDeleteSubscriptionRoleBinding,

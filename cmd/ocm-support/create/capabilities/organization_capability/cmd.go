@@ -15,8 +15,8 @@ import (
 
 // CmdCreateOrganizationCapability represents the create organization capability command
 var CmdCreateOrganizationCapability = &cobra.Command{
-	Use:     "organizationCapability [organizationID] [capability]",
-	Aliases: utils.Aliases["organizationCapability"],
+	Use:     "organizationcapability [organizationID] [capability]",
+	Aliases: utils.Aliases["organizationcapability"],
 	Short:   "Assigns a Capability to an Organization",
 	Long:    "Assigns a Capability to an Organization",
 	RunE:    runCreateOrganizationCapability,

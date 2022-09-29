@@ -15,8 +15,8 @@ import (
 
 // CmdCreateSubscriptionRoleBinding represents the create subscription role binding command
 var CmdCreateSubscriptionRoleBinding = &cobra.Command{
-	Use:     "subscriptionRoleBinding [accountID] [subscriptionID] [roleID]",
-	Aliases: utils.Aliases["subscriptionRoleBinding"],
+	Use:     "subscriptionrolebinding [accountID] [subscriptionID] [roleID]",
+	Aliases: utils.Aliases["subscriptionrolebinding"],
 	Short:   "Assigns a role binding to an Account at subscription level",
 	Long:    "Assigns a role binding to an Account at subscription level",
 	RunE:    runCreateSubscriptionRoleBinding,

@@ -18,8 +18,8 @@ var args struct {
 
 // CmdCreateAccountLabel represents the create account label command
 var CmdCreateAccountLabel = &cobra.Command{
-	Use:     "accountLabel [accountID] [key] [value]",
-	Aliases: utils.Aliases["accountLabel"],
+	Use:     "accountlabel [accountID] [key] [value]",
+	Aliases: utils.Aliases["accountlabel"],
 	Short:   "Assigns a Label to an Account",
 	Long:    "Assigns a Label to an Account",
 	RunE:    runCreateAccountLabel,

@@ -12,8 +12,8 @@ import (
 
 // CmdCreateRegistryCredentials creates registry credentials
 var CmdCreateRegistryCredentials = &cobra.Command{
-	Use:     "registryCredentials",
-	Aliases: utils.Aliases["registryCredentials"],
+	Use:     "registrycredentials",
+	Aliases: utils.Aliases["registrycredentials"],
 	Short:   "Creates registry credentials for the current account.",
 	Long:    "Creates registry credentials for the current account.",
 	RunE:    run,

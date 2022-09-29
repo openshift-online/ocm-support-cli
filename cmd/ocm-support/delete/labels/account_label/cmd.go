@@ -12,8 +12,8 @@ import (
 
 // CmdDeleteAccountLabel represents the delete account label command
 var CmdDeleteAccountLabel = &cobra.Command{
-	Use:     "accountLabel [accountID] [key]",
-	Aliases: utils.Aliases["accountLabel"],
+	Use:     "accountlabel [accountID] [key]",
+	Aliases: utils.Aliases["accountlabel"],
 	Short:   "Removes a Label from an Account",
 	Long:    "Removes a Label from an Account",
 	RunE:    runDeleteAccountLabel,

@@ -18,8 +18,8 @@ var args struct {
 
 // CmdDeleteRegistryCredentials ...
 var CmdDeleteRegistryCredentials = &cobra.Command{
-	Use:     "registryCredentials accountID registryCredentialID",
-	Aliases: utils.Aliases["registryCredentials"],
+	Use:     "registrycredentials accountID registryCredentialID",
+	Aliases: utils.Aliases["registrycredentials"],
 	Short:   "Deletes registry credentials of the given ID.",
 	Long:    "Deletes registry credentials of the given ID.",
 	RunE:    run,
