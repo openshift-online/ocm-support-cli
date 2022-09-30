@@ -15,7 +15,7 @@ import (
 // CmdGetRegistryCredentials ...
 var CmdGetRegistryCredentials = &cobra.Command{
 	Use:     "registrycredentials accountID",
-	Aliases: utils.Aliases["registryCredentials"],
+	Aliases: utils.Aliases["registrycredentials"],
 	Short:   "Gets registry credentials information about the given accountID.",
 	Long:    "Gets registry credentials information about the given accountID.",
 	RunE:    run,
