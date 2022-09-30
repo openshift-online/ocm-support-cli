@@ -22,7 +22,7 @@ type Subscription struct {
 	ConsoleURL        string                                 `json:"console_url"`
 	CreatedAt         time.Time                              `json:"created_at"`
 	ExternalClusterID string                                 `json:"external_cluster_id"`
-	HREF              string                                 `json:"first_name"`
+	HREF              string                                 `json:"href"`
 	ID                string                                 `json:"id"`
 	Managed           bool                                   `json:"managed"`
 	OrganizationId    string                                 `json:"organization_id"`
