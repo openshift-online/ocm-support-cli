@@ -33,13 +33,13 @@ func init() {
 	flags := CmdPatchAccounts.Flags()
 	flags.BoolVar(
 		&args.dryRun,
-		"dryRun",
+		"dry-run",
 		true,
 		"If false, it will execute the patch command call in instead of a dry run.",
 	)
 	flags.IntVar(
 		&args.maxRecords,
-		"maxRecords",
+		"max-records",
 		utils.MaxRecords,
 		"Maximum number of affected records. Only effective when dryRun is set to false.",
 	)

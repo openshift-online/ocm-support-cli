@@ -15,8 +15,8 @@ import (
 
 // CmdCreateSubscriptionCapability represents the create subscription capability command
 var CmdCreateSubscriptionCapability = &cobra.Command{
-	Use:     "subscriptionCapability [subscriptionID] [capability]",
-	Aliases: utils.Aliases["subscriptionCapability"],
+	Use:     "subscriptioncapability [subscriptionID] [capability]",
+	Aliases: utils.Aliases["subscriptioncapability"],
 	Short:   "Assigns a Capability to a Subscription",
 	Long:    "Assigns a Capability to a Subscription",
 	RunE:    runCreateSubscriptionCapability,

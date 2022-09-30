@@ -13,8 +13,8 @@ import (
 
 // CmdDeleteSubscriptionCapability represents the delete subscription capability command
 var CmdDeleteSubscriptionCapability = &cobra.Command{
-	Use:     "subscriptionCapability [subscriptionID] [capability]",
-	Aliases: utils.Aliases["subscriptionCapability"],
+	Use:     "subscriptioncapability [subscriptionID] [capability]",
+	Aliases: utils.Aliases["subscriptioncapability"],
 	Short:   "Removes a Capability from a Subscription",
 	Long:    "Removes a Capability from a Subscription",
 	RunE:    runDeleteSubscriptionCapability,

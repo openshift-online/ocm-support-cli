@@ -31,7 +31,7 @@ func init() {
 	flags := CmdPatchAccount.Flags()
 	flags.BoolVar(
 		&args.dryRun,
-		"dryRun",
+		"dry-run",
 		true,
 		"If false, it will execute the patch command call in instead of a dry run.",
 	)

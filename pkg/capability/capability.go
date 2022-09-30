@@ -8,9 +8,9 @@ import (
 )
 
 type Capability struct {
-	Name      string
-	Value     string
-	Inherited bool
+	Name      string `json:"name"`
+	Value     string `json:"value"`
+	Inherited bool   `json:"inherited"`
 }
 
 type CapabilityList []Capability

@@ -41,25 +41,25 @@ func init() {
 	)
 	flags.BoolVar(
 		&args.fetchRoles,
-		"fetchRoles",
+		"fetch-roles",
 		false,
 		"If true, includes the account roles.",
 	)
 	flags.BoolVar(
 		&args.fetchRegistryCredentials,
-		"fetchRegistryCredentials",
+		"fetch-registry-credentials",
 		false,
 		"If true, includes the account registry credentials.",
 	)
 	flags.BoolVar(
 		&args.fetchLabels,
-		"fetchLabels",
+		"fetch-labels",
 		false,
 		"If true, returns all the labels for the account.",
 	)
 	flags.BoolVar(
 		&args.fetchCapabilities,
-		"fetchCapabilities",
+		"fetch-capabilities",
 		false,
 		"If true, returns all the capabilities for the account.",
 	)

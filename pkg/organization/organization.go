@@ -18,16 +18,16 @@ import (
 
 type Organization struct {
 	types.Meta
-	Name          string
-	CreatedAt     time.Time
-	UpdatedAt     time.Time
-	EbsAccountID  string
-	ExternalID    string
-	Subscriptions []subscription.Subscription   `json:",omitempty"`
-	Quota         []quota.Quota                 `json:",omitempty"`
-	Labels        label.LabelsList              `json:",omitempty"`
-	Capabilities  capability.CapabilityList     `json:",omitempty"`
-	ResourceQuota []resourcequota.ResourceQuota `json:",omitempty"`
+	Name          string                        `json:"name"`
+	CreatedAt     time.Time                     `json:"created_at"`
+	UpdatedAt     time.Time                     `json:"updated_at"`
+	EbsAccountID  string                        `json:"ebs_account_id"`
+	ExternalID    string                        `json:"external_id"`
+	Subscriptions []subscription.Subscription   `json:"subscriptions,omitempty"`
+	Quota         []quota.Quota                 `json:"quota,omitempty"`
+	Labels        label.LabelsList              `json:"labels,omitempty"`
+	Capabilities  capability.CapabilityList     `json:"capabilities,omitempty"`
+	ResourceQuota []resourcequota.ResourceQuota `json:"resource_quota,omitempty"`
 }
 
 func GetOrganizations(key string, searchStr string, limit int, fetchLabels bool, fetchCapabilities bool, searchOnly bool, conn *sdk.Connection) ([]*v1.Organization, error) {

@@ -14,8 +14,8 @@ import (
 
 // CmdDeleteApplicationRoleBinding represents the delete application role binding command
 var CmdDeleteApplicationRoleBinding = &cobra.Command{
-	Use:     "applicationRoleBinding [accountID] [roleID]",
-	Aliases: utils.Aliases["applicationRoleBinding"],
+	Use:     "applicationrolebinding [accountID] [roleID]",
+	Aliases: utils.Aliases["applicationrolebinding"],
 	Short:   "Removes a role binding from an Account at application level",
 	Long:    "Removes a role binding from an Account at application level",
 	RunE:    runDeleteApplicationRoleBinding,

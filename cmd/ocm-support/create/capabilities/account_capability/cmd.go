@@ -15,8 +15,8 @@ import (
 
 // CmdCreateAccountCapability represents the create account capability command
 var CmdCreateAccountCapability = &cobra.Command{
-	Use:     "accountCapability [accountID] [capability]",
-	Aliases: utils.Aliases["accountCapability"],
+	Use:     "accountcapability [accountID] [capability]",
+	Aliases: utils.Aliases["accountcapability"],
 	Short:   "Assigns a Capability to an Account",
 	Long:    "Assigns a Capability to an Account",
 	RunE:    runCreateAccountCapability,

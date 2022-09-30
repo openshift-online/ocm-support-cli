@@ -18,8 +18,8 @@ var args struct {
 
 // CmdSetsubscriptionLabel represents the create subscription label command
 var CmdCreateSubscriptionLabel = &cobra.Command{
-	Use:     "subscriptionLabel [subscriptionID] [key] [value]",
-	Aliases: utils.Aliases["subscriptionLabel"],
+	Use:     "subscriptionlabel [subscriptionID] [key] [value]",
+	Aliases: utils.Aliases["subscriptionlabel"],
 	Short:   "Assigns a Label to a subscription",
 	Long:    "Assigns a Label to a subscription",
 	RunE:    runCreateSubscriptionLabel,

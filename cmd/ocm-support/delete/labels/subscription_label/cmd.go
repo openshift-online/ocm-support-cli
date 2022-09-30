@@ -12,8 +12,8 @@ import (
 
 // CmdDeleteSubscriptionLabel represents the create account label command
 var CmdDeleteSubscriptionLabel = &cobra.Command{
-	Use:     "subscriptionLabel [subscriptionID] [key]",
-	Aliases: utils.Aliases["subscriptionLabel"],
+	Use:     "subscriptionlabel [subscriptionID] [key]",
+	Aliases: utils.Aliases["subscriptionlabel"],
 	Short:   "Removes a Label from a Subscription",
 	Long:    "Removes a Label from a Subscription",
 	RunE:    runDeleteSubscriptionLabel,

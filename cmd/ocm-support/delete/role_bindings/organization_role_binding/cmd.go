@@ -15,8 +15,8 @@ import (
 
 // CmdDeleteOrganizationRoleBinding represents the delete organization role binding command
 var CmdDeleteOrganizationRoleBinding = &cobra.Command{
-	Use:     "organizationRoleBinding [accountID] [orgID] [roleID]",
-	Aliases: utils.Aliases["organizationRoleBinding"],
+	Use:     "organizationrolebinding [accountID] [orgID] [roleID]",
+	Aliases: utils.Aliases["organizationrolebinding"],
 	Short:   "Removes a role binding from an Account at organization level",
 	Long:    "Removes a role binding from an Account at organization level",
 	RunE:    runDeleteOrganizationRoleBinding,

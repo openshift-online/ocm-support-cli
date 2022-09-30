@@ -41,25 +41,25 @@ func init() {
 	)
 	flags.BoolVar(
 		&args.fetchLabels,
-		"fetchLabels",
+		"fetch-labels",
 		false,
 		"If true, returns all the labels for the subscriptions.",
 	)
 	flags.BoolVar(
 		&args.fetchCapabilities,
-		"fetchCapabilities",
+		"fetch-capabilities",
 		false,
 		"If true, returns all the capabilities for the subscriptions.",
 	)
 	flags.BoolVar(
 		&args.fetchReservedResources,
-		"fetchReservedResources",
+		"fetch-reserved-resources",
 		false,
 		"If true, returns a list of reserved resources for the subscriptions.",
 	)
 	flags.BoolVar(
 		&args.fetchRoles,
-		"fetchRoles",
+		"fetch-roles",
 		false,
 		"If true, returns the subscription roles.",
 	)

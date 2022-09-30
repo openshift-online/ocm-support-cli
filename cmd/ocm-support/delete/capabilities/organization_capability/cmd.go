@@ -13,8 +13,8 @@ import (
 
 // CmdDeleteOrganizationCapability represents the delete organization capability command
 var CmdDeleteOrganizationCapability = &cobra.Command{
-	Use:     "organizationCapability [orgID] [capability]",
-	Aliases: utils.Aliases["organizationCapability"],
+	Use:     "organizationcapability [orgID] [capability]",
+	Aliases: utils.Aliases["organizationcapability"],
 	Short:   "Removes a Capability from an organization",
 	Long:    "Removes a Capability from an organization",
 	RunE:    runDeleteOrganizationCapability,

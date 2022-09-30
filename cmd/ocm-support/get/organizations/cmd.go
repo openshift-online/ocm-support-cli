@@ -43,31 +43,31 @@ func init() {
 	)
 	flags.BoolVar(
 		&args.fetchSubscriptions,
-		"fetchSubscriptions",
+		"fetch-subscriptions",
 		false,
 		"If true, includes the organization subscriptions.",
 	)
 	flags.BoolVar(
 		&args.fetchQuota,
-		"fetchQuota",
+		"fetch-quota",
 		false,
 		"If true, includes the organization quota.",
 	)
 	flags.BoolVar(
 		&args.fetchLabels,
-		"fetchLabels",
+		"fetch-labels",
 		false,
 		"If true, returns all the labels for the organization.",
 	)
 	flags.BoolVar(
 		&args.fetchCapabilities,
-		"fetchCapabilities",
+		"fetch-capabilities",
 		false,
 		"If true, returns all the capabilities for the organization.",
 	)
 	flags.BoolVar(
 		&args.fetchSkus,
-		"fetchSkus",
+		"fetch-skus",
 		false,
 		"If true, returns all the resource quota objects for the organization.",
 	)

@@ -9,10 +9,10 @@ import (
 )
 
 type ResourceQuota struct {
-	SKU       string
-	CreatedAt time.Time
-	SkuCount  int
-	UpdatedAt time.Time
+	SKU       string    `json:"sku"`
+	CreatedAt time.Time `json:"created_at"`
+	SkuCount  int       `json:"sku_count"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type ResoueceQuotaList []ResourceQuota

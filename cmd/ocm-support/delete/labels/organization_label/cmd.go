@@ -12,8 +12,8 @@ import (
 
 // CmdDeleteOrganizationLabel represents the delete organization label command
 var CmdDeleteOrganizationLabel = &cobra.Command{
-	Use:     "organizationLabel [orgID] [key]",
-	Aliases: utils.Aliases["organizationLabel"],
+	Use:     "organizationlabel [orgID] [key]",
+	Aliases: utils.Aliases["organizationlabel"],
 	Short:   "Removes a Label from an organization",
 	Long:    "Removes a Label from an organization",
 	RunE:    runDeleteOrganizationLabel,
