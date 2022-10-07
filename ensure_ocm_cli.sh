@@ -1,6 +1,8 @@
 #!/bin/bash
+# This script downloads latest binaries of OCM CLI and stores them under tests/ocm for managing OCM CLI specific test dependencies
 set -eu
 ocmDownloads=$(curl -s https://api.github.com/repos/openshift-online/ocm-cli/releases/latest | grep "browser_download_url.*" | cut -d : -f 2,3 | tr -d \")
+# currently supported OS : darwin-amd64, linux-amd64, linux-arm64, linux-ppc64le, linux-s390, windows-amd64
 osName=$(uname)
 osName="${osName,,}"
 hardware=$(uname -m)
@@ -17,6 +19,6 @@ do
     fi
 done
 rm -rf tests/ocm
-mkdir tests/ocm
+mkdir -p tests/ocm
 wget -P tests/ocm -q $downloadURL
 mv tests/ocm/ocm-$osName-$hardware tests/ocm/ocm
