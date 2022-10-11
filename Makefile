@@ -16,3 +16,6 @@ cmds:
 	for cmd in $$(ls cmd); do \
 		go build "./cmd/$${cmd}" || exit 1; \
 	done
+
+ensureOCM:
+	bash ensure_ocm_cli.sh
