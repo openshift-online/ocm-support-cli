@@ -19,3 +19,10 @@ cmds:
 
 ensureOCM:
 	bash ensure_ocm_cli.sh
+
+test:
+	for cmd in $$(ls cmd); do \
+		go build "./cmd/$${cmd}" || exit 1; \
+	done
+	bash ensure_ocm_cli.sh
+	ginkgo run -r
