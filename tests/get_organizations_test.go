@@ -19,7 +19,6 @@ package tests
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"reflect"
 	"strings"
@@ -189,7 +188,6 @@ var _ = Describe("List orgs", func() {
 			Expect(result.ErrString()).To(BeEmpty())
 			lines := result.OutLines()
 			receivedOrgs, err := DeserializeOrganizations(lines)
-			fmt.Println(len(receivedOrgs))
 			Expect(err).To(BeNil())
 			Expect(len(receivedOrgs)).To(Equal(1))
 			Expect(receivedOrgs[0].Name).To(Equal(matchingOrgName))
