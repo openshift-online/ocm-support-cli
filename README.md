@@ -13,15 +13,15 @@ Prerequisites:
 
 Download the latest binary file from the [release page](https://github.com/openshift-online/ocm-support-cli/releases).
 
-For Linux, download `ocm-support_linux_amd64`, rename it to `ocm-support` and put it to $PATH. For example:
+For Linux, download `ocm-support-linux-amd64`, rename it to `ocm-support` and put it to $PATH. For example:
 ~~~
-$ sudo cp ocm-support_linux_amd64 /usr/bin/ocm-support
+$ sudo cp ocm-support-linux-amd64 /usr/bin/ocm-support
 $ sudo chmod 0755 /usr/bin/ocm-support
 ~~~
 
-For MacOS, download `ocm-support_darwin_amd64`, rename it to `ocm-support` and put it to $PATH. For example:
+For MacOS, download `ocm-support-darwin-amd64`, rename it to `ocm-support` and put it to $PATH. For example:
 ~~~
-$ sudo cp ocm-support_darwin_amd64 /usr/local/bin/ocm-support
+$ sudo cp ocm-support-darwin-amd64 /usr/local/bin/ocm-support
 $ sudo chmod 0755 /usr/local/bin/ocm-support
 ~~~
 
