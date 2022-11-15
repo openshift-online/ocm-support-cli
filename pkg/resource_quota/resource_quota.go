@@ -13,7 +13,7 @@ type ResourceQuota struct {
 	CreatedAt time.Time `json:"created_at"`
 	SkuCount  int       `json:"sku_count"`
 	UpdatedAt time.Time `json:"updated_at"`
-	Type      string
+	Type      string    `json:"type"`
 }
 
 type ResoueceQuotaList []ResourceQuota
