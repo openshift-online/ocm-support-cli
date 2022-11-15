@@ -13,6 +13,7 @@ type ResourceQuota struct {
 	CreatedAt time.Time `json:"created_at"`
 	SkuCount  int       `json:"sku_count"`
 	UpdatedAt time.Time `json:"updated_at"`
+	Type      string    `json:"type"`
 }
 
 type ResoueceQuotaList []ResourceQuota
@@ -33,6 +34,7 @@ func PresentResourceQuota(rqList []*v1.ResourceQuota) []ResourceQuota {
 			CreatedAt: rq.CreatedAt(),
 			UpdatedAt: rq.UpdatedAt(),
 			SkuCount:  rq.SkuCount(),
+			Type:      rq.Type(),
 		}
 		formattedResourceQuotaList = append(formattedResourceQuotaList, formattedResourceQuota)
 	}
