@@ -18,5 +18,5 @@ var Cmd = &cobra.Command{
 }
 
 func run(cmd *cobra.Command, argv []string) {
-	_, _ = fmt.Fprintf(os.Stdout, "%s\n", info.Version)
+	_, _ = fmt.Fprintf(os.Stdout, "%s (build %s)\n", info.Version, info.VersionStamp)
 }
