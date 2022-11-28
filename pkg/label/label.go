@@ -12,13 +12,18 @@ import (
 
 type Label struct {
 	types.Meta
-	ID        string    `json:"id"`
-	CreatedAt time.Time `json:"created_at"`
-	Key       string    `json:"key"`
-	UpdatedAt time.Time `json:"updated_at"`
-	Value     string    `json:"value"`
-	Internal  bool      `json:"internal"`
-	HREF      string    `json:"href"`
+	ID             string    `json:"id"`
+	CreatedAt      time.Time `json:"created_at"`
+	Key            string    `json:"key"`
+	UpdatedAt      time.Time `json:"updated_at"`
+	Value          string    `json:"value"`
+	Internal       bool      `json:"internal"`
+	HREF           string    `json:"href"`
+	Type           string    `json:"type"`
+	AccountID      string    `json:"account_id,omitempty"`
+	SubscriptionID string    `json:"subscription_id,omitempty"`
+	OrganizationID string    `json:"organization_id,omitempty"`
+	ManagedBy      string    `json:"managed_by,omitempty"`
 }
 
 type LabelsList []Label
@@ -27,13 +32,18 @@ func PresentLabels(labels []*v1.Label) LabelsList {
 	var labelsList []Label
 	for _, label := range labels {
 		lbl := Label{
-			ID:        label.ID(),
-			CreatedAt: label.CreatedAt(),
-			Key:       label.Key(),
-			UpdatedAt: label.UpdatedAt(),
-			Value:     label.Value(),
-			Internal:  label.Internal(),
-			HREF:      label.HREF(),
+			ID:             label.ID(),
+			CreatedAt:      label.CreatedAt(),
+			Key:            label.Key(),
+			UpdatedAt:      label.UpdatedAt(),
+			Value:          label.Value(),
+			Internal:       label.Internal(),
+			HREF:           label.HREF(),
+			Type:           label.Type(),
+			AccountID:      label.AccountID(),
+			SubscriptionID: label.SubscriptionID(),
+			OrganizationID: label.OrganizationID(),
+			ManagedBy:      label.ManagedBy(),
 		}
 		labelsList = append(labelsList, lbl)
 	}

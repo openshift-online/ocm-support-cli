@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/nwidger/jsoncolor v0.3.1
 	github.com/openshift-online/ocm-cli v0.1.64
-	github.com/openshift-online/ocm-sdk-go v0.1.286
+	github.com/openshift-online/ocm-sdk-go v0.1.296
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cobra v1.4.0
 )
