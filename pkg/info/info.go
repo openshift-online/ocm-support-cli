@@ -3,6 +3,6 @@
 package info
 
 // Version of the ocm-support-cli
-const Version = "0.1.2"
+const Version = "0.1.3"
 
 var VersionStamp string

@@ -21,6 +21,7 @@ type Account struct {
 	LastName            string                                     `json:"last_name"`
 	Username            string                                     `json:"username"`
 	Email               string                                     `json:"email"`
+	ServiceAccount      bool                                       `json:"service_account"`
 	Organization        organization.Organization                  `json:"organization,omitempty"`
 	Roles               []rolebinding.AccountRoleBinding           `json:"roles,omitempty"`
 	RegistryCredentials registry_credential.RegistryCredentialList `json:"registry_credentials,omitempty"`
@@ -98,6 +99,7 @@ func PresentAccount(account *v1.Account, roles []*v1.RoleBinding, registryCreden
 		LastName:            account.LastName(),
 		Username:            account.Username(),
 		Email:               account.Email(),
+		ServiceAccount:      account.ServiceAccount(),
 		Organization:        organization.PresentOrganization(account.Organization(), []*v1.Subscription{}, []*v1.QuotaCost{}, []*v1.ResourceQuota{}),
 		Roles:               rolebinding.PresentAccountRoleBindings(roles),
 		RegistryCredentials: registry_credential.PresentRegistryCredentials(registryCredentials),
