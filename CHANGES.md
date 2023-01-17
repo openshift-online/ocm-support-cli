@@ -1,3 +1,9 @@
+
+## 0.1.4 Jan 17 2023
+- Added fetch-control-export flag to Accounts
+- Added Ban data to Accounts
+
+
 ## 0.1.3 Dec 20 2022
 - Added ServiceAccount attribute to Accounts
 
