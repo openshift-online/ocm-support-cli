@@ -5,10 +5,12 @@ import (
 
 	"github.com/openshift-online/ocm-cli/pkg/ocm"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
+	v1Auth "github.com/openshift-online/ocm-sdk-go/authorizations/v1"
 	"github.com/spf13/cobra"
 
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/account"
+	exportcontrolreview "github.com/openshift-online/ocm-support-cli/pkg/export_control_review"
 	"github.com/openshift-online/ocm-support-cli/pkg/registry_credential"
 	rolebinding "github.com/openshift-online/ocm-support-cli/pkg/role_binding"
 )
@@ -19,6 +21,7 @@ var args struct {
 	fetchRegistryCredentials bool
 	fetchLabels              bool
 	fetchCapabilities        bool
+	fetchExportControl       bool
 }
 
 // CmdGetAccounts represents the account get command
@@ -62,6 +65,12 @@ func init() {
 		"fetch-capabilities",
 		false,
 		"If true, returns all the capabilities for the account.",
+	)
+	flags.BoolVar(
+		&args.fetchExportControl,
+		"fetch-export-control",
+		false,
+		"If true, returns export control information for the account.",
 	)
 }
 
@@ -117,6 +126,14 @@ func run(cmd *cobra.Command, argv []string) error {
 			}
 		}
 
+		var export *v1Auth.ExportControlReviewResponse
+		if args.fetchExportControl {
+			export, err = exportcontrolreview.PostExportControlReview(acc.Username(), connection)
+			if err != nil {
+				return fmt.Errorf("failed to fetch export control: %s", err)
+			}
+		}
+
 		var credentials []*v1.RegistryCredential
 		if args.fetchRegistryCredentials {
 			credentials, err = registry_credential.GetAccountRegistryCredentials(acc.ID(), connection)
@@ -125,7 +142,7 @@ func run(cmd *cobra.Command, argv []string) error {
 			}
 		}
 
-		fa := account.PresentAccount(acc, roles, credentials)
+		fa := account.PresentAccount(acc, roles, credentials, export)
 		if err != nil {
 			return fmt.Errorf("failed to format account %v", acc)
 		}
