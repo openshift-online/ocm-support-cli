@@ -73,6 +73,7 @@ The following flags are available for `get accounts`:
 --fetch-roles                If true, includes the account roles.
 --fetch-labels               If true, includes the account labels.
 --fetch-capabilities         If true, includes the account capabilities.
+--fetch-export-control       If true, includes export control information.
 -h, --help                   help for get
 ```
 
@@ -81,6 +82,7 @@ The following flags are available for `get accounts`:
 * Get the first account by email `ocm support get accounts user@redhat.com --first`
 * Get the account and include its roles in the results `ocm support get accounts [accountID] --fetch-roles`
 * Get the account and include its registry credentials `ocm support get accounts [username] --fetch-registry-credentials`
+* Get the account and include export control information `ocm support get accounts [username] --fetch-export-control`
 * Get all accounts for an organizationExternalID and include its labels in the results `ocm support get accounts [organizationExternalID] --fetch-labels`
 * Get all accounts for an organizationEBSAccountID and include its capabilities in the results `ocm support get accounts [organizationEBSAccountID] --fetch-capabilities`
 * Get all accounts from an organization `ocm support get accounts [organizationID]`
