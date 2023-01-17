@@ -6,8 +6,10 @@ import (
 
 	sdk "github.com/openshift-online/ocm-sdk-go"
 	v1 "github.com/openshift-online/ocm-sdk-go/accountsmgmt/v1"
+	v1Auth "github.com/openshift-online/ocm-sdk-go/authorizations/v1"
 
 	"github.com/openshift-online/ocm-support-cli/pkg/capability"
+	exportcontrolreview "github.com/openshift-online/ocm-support-cli/pkg/export_control_review"
 	"github.com/openshift-online/ocm-support-cli/pkg/label"
 	"github.com/openshift-online/ocm-support-cli/pkg/organization"
 	"github.com/openshift-online/ocm-support-cli/pkg/registry_credential"
@@ -21,12 +23,16 @@ type Account struct {
 	LastName            string                                     `json:"last_name"`
 	Username            string                                     `json:"username"`
 	Email               string                                     `json:"email"`
+	Banned              bool                                       `json:"banned"`
+	BanCode             string                                     `json:"ban_code,omitempty"`
+	BanDescription      string                                     `json:"ban_description,omitempty"`
 	ServiceAccount      bool                                       `json:"service_account"`
 	Organization        organization.Organization                  `json:"organization,omitempty"`
 	Roles               []rolebinding.AccountRoleBinding           `json:"roles,omitempty"`
 	RegistryCredentials registry_credential.RegistryCredentialList `json:"registry_credentials,omitempty"`
 	Labels              label.LabelsList                           `json:"labels,omitempty"`
 	Capabilities        capability.CapabilityList                  `json:"capabilities,omitempty"`
+	ExportControl       *exportcontrolreview.ExportControlReview   `json:"export_control,omitempty"`
 }
 
 func GetAccounts(key string, searchStr string, limit int, fetchLabels bool, fetchCapabilities bool, searchOnly bool, conn *sdk.Connection) ([]*v1.Account, error) {
@@ -89,7 +95,7 @@ func DeleteLabel(accountID string, key string, conn *sdk.Connection) error {
 	return nil
 }
 
-func PresentAccount(account *v1.Account, roles []*v1.RoleBinding, registryCredentials []*v1.RegistryCredential) Account {
+func PresentAccount(account *v1.Account, roles []*v1.RoleBinding, registryCredentials []*v1.RegistryCredential, exportControlReview *v1Auth.ExportControlReviewResponse) Account {
 	return Account{
 		Meta: types.Meta{
 			ID:   account.ID(),
@@ -100,11 +106,15 @@ func PresentAccount(account *v1.Account, roles []*v1.RoleBinding, registryCreden
 		Username:            account.Username(),
 		Email:               account.Email(),
 		ServiceAccount:      account.ServiceAccount(),
+		Banned:              account.Banned(),
+		BanCode:             account.BanCode(),
+		BanDescription:      account.BanDescription(),
 		Organization:        organization.PresentOrganization(account.Organization(), []*v1.Subscription{}, []*v1.QuotaCost{}, []*v1.ResourceQuota{}),
 		Roles:               rolebinding.PresentAccountRoleBindings(roles),
 		RegistryCredentials: registry_credential.PresentRegistryCredentials(registryCredentials),
 		Labels:              label.PresentLabels(account.Labels()),
 		Capabilities:        capability.PresentCapabilities(account.Capabilities()),
+		ExportControl:       exportcontrolreview.PresentExportControlReview(exportControlReview),
 	}
 }
 
