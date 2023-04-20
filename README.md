@@ -332,7 +332,7 @@ Use the `subscriptionRoleBinding` subcommand to remove a role binding from an ac
 * For the given account, delete a role binding created at organization level using the roleID `ocm support delete organizationRoleBinding [accountID] [orgID] [roleID]`
 * For the given account, delete a role binding created at subscription level using the roleID `ocm support delete subscriptionRoleBinding [accountID] [subscriptionID] [roleID]`
 
-#### Deleting registry credentials
+#### Deleting an account
 
 Use the `accounts` subcommand to to delete a specific account for the passed accountID.
 
@@ -345,4 +345,4 @@ The following flags are available for `accounts delete`:
 
 #### Examples
 
-* Delete a specific account `ocm support delete accounts [accountID]`ßß
+* Delete a specific account `ocm support delete accounts [accountID]`

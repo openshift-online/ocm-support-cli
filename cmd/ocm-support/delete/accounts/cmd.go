@@ -16,8 +16,8 @@ var args struct {
 	dryRun bool
 }
 
-// CmdDeleteAccounts ...
-var CmdDeleteAccounts = &cobra.Command{
+// CmdDeleteAccount ...
+var CmdDeleteAccount = &cobra.Command{
 	Use:     "accounts accountID",
 	Aliases: utils.Aliases["accounts"],
 	Short:   "Deletes the account with a given ID.",
@@ -40,7 +40,7 @@ var CmdDeleteAccounts = &cobra.Command{
 }
 
 func init() {
-	flags := CmdDeleteAccounts.Flags()
+	flags := CmdDeleteAccount.Flags()
 	flags.BoolVar(
 		&args.dryRun,
 		"dry-run",
