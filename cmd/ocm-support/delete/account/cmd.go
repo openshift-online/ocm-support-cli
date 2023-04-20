@@ -1,4 +1,4 @@
-package accounts
+package account
 
 import "C"
 import (
@@ -18,7 +18,7 @@ var args struct {
 
 // CmdDeleteAccount ...
 var CmdDeleteAccount = &cobra.Command{
-	Use:     "accounts accountID",
+	Use:     "account accountID",
 	Aliases: utils.Aliases["accounts"],
 	Short:   "Deletes the account with a given ID.",
 	Long:    "Deletes the account with the given ID.",

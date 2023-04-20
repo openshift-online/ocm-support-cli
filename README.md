@@ -334,9 +334,9 @@ Use the `subscriptionRoleBinding` subcommand to remove a role binding from an ac
 
 #### Deleting an account
 
-Use the `accounts` subcommand to to delete a specific account for the passed accountID.
+Use the `account` subcommand to to delete a specific account for the passed accountID.
 
-The following flags are available for `accounts delete`:
+The following flags are available for `account delete`:
 
 ```
 --dry-run                    If false, deletes the account for the given account ID, defaults to true.
@@ -345,4 +345,4 @@ The following flags are available for `accounts delete`:
 
 #### Examples
 
-* Delete a specific account `ocm support delete accounts [accountID]`
+* Delete a specific account `ocm support delete account [accountID]`
