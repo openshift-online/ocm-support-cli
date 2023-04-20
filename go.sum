@@ -586,8 +586,8 @@ github.com/openshift-online/ocm-cli v0.1.64 h1:U/ILl054dNln9Kb/dhZOCgnhYFwfUMHhj
 github.com/openshift-online/ocm-cli v0.1.64/go.mod h1:Ccu+zHRdPOHNjHVe+MuD54DTk+ZmqcY1F+waulB8ELA=
 github.com/openshift-online/ocm-sdk-go v0.1.219/go.mod h1:uDiBAEupl2F5rkTBFC4y4ZPEV/ku/fFEBHot6OkYL+I=
 github.com/openshift-online/ocm-sdk-go v0.1.273/go.mod h1:KYOw8kAKAHyPrJcQoVR82CneQ4ofC02Na4cXXaTq4Nw=
-github.com/openshift-online/ocm-sdk-go v0.1.281 h1:a1hkVr8Y6l+zedUg+Udt7x/osrGkzUYD4lRN/+8SXhc=
-github.com/openshift-online/ocm-sdk-go v0.1.281/go.mod h1:KYOw8kAKAHyPrJcQoVR82CneQ4ofC02Na4cXXaTq4Nw=
+github.com/openshift-online/ocm-sdk-go v0.1.334 h1:45WSkXEsmpGekMa9kO6NpEG8PW5/gfmMekr7kL+1KvQ=
+github.com/openshift-online/ocm-sdk-go v0.1.334/go.mod h1:KYOw8kAKAHyPrJcQoVR82CneQ4ofC02Na4cXXaTq4Nw=
 github.com/openshift/rosa v1.1.7/go.mod h1:Ap4vfflxHXfzY0MIt1l9dckwG+DkPUDc/vv1mk1cSCQ=
 github.com/opentracing-contrib/go-observer v0.0.0-20170622124052-a52f23424492/go.mod h1:Ngi6UdF0k5OKD5t5wlmGhe/EDKPoUM3BXZSSfIuJbis=
 github.com/opentracing/basictracer-go v1.0.0/go.mod h1:QfBfYuafItcjQuMwinw9GhYKwFXS9KnPs5lxoYwgW74=
