@@ -460,3 +460,18 @@ The following flags are available for `patch subscription`:
 ##### Examples
 
 * Patch a subscription by its ID and change the status to 'Reserved' (dry run) `echo '{ "status": "Reserved" }' | ocm support patch subscriptions [subID]`
+
+#### Deleting an account
+
+Use the `account` subcommand to delete a specific account for the passed accountID.
+
+The following flags are available for `account delete`:
+
+```
+--dry-run                    If false, deletes the account for the given account ID, defaults to true.
+-h, --help                   help for delete
+```
+
+#### Examples
+
+* Delete a specific account `ocm support delete account [accountID]`

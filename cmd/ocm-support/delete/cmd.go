@@ -3,6 +3,7 @@ package delete
 import (
 	"github.com/spf13/cobra"
 
+	account "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/account"
 	capabilities "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/capabilities"
 	accountCapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/capabilities/account_capability"
 	organizationCapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete/capabilities/organization_capability"
@@ -38,4 +39,5 @@ func init() {
 	Cmd.AddCommand(subscriptionRoleBinding.CmdDeleteSubscriptionRoleBinding)
 	Cmd.AddCommand(capabilities.CmdDeleteCapabilities)
 	Cmd.AddCommand(capability.CmdDeleteCapability)
+	Cmd.AddCommand(account.CmdDeleteAccount)
 }
