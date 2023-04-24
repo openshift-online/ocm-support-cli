@@ -347,11 +347,11 @@ The following flags are available for `registrycredentials delete`:
 
 Use the `applicationrolebinding` subcommand to remove a role binding from an account at application level, passing a valid role id. 
 
-##### Creating organization role bindings
+##### Deleting organization role bindings
 
 Use the `organizationrolebinding` subcommand to remove a role binding from an account at organization level, passing a valid role id.
 
-##### Creating subscription role bindings
+##### Deleting subscription role bindings
 
 Use the `subscriptionrolebinding` subcommand to remove a role binding from an account at subscription level, passing a valid role id.
 
@@ -361,6 +361,20 @@ Use the `subscriptionrolebinding` subcommand to remove a role binding from an ac
 * For the given account, delete a role binding created at organization level using the roleID `ocm support delete organizationrolebinding [accountID] [orgID] [roleID]`
 * For the given account, delete a role binding created at subscription level using the roleID `ocm support delete subscriptionrolebinding [accountID] [subscriptionID] [roleID]`
 
+#### Deleting an account
+
+Use the `account` subcommand to delete a specific account for the passed accountID.
+
+The following flags are available for `delete account`:
+
+```
+--dry-run                    If false, deletes the account for the given account ID, defaults to true.
+-h, --help                   help for delete
+```
+
+#### Examples
+
+* Delete a specific account `ocm support delete account [accountID]`
 
 ### Patch
 
@@ -460,18 +474,3 @@ The following flags are available for `patch subscription`:
 ##### Examples
 
 * Patch a subscription by its ID and change the status to 'Reserved' (dry run) `echo '{ "status": "Reserved" }' | ocm support patch subscriptions [subID]`
-
-#### Deleting an account
-
-Use the `account` subcommand to delete a specific account for the passed accountID.
-
-The following flags are available for `account delete`:
-
-```
---dry-run                    If false, deletes the account for the given account ID, defaults to true.
--h, --help                   help for delete
-```
-
-#### Examples
-
-* Delete a specific account `ocm support delete account [accountID]`
