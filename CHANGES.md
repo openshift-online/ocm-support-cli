@@ -1,4 +1,7 @@
 
+## 0.1.5 Apt 24 2023
+- Added delete command for an account
+
 ## 0.1.4 Jan 17 2023
 - Added fetch-control-export flag to Accounts
 - Added Ban data to Accounts
