@@ -1,6 +1,5 @@
 package account
 
-import "C"
 import (
 	"fmt"
 
