@@ -11,14 +11,15 @@ import (
 )
 
 var args struct {
-	id     string
-	dryRun bool
+	id                        string
+	dryRun                    bool
+	deleteAssociatedResources bool
 }
 
 // CmdDeleteAccount ...
 var CmdDeleteAccount = &cobra.Command{
 	Use:     "account accountID",
-	Aliases: utils.Aliases["accounts"],
+	Aliases: utils.Aliases["account"],
 	Short:   "Deletes the account with a given ID.",
 	Long:    "Deletes the account with the given ID.",
 	RunE:    run,
@@ -46,6 +47,12 @@ func init() {
 		true,
 		"If false, deletes the account instead of a dry run.",
 	)
+	flags.BoolVar(
+		&args.deleteAssociatedResources,
+		"delete-associated-resources",
+		false,
+		"If true, deletes the associated resources like registry credentials, role bindings, etc. along with the account.",
+	)
 }
 
 func run(cmd *cobra.Command, argv []string) error {
@@ -64,7 +71,7 @@ func run(cmd *cobra.Command, argv []string) error {
 		return nil
 	}
 
-	err = account.DeleteAccount(accountID, connection)
+	err = account.DeleteAccount(accountID, args.deleteAssociatedResources, connection)
 	if err != nil {
 		return fmt.Errorf("failed to delete account: %v", err)
 	}

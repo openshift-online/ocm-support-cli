@@ -368,13 +368,15 @@ Use the `account` subcommand to delete a specific account for the passed account
 The following flags are available for `delete account`:
 
 ```
---dry-run                    If false, deletes the account for the given account ID, defaults to true.
--h, --help                   help for delete
+--dry-run                       If false, deletes the account for the given account ID, defaults to true.
+--delete-associated-resources   If true, deletes the associated resources like registry credentials, role bindings, etc. along with the account.
+-h, --help                      help for delete
 ```
 
 #### Examples
 
 * Delete a specific account `ocm support delete account [accountID]`
+* Delete an account along with its associated resources `ocm support delete account [accountID] --delete-associated-resources=true`
 
 ### Patch
 
