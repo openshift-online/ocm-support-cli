@@ -126,8 +126,8 @@ func ValidateAccount(accountID string, conn *sdk.Connection) error {
 	return nil
 }
 
-func DeleteAccount(accountID string, conn *sdk.Connection) error {
-	_, err := conn.AccountsMgmt().V1().Accounts().Account(accountID).Delete().Send()
+func DeleteAccount(accountID string, deleteAssociatedResources bool, conn *sdk.Connection) error {
+	_, err := conn.AccountsMgmt().V1().Accounts().Account(accountID).Delete().DeleteAssociatedResources(deleteAssociatedResources).Send()
 	if err != nil {
 		return fmt.Errorf("failed to delete account: %v", err)
 	}
