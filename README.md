@@ -369,7 +369,7 @@ The following flags are available for `delete account`:
 
 ```
 --dry-run                       If false, deletes the account for the given account ID, defaults to true.
---delete-associated-resources   If true, deletes the associated resources like registry credentials, role bindings, etc. along with the account.
+--delete-associated-resources   If true, deletes the associated resources i.e. labels, notification contacts, account group assignments, pull secret rotations, registry credentials and role bindings along with the account.
 -h, --help                      help for delete
 ```
 
