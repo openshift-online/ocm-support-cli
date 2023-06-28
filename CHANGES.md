@@ -1,4 +1,7 @@
 
+## 0.1.6 Jun 28 2023
+- Added deleteAssociatedResources parameter to account delete command
+
 ## 0.1.5 Apr 24 2023
 - Added delete command for an account
 
