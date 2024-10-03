@@ -17,6 +17,7 @@ limitations under the License.
 package main
 
 import (
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/add"
 	"os"
 	"strings"
 
@@ -86,6 +87,7 @@ func init() {
 	rootCmd.AddCommand(get.Cmd)
 	rootCmd.AddCommand(delete.Cmd)
 	rootCmd.AddCommand(patch.Cmd)
+	rootCmd.AddCommand(add.Cmd)
 
 	// Set the log level before each command runs.
 	cobra.OnInitialize(initLogLevel)
