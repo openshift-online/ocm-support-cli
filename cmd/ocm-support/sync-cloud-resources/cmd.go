@@ -26,7 +26,7 @@ var args struct {
 
 func init() {
 	flags := Cmd.Flags()
-	flags.BoolVar(&args.dryRun, "dry-run", true, "When true, don't actually take any actions, just print the actions that would be taken")
+	flags.BoolVar(&args.dryRun, "dry-run", true, "If false, it commits the generated cloud resources and quota rule changes to the remote branch at https://gitlab.cee.redhat.com/service/uhc-account-manager")
 }
 
 func syncCloudResources(cmd *cobra.Command, argv []string) error {
@@ -94,7 +94,7 @@ func syncCloudResources(cmd *cobra.Command, argv []string) error {
 	}
 
 	fmt.Println("Committing changes")
-	err = amsRepo.Commit(fmt.Sprintf("Syncinc cloud resources and quota rules for %s", branchName))
+	err = amsRepo.Commit(fmt.Sprintf("Syncing cloud resources and quota rules for %s", branchName))
 	if err != nil {
 		return fmt.Errorf("an error occurred committing the changes: %v", err)
 	}
