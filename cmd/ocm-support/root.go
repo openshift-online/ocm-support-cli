@@ -17,7 +17,6 @@ limitations under the License.
 package main
 
 import (
-	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/add"
 	"os"
 	"strings"
 
@@ -29,6 +28,7 @@ import (
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/get"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/patch"
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/sync-cloud-resources"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/version"
 )
 
@@ -87,7 +87,7 @@ func init() {
 	rootCmd.AddCommand(get.Cmd)
 	rootCmd.AddCommand(delete.Cmd)
 	rootCmd.AddCommand(patch.Cmd)
-	rootCmd.AddCommand(add.Cmd)
+	rootCmd.AddCommand(sync_cloud_resources.Cmd)
 
 	// Set the log level before each command runs.
 	cobra.OnInitialize(initLogLevel)

@@ -1,4 +1,4 @@
-package instances
+package sync_cloud_resources
 
 import (
 	"bytes"
@@ -12,9 +12,10 @@ import (
 )
 
 var Cmd = &cobra.Command{
-	Use:          "instances [branch-name] [csv-path]",
-	Long:         "Add new instances in AMS and generates quota rules for them",
-	RunE:         addInstances,
+	Use:          "sync-cloud-resources [branch-name] [csv-path]",
+	Short:        "Syncs cloud resources in AMS and generates quota rules for them",
+	Long:         "Syncs cloud resources in AMS and generates quota rules for them",
+	RunE:         syncCloudResources,
 	SilenceUsage: true,
 	Args:         cobra.ExactArgs(2),
 }
@@ -28,7 +29,7 @@ func init() {
 	flags.BoolVar(&args.dryRun, "dry-run", true, "When true, don't actually take any actions, just print the actions that would be taken")
 }
 
-func addInstances(cmd *cobra.Command, argv []string) error {
+func syncCloudResources(cmd *cobra.Command, argv []string) error {
 	branchName := argv[0]
 	csvPath := argv[1]
 	if branchName == "" {
@@ -74,7 +75,7 @@ func addInstances(cmd *cobra.Command, argv []string) error {
 		return fmt.Errorf("an error occurred while creating a new branch: %v", err)
 	}
 
-	fmt.Println("Replacing instances file")
+	fmt.Println("Replacing cloud resources file")
 	err = ReplaceFileContent(fmt.Sprintf("%s/config/quota-cloud-resources.csv", tempDir), csvPath)
 	if err != nil {
 		return fmt.Errorf("an error occurred while getting the head of the reference: %v", err)
@@ -93,7 +94,7 @@ func addInstances(cmd *cobra.Command, argv []string) error {
 	}
 
 	fmt.Println("Committing changes")
-	err = amsRepo.Commit(fmt.Sprintf("Adding instances and quota rules for %s", branchName))
+	err = amsRepo.Commit(fmt.Sprintf("Syncinc cloud resources and quota rules for %s", branchName))
 	if err != nil {
 		return fmt.Errorf("an error occurred committing the changes: %v", err)
 	}
