@@ -12,12 +12,11 @@ import (
 )
 
 var Cmd = &cobra.Command{
-	Use:          "sync-cloud-resources [branch-name] [csv-path]",
-	Short:        "Syncs cloud resources in AMS and generates quota rules for them",
-	Long:         "Syncs cloud resources in AMS and generates quota rules for them",
-	RunE:         syncCloudResources,
-	SilenceUsage: true,
-	Args:         cobra.ExactArgs(2),
+	Use:   "sync-cloud-resources [branch-name] [csv-path]",
+	Short: "Syncs cloud resources in AMS and generates quota rules for them",
+	Long:  "Syncs cloud resources in AMS and generates quota rules for them",
+	RunE:  syncCloudResources,
+	Args:  cobra.ExactArgs(2),
 }
 
 var args struct {
