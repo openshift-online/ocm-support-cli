@@ -1,3 +1,5 @@
+## 0.1.7 Oct 8 2024
+- Added sync-cloud-resources command
 
 ## 0.1.6 Jun 28 2023
 - Added deleteAssociatedResources parameter to account delete command
