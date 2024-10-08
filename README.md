@@ -476,3 +476,23 @@ The following flags are available for `patch subscription`:
 ##### Examples
 
 * Patch a subscription by its ID and change the status to 'Reserved' (dry run) `echo '{ "status": "Reserved" }' | ocm support patch subscriptions [subID]`
+
+### Sync cloud resources
+
+OCM Support CLI can be used to sync cloud resources and generate quota rules in AMS.
+
+#### Usage
+Use the following command to add cloud resources in AMS:
+```
+ocm support sync-cloud-resources OCM-0000 \path\to\file --dry-run=false
+```
+`branch-name`  : Branch name for adding instances. Must include the JIRA ticket number. E.g. OCM-0000, OCM-0000-my-test-branch, etc.
+
+`csv-path` : File path for the exported CSV.
+
+The following flags are available for `sync-cloud-resources`:
+
+```
+--dry-run                    If false, it commits the generated cloud resources and quota rule changes to the remote branch at https://gitlab.cee.redhat.com/service/uhc-account-manager
+-h, --help                   help for sync-cloud-resources
+```
