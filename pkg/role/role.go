@@ -8,7 +8,7 @@ import (
 )
 
 func ValidateRole(roleID string, conn *sdk.Connection) error {
-	availableRoles, err := GetRoles(conn)
+	availableRoles, err := GetAllRoles(conn)
 	if err != nil {
 		return fmt.Errorf("can't validate role : %v", err)
 	}
@@ -20,8 +20,8 @@ func ValidateRole(roleID string, conn *sdk.Connection) error {
 	return fmt.Errorf("role %s not found", roleID)
 }
 
-func GetRoles(conn *sdk.Connection) ([]*v1.Role, error) {
-	response, err := conn.AccountsMgmt().V1().Roles().List().Send()
+func GetAllRoles(conn *sdk.Connection) ([]*v1.Role, error) {
+	response, err := conn.AccountsMgmt().V1().Roles().List().Size(-1).Send()
 
 	if err != nil {
 		return nil, fmt.Errorf("can't retrieve roles : %v", err)
