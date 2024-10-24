@@ -1,3 +1,6 @@
+## 0.1.8 Oct 24 2024
+- Fix sync-cloud-resources command to run quota generation in AMS using absolute path
+
 ## 0.1.7 Oct 8 2024
 - Added sync-cloud-resources command
 
