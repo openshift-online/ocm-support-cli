@@ -81,7 +81,14 @@ func syncCloudResources(cmd *cobra.Command, argv []string) error {
 	}
 
 	fmt.Println("Generating quota rules")
-	_, err = ExecuteCmd(fmt.Sprintf("cd %s && make generate-quota", tempDir))
+	_, err = ExecuteCmd(fmt.Sprintf("cd %s && make install && make binary", tempDir))
+	if err != nil {
+		return fmt.Errorf("an error occurred while building AMS: %v", err)
+	}
+	// Run account-manager command with an absolute path so that valid binary is found and executed
+	// cd is done here as GetProjectRootDir() in AMS detects the directory based on the presence of .git
+	// Ref: https://gitlab.cee.redhat.com/service/uhc-account-manager/-/blob/master/pkg/config/config.go?ref_type=heads#L215
+	_, err = ExecuteCmd(fmt.Sprintf("cd %s && %s/account-manager generate quota", tempDir, tempDir))
 	if err != nil {
 		return fmt.Errorf("an error occurred while generating quota rules: %v", err)
 	}
