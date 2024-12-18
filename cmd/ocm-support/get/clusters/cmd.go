@@ -15,10 +15,10 @@ var args struct {
 
 // Define the command structure
 var CmdGetClusters = &cobra.Command{
-	Use:     "clusters [org_id]",
+	Use:     "clusters [id|external_id|organization_id|subscription_id] [optional_search_string]",
 	Aliases: utils.Aliases["clusters"],
-	Short:   "Fetches cluster information for a given organization ID",
-	Long:    "Fetches cluster information for a given organization ID and outputs it in JSON format",
+	Short:   "Gets a cluster or a list of clusters that matches the search criteria",
+	Long:    "Gets a cluster or a list of clusters that matches the search criteria and outputs it in JSON format",
 	RunE:    run,
 	Args:    cobra.MinimumNArgs(1),
 }
@@ -61,7 +61,7 @@ func run(cmd *cobra.Command, argv []string) error {
 	}
 
 	if len(clusters) == 0 {
-		return fmt.Errorf("no clusters found for organization_id: %s", key)
+		return fmt.Errorf("no clusters found for given id: %s", key)
 	}
 
 	var formattedClusters []cluster.Cluster

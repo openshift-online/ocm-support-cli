@@ -35,7 +35,10 @@ func GetClusters(key string, searchStr string, limit int, connection *sdk.Connec
 
 	var search string
 
-	search = fmt.Sprintf("organization.id='%s'", key)
+	search = fmt.Sprintf("(id = '%s'", key) // cluster_id
+	search += fmt.Sprintf(" or external_id = '%s'", key)
+	search += fmt.Sprintf(" or organization.id = '%s'", key)
+	search += fmt.Sprintf(" or subscription.id = '%s')", key)
 	if searchStr != "" {
 		search += fmt.Sprintf(" and %s", searchStr)
 	}
@@ -46,12 +49,16 @@ func GetClusters(key string, searchStr string, limit int, connection *sdk.Connec
 	// Fetch clusters
 	page := 1
 	pageSize := limit
-	if limit <= 0 || limit > 100 {
-		pageSize = 100
-	}
+	remaining := limit
 
 	var clusters []*cmv1.Cluster
 	for {
+		if remaining <= 0 || remaining > 100 {
+			pageSize = 100
+		} else {
+			pageSize = remaining
+		}
+
 		response, err := collection.List().
 			Page(page).
 			Size(pageSize).
@@ -62,8 +69,9 @@ func GetClusters(key string, searchStr string, limit int, connection *sdk.Connec
 		}
 
 		clusters = append(clusters, response.Items().Slice()...)
+		remaining -= response.Size()
 
-		if len(clusters) >= limit || response.Size() < pageSize {
+		if remaining <= 0 || response.Size() < pageSize {
 			break
 		}
 		page++
