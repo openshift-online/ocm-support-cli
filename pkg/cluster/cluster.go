@@ -11,21 +11,20 @@ import (
 
 type Cluster struct {
 	ID                string    `json:"id"`
+	HREF              string    `json:"href"`
 	Name              string    `json:"name"`
+	ExternalID        string    `json:"external_id"`
 	DisplayName       string    `json:"display_name"`
+	SubscriptionID    string    `json:"subscription_id"`
 	State             string    `json:"state"`
 	CloudProvider     string    `json:"cloud_provider"`
+	Version           string    `json:"version"`
 	Region            string    `json:"region"`
 	MultiAZ           bool      `json:"multi_az"`
-	Version           string    `json:"version"`
 	ProductID         string    `json:"product_id"`
 	Managed           bool      `json:"managed"`
-	APIURL            string    `json:"api_url"`
 	ConsoleURL        string    `json:"console_url"`
 	CreationTimestamp time.Time `json:"creation_timestamp"`
-	Subscription      string    `json:"subscription"`
-	Hypershift        bool      `json:"hypershift"`
-	ExternalID        string    `json:"external_id"`
 }
 
 func GetClusters(key string, searchStr string, limit int, connection *sdk.Connection) ([]*cmv1.Cluster, error) {
@@ -80,20 +79,19 @@ func GetClusters(key string, searchStr string, limit int, connection *sdk.Connec
 func PresentClusters(cluster *cmv1.Cluster) Cluster {
 	return Cluster{
 		ID:                cluster.ID(),
+		HREF:              cluster.HREF(),
 		Name:              cluster.Name(),
+		ExternalID:        cluster.ExternalID(),
 		DisplayName:       cluster.Name(), // Display Name is the same as Name
+		SubscriptionID:    cluster.Subscription().ID(),
 		State:             string(cluster.State()),
 		CloudProvider:     cluster.CloudProvider().ID(),
+		Version:           cluster.OpenshiftVersion(),
 		Region:            cluster.Region().ID(),
 		MultiAZ:           cluster.MultiAZ(),
-		Version:           cluster.OpenshiftVersion(),
 		ProductID:         cluster.Product().ID(),
 		Managed:           cluster.Managed(),
-		APIURL:            cluster.API().URL(),
 		ConsoleURL:        cluster.Console().URL(),
 		CreationTimestamp: cluster.CreationTimestamp(),
-		Subscription:      cluster.Subscription().ID(),
-		Hypershift:        cluster.Hypershift().Enabled(),
-		ExternalID:        cluster.ExternalID(),
 	}
 }
