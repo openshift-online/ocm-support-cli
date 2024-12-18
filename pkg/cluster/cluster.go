@@ -19,7 +19,7 @@ type Cluster struct {
 	State             string    `json:"state"`
 	CloudProvider     string    `json:"cloud_provider"`
 	Version           string    `json:"version"`
-	Region            string    `json:"region"`
+	RegionID          string    `json:"region_id"`
 	MultiAZ           bool      `json:"multi_az"`
 	ProductID         string    `json:"product_id"`
 	Managed           bool      `json:"managed"`
@@ -55,7 +55,7 @@ func GetClusters(key string, searchStr string, limit int, connection *sdk.Connec
 		response, err := collection.List().
 			Page(page).
 			Size(pageSize).
-			Search(fmt.Sprintf("organization.id='%s'", key)).
+			Search(search).
 			SendContext(context.Background())
 		if err != nil {
 			return nil, fmt.Errorf("failed to retrieve clusters: %w", err)
@@ -87,7 +87,7 @@ func PresentClusters(cluster *cmv1.Cluster) Cluster {
 		State:             string(cluster.State()),
 		CloudProvider:     cluster.CloudProvider().ID(),
 		Version:           cluster.OpenshiftVersion(),
-		Region:            cluster.Region().ID(),
+		RegionID:          cluster.Region().ID(),
 		MultiAZ:           cluster.MultiAZ(),
 		ProductID:         cluster.Product().ID(),
 		Managed:           cluster.Managed(),
