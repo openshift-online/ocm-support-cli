@@ -60,6 +60,10 @@ func run(cmd *cobra.Command, argv []string) error {
 		return fmt.Errorf("failed to fetch clusters: %v", err)
 	}
 
+	if len(clusters) == 0 {
+		return fmt.Errorf("no clusters found for organization_id: %s", key)
+	}
+
 	var formattedClusters []cluster.Cluster
 	for _, cl := range clusters {
 		fc := cluster.PresentClusters(cl)
