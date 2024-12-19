@@ -4,13 +4,16 @@ import (
 	"fmt"
 
 	"github.com/openshift-online/ocm-cli/pkg/ocm"
+	v1 "github.com/openshift-online/ocm-sdk-go/clustersmgmt/v1"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/utils"
 	"github.com/openshift-online/ocm-support-cli/pkg/cluster"
+	machinepool "github.com/openshift-online/ocm-support-cli/pkg/machine_pool"
 	"github.com/spf13/cobra"
 )
 
 var args struct {
-	first bool
+	first             bool
+	fetchMachinePools bool
 }
 
 // Define the command structure
@@ -30,6 +33,12 @@ func init() {
 		"first",
 		false,
 		"If true, returns only the first cluster that matched the search instead of all of them.",
+	)
+	flags.BoolVar(
+		&args.fetchMachinePools,
+		"fetch-machinepools",
+		false,
+		"If true, returns all the machine pools for the clusters.",
 	)
 }
 
@@ -58,7 +67,7 @@ func run(cmd *cobra.Command, argv []string) error {
 	defer connection.Close()
 
 	// Fetch cluster information
-	clusters, err := cluster.GetClusters(key, searchStr, limit, connection)
+	clusters, err := cluster.GetClusters(key, searchStr, limit, args.fetchMachinePools, connection)
 	if err != nil {
 		return fmt.Errorf("failed to get clusters: %v", err)
 	}
@@ -73,7 +82,15 @@ func run(cmd *cobra.Command, argv []string) error {
 
 	var formattedClusters []cluster.Cluster
 	for _, cl := range clusters {
-		fc := cluster.PresentClusters(cl)
+		var machinePools []*v1.MachinePool
+		if args.fetchMachinePools {
+			machinePools, err = machinepool.GetMachinePool(cl.ID(), connection)
+			if err != nil {
+				return err
+			}
+		}
+
+		fc := cluster.PresentClusters(cl, machinePools)
 		formattedClusters = append(formattedClusters, fc)
 	}
 
