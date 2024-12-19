@@ -149,6 +149,32 @@ The following flags are available for `get subscriptions`:
 * Get subscription by its ID and include its reserved resources: `ocm support get subscriptions [subscriptionID] --fetch-reserved-resources`
 * Get first subscription by its cluster ID and include its roles: `ocm support get subscriptions [clusterID] --first --fetch-roles`
 
+#### Getting a cluster
+
+Use the `clusters` subcommand to get one or more clusters, passing as argument one of the following:
+
+* clusterID
+* externalClusterID
+* organizationID
+* subscriptionID
+
+Pass the search criteria as an optional second argument.
+
+The following flags are available for `get clusters`:
+
+```
+--first If true, returns only the first cluster that matches the search instead of all of them (default behaviour). -h, --help help for get
+```
+
+##### Examples
+
+* Get cluster by its ID: `ocm support get clusters [clusterID]`
+* Get all clusters by OrganizationID: `ocm support get clusters [organizationID]`
+* Get all clusters by OrganizationID and include search criteria: `ocm support get clusters [organizationID] "state='ready'"`
+* Get first cluster by its externalClusterID: `ocm support get clusters [externalClusterID] --first`
+* Get first cluster by SubscriptionID: `ocm support get clusters [subscriptionID] --first`
+
+
 #### Getting registry credentials
 
 Use the `registrycredentials` subcommand to to get registry credentials, passing accountID.
