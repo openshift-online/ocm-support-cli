@@ -163,7 +163,9 @@ Pass the search criteria as an optional second argument.
 The following flags are available for `get clusters`:
 
 ```
---first If true, returns only the first cluster that matches the search instead of all of them (default behaviour). -h, --help help for get
+--first                   If true, returns only the first cluster that matches the search instead of all of them (default behaviour).
+--fetch-machinepools      If true, includes the machine pools.
+
 ```
 
 ##### Examples
@@ -173,7 +175,7 @@ The following flags are available for `get clusters`:
 * Get all clusters by OrganizationID and include search criteria: `ocm support get clusters [organizationID] "state='ready'"`
 * Get first cluster by its externalClusterID: `ocm support get clusters [externalClusterID] --first`
 * Get first cluster by SubscriptionID: `ocm support get clusters [subscriptionID] --first`
-
+* Get cluster by its ID and include its machine pools: `ocm support get clusters [clusterID] --fetch-machinepools`
 
 #### Getting registry credentials
 
