@@ -28,7 +28,7 @@ type Cluster struct {
 }
 
 func GetClusters(key string, searchStr string, limit int, connection *sdk.Connection) ([]*cmv1.Cluster, error) {
-	// Validate orgID
+	// Validate key
 	if key == "" {
 		return nil, fmt.Errorf("organization ID cannot be empty")
 	}
@@ -43,45 +43,15 @@ func GetClusters(key string, searchStr string, limit int, connection *sdk.Connec
 		search += fmt.Sprintf(" and %s", searchStr)
 	}
 
-	// Access the clusters API
-	collection := connection.ClustersMgmt().V1().Clusters()
-
-	// Fetch clusters
-	page := 1
-	pageSize := limit
-	remaining := limit
-
-	var clusters []*cmv1.Cluster
-	for {
-		if remaining <= 0 || remaining > 100 {
-			pageSize = 100
-		} else {
-			pageSize = remaining
-		}
-
-		response, err := collection.List().
-			Page(page).
-			Size(pageSize).
-			Search(search).
-			SendContext(context.Background())
-		if err != nil {
-			return nil, fmt.Errorf("failed to retrieve clusters: %w", err)
-		}
-
-		clusters = append(clusters, response.Items().Slice()...)
-		remaining -= response.Size()
-
-		if remaining <= 0 || response.Size() < pageSize {
-			break
-		}
-		page++
+	clusters, err := connection.ClustersMgmt().V1().Clusters().List().
+		Size(limit).
+		Search(search).
+		SendContext(context.Background())
+	if err != nil {
+		return []*cmv1.Cluster{}, fmt.Errorf("failed to retrieve clusters: %w", err)
 	}
 
-	if limit > 0 && len(clusters) > limit {
-		clusters = clusters[:limit]
-	}
-
-	return clusters, nil
+	return clusters.Items().Slice(), nil
 }
 
 func PresentClusters(cluster *cmv1.Cluster) Cluster {

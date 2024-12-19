@@ -34,14 +34,17 @@ func init() {
 }
 
 func run(cmd *cobra.Command, argv []string) error {
-	// Get the org ID from arguments
-	key := argv[0]
+	if len(argv) < 1 {
+		return fmt.Errorf("expected at least one argument")
+	}
 
+	key := argv[0]
 	searchStr := ""
 	if len(argv) == 2 {
 		searchStr = argv[1]
 	}
 
+	// by default, returns all clusters found
 	limit := -1
 	if args.first {
 		limit = 1
@@ -57,11 +60,15 @@ func run(cmd *cobra.Command, argv []string) error {
 	// Fetch cluster information
 	clusters, err := cluster.GetClusters(key, searchStr, limit, connection)
 	if err != nil {
-		return fmt.Errorf("failed to fetch clusters: %v", err)
+		return fmt.Errorf("failed to get clusters: %v", err)
 	}
 
 	if len(clusters) == 0 {
 		return fmt.Errorf("no clusters found for given id: %s", key)
+	}
+
+	if len(clusters) > utils.MaxRecords {
+		return fmt.Errorf("too many (%d) clusters found. Consider changing your search criteria to something more specific by providing optional search filters as a second argument", len(clusters))
 	}
 
 	var formattedClusters []cluster.Cluster
@@ -71,5 +78,6 @@ func run(cmd *cobra.Command, argv []string) error {
 	}
 
 	utils.PrettyPrint(formattedClusters)
+
 	return nil
 }
