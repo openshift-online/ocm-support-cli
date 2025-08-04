@@ -149,6 +149,34 @@ The following flags are available for `get subscriptions`:
 * Get subscription by its ID and include its reserved resources: `ocm support get subscriptions [subscriptionID] --fetch-reserved-resources`
 * Get first subscription by its cluster ID and include its roles: `ocm support get subscriptions [clusterID] --first --fetch-roles`
 
+#### Getting a cluster
+
+Use the `clusters` subcommand to get one or more clusters, passing as argument one of the following:
+
+* clusterID
+* externalClusterID
+* organizationID
+* subscriptionID
+
+Pass the search criteria as an optional second argument.
+
+The following flags are available for `get clusters`:
+
+```
+--first                   If true, returns only the first cluster that matches the search instead of all of them (default behaviour).
+--fetch-machinepools      If true, includes the machine pools.
+
+```
+
+##### Examples
+
+* Get cluster by its ID: `ocm support get clusters [clusterID]`
+* Get all clusters by OrganizationID: `ocm support get clusters [organizationID]`
+* Get all clusters by OrganizationID and include search criteria: `ocm support get clusters [organizationID] "state='ready'"`
+* Get first cluster by its externalClusterID: `ocm support get clusters [externalClusterID] --first`
+* Get first cluster by SubscriptionID: `ocm support get clusters [subscriptionID] --first`
+* Get cluster by its ID and include its machine pools: `ocm support get clusters [clusterID] --fetch-machinepools`
+
 #### Getting registry credentials
 
 Use the `registrycredentials` subcommand to to get registry credentials, passing accountID.
@@ -156,6 +184,31 @@ Use the `registrycredentials` subcommand to to get registry credentials, passing
 ##### Examples
 
 * Show registry credentials for a specific account `ocm support get registrycredentials [accountID]`
+
+#### Getting access review
+
+Use the `accessreview` subcommand to check access permissions for a user on a resource, passing username, action, and resource type. Optional flags can provide additional context for scoped resources.
+
+The following flags are available for `get accessreview`:
+
+```
+--subscription-id    Subscription ID for subscription-scoped resources
+--organization-id    Organization ID for organization-scoped resources  
+--cluster-id         Cluster ID for cluster-scoped resources
+--suggest-roles      If true, provides general role suggestions when access is denied (refer to UHC account manager for accurate mappings)
+-h, --help           help for accessreview
+```
+
+##### Examples
+
+* Check if user can create ClusterTransfer: `ocm support get accessreview myuser CreateAction ClusterTransfer`
+* Check if user can get SubscriptionResource with subscription context: `ocm support get accessreview alice get SubscriptionResource --subscription-id sub-123`
+* Check if user can delete OrganizationResource with organization context: `ocm support get accessreview bob delete OrganizationResource --organization-id org-456`
+* Check if user can access cluster with multiple contexts: `ocm support get accessreview charlie get Cluster --subscription-id sub-123 --cluster-id cluster-789`
+* Get role suggestions when access is denied: `ocm support get accessreview myuser CreateAction ClusterTransfer --suggest-roles`
+* Check StarAction which allows all types of actions (get, create, update, list, delete): `ocm support get accessreview myuser StarAction ClusterTransfer --suggest-roles`
+* Check create access on ReservedResource with cluster context: `ocm support get accessreview myuser create ReservedResource --cluster-id cluster-123 --suggest-roles`
+* Using alias: `ocm support get ar [username] [action] [resource] [flags]`
 
 ### Create
 
