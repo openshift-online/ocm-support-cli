@@ -1,6 +1,7 @@
 package get
 
 import (
+	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/get/accessreview"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/get/accounts"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/get/clusters"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/get/organizations"
@@ -18,6 +19,7 @@ var Cmd = &cobra.Command{
 }
 
 func init() {
+	Cmd.AddCommand(accessreview.CmdGetAccessReview)
 	Cmd.AddCommand(accounts.CmdGetAccounts)
 	Cmd.AddCommand(organizations.CmdGetOrganizations)
 	Cmd.AddCommand(registrycredentials.CmdGetRegistryCredentials)
