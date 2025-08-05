@@ -160,8 +160,7 @@ func ExecuteCmd(command string) (string, error) {
 	cmd.Stderr = mw
 	err := cmd.Run()
 	if err != nil {
-		err := fmt.Errorf("%v : %s", err, stdBuffer.String())
-		return "", err
+		return "", fmt.Errorf("%v : %s", err, stdBuffer.String())
 	}
 	return stdBuffer.String(), nil
 }
