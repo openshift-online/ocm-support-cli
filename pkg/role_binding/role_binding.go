@@ -17,6 +17,7 @@ type RoleBinding struct {
 	ID             string    `json:"id"`
 	HREF           string    `json:"href"`
 	AccountID      string    `json:"account_id"`
+	AccountGroupID string    `json:"account_group_id"`
 	RoleID         string    `json:"role_id"`
 	OrganizationID string    `json:"organization_id"`
 	SubscriptionID string    `json:"subscription_id"`
@@ -40,6 +41,7 @@ const (
 	SubscriptionRoleBinding = "Subscription"
 	OrganizationRoleBinding = "Organization"
 	ApplicationRoleBinding  = "Application"
+	AccountGroupRoleBinding = "AccountGroup"
 
 	ManagedByUser = "User"
 )
@@ -134,17 +136,36 @@ func GetSubscriptionRoleBindings(subscriptionID string, conn *sdk.Connection) ([
 }
 
 func PresentRoleBinding(rb *v1.RoleBinding) RoleBinding {
-	return RoleBinding{
-		ID:             rb.ID(),
-		HREF:           rb.HREF(),
-		AccountID:      rb.Account().ID(),
-		RoleID:         rb.Role().ID(),
-		OrganizationID: rb.Organization().ID(),
-		SubscriptionID: rb.Subscription().ID(),
-		CreatedAt:      rb.CreatedAt(),
-		UpdatedAt:      rb.UpdatedAt(),
-		Type:           rb.Type(),
+	roleBinding := RoleBinding{
+		ID:        rb.ID(),
+		HREF:      rb.HREF(),
+		RoleID:    rb.Role().ID(),
+		CreatedAt: rb.CreatedAt(),
+		UpdatedAt: rb.UpdatedAt(),
+		Type:      rb.Type(),
 	}
+
+	// Handle account ID (may be empty for account group role bindings)
+	if rb.Account() != nil {
+		roleBinding.AccountID = rb.Account().ID()
+	}
+
+	// Handle account group ID (new field)
+	if rb.AccountGroup() != nil {
+		roleBinding.AccountGroupID = rb.AccountGroup().ID()
+	}
+
+	// Handle organization ID
+	if rb.Organization() != nil {
+		roleBinding.OrganizationID = rb.Organization().ID()
+	}
+
+	// Handle subscription ID
+	if rb.Subscription() != nil {
+		roleBinding.SubscriptionID = rb.Subscription().ID()
+	}
+
+	return roleBinding
 }
 
 func PresentAccountRoleBindings(roleBindings []*v1.RoleBinding) []AccountRoleBinding {

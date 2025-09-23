@@ -1,11 +1,11 @@
 # ocm-support-cli
 
-`ocm-support-cli` is a tool that extends the `ocm-cli` by adding commands that are useful for engineers that deal support requests.
+`ocm-support-cli` is a tool that extends the `ocm-cli` by adding commands that are useful for engineers that deal with support requests.
 
-Prerequisites: 
+Prerequisites:
 
 * Have `ocm` command installed and have run `ocm login` command.
-* Have advanced permissions provided by roles suhc as `UHCSupport`,`SDBSignalMonitor`, ...
+* Have advanced permissions provided by roles such as `UHCSupport`, `SDBSignalMonitor`, ...
 
 ## Install
 
@@ -14,18 +14,21 @@ Prerequisites:
 Download the latest binary file from the [release page](https://github.com/openshift-online/ocm-support-cli/releases).
 
 For Linux, download `ocm-support-linux-amd64`, rename it to `ocm-support` and put it to $PATH. For example:
+
 ~~~
-$ sudo cp ocm-support-linux-amd64 /usr/bin/ocm-support
-$ sudo chmod 0755 /usr/bin/ocm-support
+sudo cp ocm-support-linux-amd64 /usr/bin/ocm-support
+sudo chmod 0755 /usr/bin/ocm-support
 ~~~
 
 For MacOS, download `ocm-support-darwin-amd64`, rename it to `ocm-support` and put it to $PATH. For example:
+
 ~~~
-$ sudo cp ocm-support-darwin-amd64 /usr/local/bin/ocm-support
-$ sudo chmod 0755 /usr/local/bin/ocm-support
+sudo cp ocm-support-darwin-amd64 /usr/local/bin/ocm-support
+sudo chmod 0755 /usr/local/bin/ocm-support
 ~~~
 
 ### Option 2: Build from source
+
 First clone the repository somewhere in your $PATH. A common place would be within your $GOPATH.
 
 Example:
@@ -100,7 +103,7 @@ Pass the search criteria as an optional second argument.
 The following flags are available for `get organizations`:
 
 ```
---first                If true, returns only the first accounts that matched the search instead of all of them (default behaviour).
+--first                If true, returns only the first organizations that matched the search instead of all of them (default behaviour).
 --fetch-quota          If true, includes the organization quota.
 --fetch-subscriptions  If true, includes the organization subscriptions.
 --fetch-labels         If true, includes the organization labels.
@@ -110,6 +113,7 @@ The following flags are available for `get organizations`:
 ```
 
 ##### Examples
+
 * Get the first organization by its externalID: `ocm support get organizations [organizationExternalID] --first`
 * Get the organization and include its subscriptions: `ocm support get organizations [organizationID] --fetch-subscriptions`
 * Get all organizations for an organizationExternalID and include its labels `ocm support get organizations [organizationExternalID] --fetch-labels`
@@ -145,7 +149,7 @@ The following flags are available for `get subscriptions`:
 * Get all subscriptions by ClusterID and include its labels `ocm support get subscriptions [clusterID] --fetch-labels`
 * Get all subscriptions by ClusterID and include its capabilities `ocm support get subscriptions [clusterID] --fetch-capabilities`
 * Get first subscription by its externalClusterID: `ocm support get subscriptions [externalClusterID] --first`
-* Get all subscriptions by OrganizationID and include subscriptions that have Status as 'Reserverd' `ocm support get subscriptions [organizationID] "Status='Reserved'"`
+* Get all subscriptions by OrganizationID and include subscriptions that have Status as 'Reserved' `ocm support get subscriptions [organizationID] "Status='Reserved'"`
 * Get subscription by its ID and include its reserved resources: `ocm support get subscriptions [subscriptionID] --fetch-reserved-resources`
 * Get first subscription by its cluster ID and include its roles: `ocm support get subscriptions [clusterID] --first --fetch-roles`
 
@@ -179,7 +183,7 @@ The following flags are available for `get clusters`:
 
 #### Getting registry credentials
 
-Use the `registrycredentials` subcommand to to get registry credentials, passing accountID.
+Use the `registrycredentials` subcommand to get registry credentials, passing accountID.
 
 ##### Examples
 
@@ -193,7 +197,7 @@ The `create` command creates the given resource.
 
 ##### Creating account labels
 
-Use the `accountlabel` subcommand to assign a label to an account, passing a key and a value. 
+Use the `accountlabel` subcommand to assign a label to an account, passing a key and a value.
 
 The following flags are available for `create accountlabel`:
 
@@ -204,7 +208,7 @@ The following flags are available for `create accountlabel`:
 
 ##### Creating organization labels
 
-Use the `organizationlabel` subcommand to assign a label to an organization, passing a key and a value. 
+Use the `organizationlabel` subcommand to assign a label to an organization, passing a key and a value.
 
 The following flags are available for `create organizationlabel`:
 
@@ -215,7 +219,7 @@ The following flags are available for `create organizationlabel`:
 
 ##### Creating subscription labels
 
-Use the `subscriptionlabel` subcommand to assign a label to a subscription, passing a key and a value. 
+Use the `subscriptionlabel` subcommand to assign a label to a subscription, passing a key and a value.
 
 The following flags are available for `create subscriptionlabel`:
 
@@ -234,15 +238,15 @@ The following flags are available for `create subscriptionlabel`:
 
 ##### Creating account capabilities
 
-Use the `accountcapability` subcommand to assign a capability to an account, passing a valid capability key. 
+Use the `accountcapability` subcommand to assign a capability to an account, passing a valid capability key.
 
 ##### Creating organization capabilities
 
-Use the `organizationcapability` subcommand to assign a capability to an organization, passing a valid capability key. 
+Use the `organizationcapability` subcommand to assign a capability to an organization, passing a valid capability key.
 
 ##### Creating subscription capabilities
 
-Use the `subscriptioncapability` subcommand to assign a capability to a subscription, passing a valid capability key. 
+Use the `subscriptioncapability` subcommand to assign a capability to a subscription, passing a valid capability key.
 
 ##### Examples
 
@@ -252,7 +256,7 @@ Use the `subscriptioncapability` subcommand to assign a capability to a subscrip
 
 #### Creating registry credentials
 
-Use the `registrycredentials` subcommand to create registry credentials for current account. 
+Use the `registrycredentials` subcommand to create registry credentials for current account.
 
 ##### Examples
 
@@ -262,7 +266,7 @@ Use the `registrycredentials` subcommand to create registry credentials for curr
 
 ##### Creating application role bindings
 
-Use the `applicationrolebinding` subcommand to assign a role binding to an account at application level, passing a valid role id. 
+Use the `applicationrolebinding` subcommand to assign a role binding to an account at application level, passing a valid role id.
 
 ##### Creating organization role bindings
 
@@ -286,15 +290,15 @@ The `delete` command deletes the given resource.
 
 ##### Deleting account labels
 
-Use the `accountlabel` subcommand to delete a label from an account, passing the label key. 
+Use the `accountlabel` subcommand to delete a label from an account, passing the label key.
 
 ##### Deleting organization labels
 
-Use the `organizationlabel` subcommand to delete a label from an organization, passing the label key. 
+Use the `organizationlabel` subcommand to delete a label from an organization, passing the label key.
 
 ##### Deleting subscription labels
 
-Use the `subscriptionlabel` subcommand to delete a label from a subscription, passing the label key. 
+Use the `subscriptionlabel` subcommand to delete a label from a subscription, passing the label key.
 
 ##### Examples
 
@@ -306,15 +310,15 @@ Use the `subscriptionlabel` subcommand to delete a label from a subscription, pa
 
 ##### Deleting account capabilities
 
-Use the `accountcapability` subcommand to delete a capability from an account, passing the valid capability key. 
+Use the `accountcapability` subcommand to delete a capability from an account, passing the valid capability key.
 
 ##### Deleting organization capabilities
 
-Use the `organizationcapability` subcommand to delete a capability from an organization, passing the valid capability key. 
+Use the `organizationcapability` subcommand to delete a capability from an organization, passing the valid capability key.
 
 ##### Deleting subscription capabilities
 
-Use the `subscriptioncapability` subcommand to delete a capability from a subscription, passing a valid capability key. 
+Use the `subscriptioncapability` subcommand to delete a capability from a subscription, passing a valid capability key.
 
 ##### Examples
 
@@ -355,7 +359,7 @@ The following flags are available for `delete capability`:
 
 #### Deleting registry credentials
 
-Use the `registrycredentials` subcommand to to delete a specific registry credential, or all registry credentials, for the passed accountID.
+Use the `registrycredentials` subcommand to delete a specific registry credential, or all registry credentials, for the passed accountID.
 
 The following flags are available for `registrycredentials delete`:
 
@@ -373,7 +377,7 @@ The following flags are available for `registrycredentials delete`:
 
 ##### Deleting application role bindings
 
-Use the `applicationrolebinding` subcommand to remove a role binding from an account at application level, passing a valid role id. 
+Use the `applicationrolebinding` subcommand to remove a role binding from an account at application level, passing a valid role id.
 
 ##### Deleting organization role bindings
 
@@ -412,7 +416,7 @@ The `patch` command patches the given resource.
 
 #### Patching accounts
 
-Use the `accounts` subcommand and provide filter value to search matching accounts and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
+Use the `accounts` subcommand and provide filter value to search matching accounts and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' |` before the actual command. By default the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
 
 The following flags are available for `patch accounts`:
 
@@ -428,7 +432,7 @@ The following flags are available for `patch accounts`:
 
 #### Patching account
 
-Use the `account` subcommand to patch an account by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
+Use the `account` subcommand to patch an account by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' |` before the actual command. By default the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
 
 The following flags are available for `patch account`:
 
@@ -443,7 +447,7 @@ The following flags are available for `patch account`:
 
 #### Patching organizations
 
-Use the `organizations` subcommand and provide filter value to search matching organizations and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default, the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
+Use the `organizations` subcommand and provide filter value to search matching organizations and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' |` before the actual command. By default, the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
 
 The following flags are available for `patch organizations`:
 
@@ -455,12 +459,11 @@ The following flags are available for `patch organizations`:
 
 ##### Examples
 
-* Patch all organizations with names starting with "Red Hat" and change the name to "Red Hat Inc." (no dry run and set maxRecords more than the actual number of affected records) `echo '{ "name": "Red Hat Inc." }' | ocm support patch orgs "name like 'Red Hat%' --dry-run=false --max-records=1000`
-
+* Patch all organizations with names starting with "Red Hat" and change the name to "Red Hat Inc." (no dry run and set maxRecords more than the actual number of affected records) `echo '{ "name": "Red Hat Inc." }' | ocm support patch orgs "name like 'Red Hat%'" --dry-run=false --max-records=1000`
 
 #### Patching organization
 
-Use the `organization` subcommand to patch an organization by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default, the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
+Use the `organization` subcommand to patch an organization by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' |` before the actual command. By default, the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
 
 The following flags are available for `patch organizations`:
 
@@ -475,7 +478,7 @@ The following flags are available for `patch organizations`:
 
 #### Patching subscriptions
 
-Use the `subscriptions` subcommand and provide filter value to search matching subscriptions and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
+Use the `subscriptions` subcommand and provide filter value to search matching subscriptions and patch them. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' |` before the actual command. By default the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
 
 The following flags are available for `patch subscriptions`:
 
@@ -488,11 +491,11 @@ The following flags are available for `patch subscriptions`:
 ##### Examples
 
 * Patch subscriptions and change the support level to Self-Support for subscriptions with 'Reserved' status (no dry run) `echo '{ "support_level": "Self-Support" }' | ocm support patch subs "status='Reserved'" --dry-run=false`
-* Patch all subscriptions of an organization and change the status to Archived (no dry run and set maxRecords more than the actual number of affected records) `echo '{ "status": "Archived" }' | ocm support patch subs "organization_id='[orgID]' --dry-run=false --max-records=1000`
+* Patch all subscriptions of an organization and change the status to Archived (no dry run and set maxRecords more than the actual number of affected records) `echo '{ "status": "Archived" }' | ocm support patch subs "organization_id='[orgID]'" --dry-run=false --max-records=1000`
 
 #### Patching subscription
 
-Use the `subscription` subcommand to patch a subscription by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' | ` before the actual command. By default the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
+Use the `subscription` subcommand to patch a subscription by passing the ID. Pass the JSON body for the patch request in terminal using `echo '{<PATCH_BODY>}' |` before the actual command. By default the dry run flag will be enabled. Pass `dry-run=false` flag to actually patch the resource.
 
 The following flags are available for `patch subscription`:
 
@@ -510,10 +513,13 @@ The following flags are available for `patch subscription`:
 OCM Support CLI can be used to sync cloud resources and generate quota rules in AMS.
 
 #### Usage
+
 Use the following command to add cloud resources in AMS:
+
 ```
 ocm support sync-cloud-resources OCM-0000 \path\to\file --dry-run=false
 ```
+
 `branch-name`  : Branch name for adding instances. Must include the JIRA ticket number. E.g. OCM-0000, OCM-0000-my-test-branch, etc.
 
 `csv-path` : File path for the exported CSV.

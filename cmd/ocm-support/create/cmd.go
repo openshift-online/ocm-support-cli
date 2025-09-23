@@ -3,6 +3,8 @@ package create
 import (
 	"github.com/spf13/cobra"
 
+	accountgroupassignments "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/account_group_assignments"
+	accountgroups "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/account_groups"
 	accountcapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/capabilities/account_capability"
 	organizationcapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/capabilities/organization_capability"
 	subscriptioncapability "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/create/capabilities/subscription_capability"
@@ -24,6 +26,8 @@ var Cmd = &cobra.Command{
 }
 
 func init() {
+	Cmd.AddCommand(accountgroups.CmdCreateAccountGroup)
+	Cmd.AddCommand(accountgroupassignments.CmdCreateAccountGroupAssignment)
 	Cmd.AddCommand(accountlabel.CmdCreateAccountLabel)
 	Cmd.AddCommand(organizationlabel.CmdCreateOrganizationLabel)
 	Cmd.AddCommand(subscriptionlabel.CmdCreateSubscriptionLabel)
