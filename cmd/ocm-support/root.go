@@ -28,7 +28,7 @@ import (
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/delete"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/get"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/patch"
-	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/sync-cloud-resources"
+	sync_cloud_resources "github.com/openshift-online/ocm-support-cli/cmd/ocm-support/sync-cloud-resources"
 	"github.com/openshift-online/ocm-support-cli/cmd/ocm-support/version"
 )
 
