@@ -32,7 +32,7 @@ var CmdDeleteOrganizationCapability = &cobra.Command{
 			return fmt.Errorf("%v", err)
 		}
 		//validates the capability
-		err = capability.ValidateCapability(capabilityKey, "organization")
+		err = capability.ValidateCapability(capabilityKey, "organization", connection)
 		if err != nil {
 			return fmt.Errorf("%v", err)
 		}
@@ -48,11 +48,7 @@ func runDeleteOrganizationCapability(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
-	capabilityKey, err := capability.GetCapability(key, "organization")
-	if err != nil {
-		return fmt.Errorf("failed to get capability: %v", err)
-	}
-	err = organization.DeleteLabel(orgID, capabilityKey, connection)
+	err = organization.DeleteLabel(orgID, key, connection)
 	if err != nil {
 		return fmt.Errorf("failed to delete capability: %v", err)
 	}

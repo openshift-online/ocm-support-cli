@@ -34,7 +34,7 @@ var CmdCreateSubscriptionCapability = &cobra.Command{
 		}
 		//validates the capability
 		capabilityKey := args[1]
-		err = capability.ValidateCapability(capabilityKey, "cluster")
+		err = capability.ValidateCapability(capabilityKey, "cluster", connection)
 		if err != nil {
 			return fmt.Errorf("%v", err)
 		}
@@ -50,11 +50,7 @@ func runCreateSubscriptionCapability(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
-	capabilityKey, err := capability.GetCapability(key, "cluster")
-	if err != nil {
-		return fmt.Errorf("failed to get capability: %v", err)
-	}
-	createdCapability, err := subscription.AddLabel(subscriptionID, capabilityKey, "true", true, connection)
+	createdCapability, err := subscription.AddLabel(subscriptionID, key, "true", true, connection)
 	if err != nil {
 		return fmt.Errorf("failed to create capability: %v", err)
 	}
