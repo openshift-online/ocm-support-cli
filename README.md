@@ -7,6 +7,13 @@ Prerequisites:
 * Have `ocm` command installed and have run `ocm login` command.
 * Have advanced permissions provided by roles such as `UHCSupport`, `SDBSignalMonitor`, ...
 
+## Quick Start
+
+```bash
+make build       # Build the ocm-support binary
+make install     # Install to GOPATH/bin
+```
+
 ## Install
 
 ### Option 1: Download binary
