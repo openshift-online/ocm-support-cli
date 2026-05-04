@@ -1,11 +1,11 @@
 module github.com/openshift-online/ocm-support-cli
 
-go 1.23.0
+go 1.24.0
 
 require (
 	github.com/nwidger/jsoncolor v0.3.1
 	github.com/openshift-online/ocm-cli v0.1.64
-	github.com/openshift-online/ocm-sdk-go v0.1.478
+	github.com/openshift-online/ocm-sdk-go v0.1.500
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cobra v1.4.0
 )
@@ -32,18 +32,18 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
-	github.com/openshift-online/ocm-api-model/clientapi v0.0.433 // indirect
-	github.com/openshift-online/ocm-api-model/model v0.0.433 // indirect
+	github.com/openshift-online/ocm-api-model/clientapi v0.0.454 // indirect
+	github.com/openshift-online/ocm-api-model/model v0.0.454 // indirect
 	github.com/prometheus/client_golang v1.12.1 // indirect
 	github.com/prometheus/client_model v0.2.0 // indirect
 	github.com/prometheus/common v0.32.1 // indirect
 	github.com/prometheus/procfs v0.7.3 // indirect
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	golang.org/x/net v0.38.0 // indirect
+	golang.org/x/net v0.39.0 // indirect
 	golang.org/x/oauth2 v0.27.0 // indirect
-	golang.org/x/sys v0.31.0 // indirect
-	golang.org/x/text v0.23.0 // indirect
+	golang.org/x/sys v0.32.0 // indirect
+	golang.org/x/text v0.24.0 // indirect
 	google.golang.org/protobuf v1.33.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
