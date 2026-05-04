@@ -3,7 +3,7 @@ module github.com/openshift-online/ocm-support-cli
 go 1.23.0
 
 require (
-	github.com/nwidger/jsoncolor v0.3.1
+	github.com/nwidger/jsoncolor v0.3.2
 	github.com/openshift-online/ocm-cli v0.1.64
 	github.com/openshift-online/ocm-sdk-go v0.1.478
 	github.com/sirupsen/logrus v1.8.1
