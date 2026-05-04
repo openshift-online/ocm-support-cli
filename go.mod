@@ -7,7 +7,7 @@ require (
 	github.com/openshift-online/ocm-cli v0.1.64
 	github.com/openshift-online/ocm-sdk-go v0.1.478
 	github.com/sirupsen/logrus v1.8.1
-	github.com/spf13/cobra v1.4.0
+	github.com/spf13/cobra v1.10.2
 )
 
 require (
@@ -21,7 +21,7 @@ require (
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/gorilla/css v1.0.0 // indirect
-	github.com/inconshreveable/mousetrap v1.0.0 // indirect
+	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
@@ -39,7 +39,7 @@ require (
 	github.com/prometheus/common v0.32.1 // indirect
 	github.com/prometheus/procfs v0.7.3 // indirect
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966 // indirect
-	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/spf13/pflag v1.0.9 // indirect
 	golang.org/x/net v0.38.0 // indirect
 	golang.org/x/oauth2 v0.27.0 // indirect
 	golang.org/x/sys v0.31.0 // indirect
