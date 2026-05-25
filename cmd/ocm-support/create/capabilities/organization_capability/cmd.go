@@ -34,7 +34,7 @@ var CmdCreateOrganizationCapability = &cobra.Command{
 		}
 		//validates the capability
 		capabilityKey := args[1]
-		err = capability.ValidateCapability(capabilityKey, "organization")
+		err = capability.ValidateCapability(capabilityKey, "organization", connection)
 		if err != nil {
 			return fmt.Errorf("%v", err)
 		}
@@ -50,11 +50,7 @@ func runCreateOrganizationCapability(cmd *cobra.Command, argv []string) error {
 	if err != nil {
 		return fmt.Errorf("failed to create OCM connection: %v", err)
 	}
-	capabilityKey, err := capability.GetCapability(key, "organization")
-	if err != nil {
-		return fmt.Errorf("failed to get capability: %v", err)
-	}
-	createdCapability, err := organization.AddLabel(organizationID, capabilityKey, "true", true, connection)
+	createdCapability, err := organization.AddLabel(organizationID, key, "true", true, connection)
 	if err != nil {
 		return fmt.Errorf("failed to create capability: %v", err)
 	}
